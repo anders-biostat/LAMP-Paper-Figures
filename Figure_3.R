@@ -4,7 +4,7 @@ read_tsv( "data/tecan_values.tsv" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 
-## Figure 1b 
+## Figure 3b 
 tecan %>% 
 left_join( tblCT ) %>%
 mutate( CT = ifelse( CT>40, runif( n(), 43, 46 ), CT ) ) %>%
@@ -20,10 +20,10 @@ ggplot +
   ylab( expression( OD["434 nm"] -  OD["560 nm"] ) ) +
   ggtitle( " " )
 
-dev.copy( svg, "figs/Figure_1b.svg", width=3.8, height=2.5 )
+dev.copy( svg, "figs/Figure_3b.svg", width=3.8, height=2.5 )
 dev.off()
 
-## Figure 1b
+## Figure 3c
 
 tecan %>% 
 filter( plate %in% c( "CP00001" ), gene=="N", plateRemark=="2", minutes == 30 ) %>%
@@ -38,11 +38,11 @@ ggplot +
   ylab( expression( OD["434 nm"] -  OD["560 nm"] ) ) +
   ggtitle( "30 min, gene N" )
 
-dev.copy( svg, "figs/Figure_1c.svg", width=3.8, height=2.5 )
+dev.copy( svg, "figs/Figure_3c.svg", width=3.8, height=2.5 )
 dev.off()
   
 
-## Figure 1d
+## Figure 3d
 
 tecan %>% 
 filter( plate %in% c( "CP00001" ), gene=="1a", minutes == 40 ) %>%
@@ -57,7 +57,7 @@ ggplot +
   ylab( expression( OD["434 nm"] -  OD["560 nm"] ) ) +
   ggtitle( "40 min, gene 1a" )
 
-dev.copy( svg, "figs/Figure_1d.svg", width=3.8, height=2.5 )
+dev.copy( svg, "figs/Figure_3d.svg", width=3.8, height=2.5 )
 dev.off()
 
   
