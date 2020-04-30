@@ -18,10 +18,10 @@ library(readr)
 
 load( "data/counts.Rda" )
 
-counts %>% 
+ngs <- counts %>% 
   filter(!(Plate %in% sprintf("Plt%02d", c(4, 17:20)))) %>% # remove all plates which haven't been sequenced
   mutate( plate = str_replace( Plate, "Plt", "CP000" ) ) %>%
-  rename(row = WellRow, col = WellCol) %>%
-  select(plate, row, col, matched, cpm) %>%
+  rename( well = Well) %>%
+  select(plate, well, matched, cpm) %>%
   pivot_wider( names_from = "matched", values_from = "cpm", names_prefix = "matched" ) %>%
   write_tsv( "data/ngs_counts.tsv"  )
