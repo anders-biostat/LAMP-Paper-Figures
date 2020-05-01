@@ -85,16 +85,17 @@ fig4b_neg <- ss_binned %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
   scale_x_discrete(labels = c("negative")) +
-  labs(x="")
+  labs(x="") +
+  plot_layout(tag_level = "new")  # prevent making this panel c
 
 fig4b <- (fig4b_pos + fig4b_neg + plot_layout(widths = c(5, 1))) &
   coord_cartesian(ylim = c(0, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
   theme(panel.grid.major.y = element_line(), panel.grid.minor.y = element_line())
 
-(fig4a + fig4b) +
-  plot_layout(widths = c(10, 8), tag_level = "new") +
-  plot_annotation(tag_levels = "a")
+fig4a + fig4b +
+  plot_layout(widths = c(10, 8)) +
+  plot_annotation(tag_levels = c("a", NULL))
 
 # Export figures
 ggsave("SVGs/Figure_4.svg", width=20, height=10, units="cm")
