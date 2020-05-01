@@ -1,5 +1,6 @@
 library( tidyverse )
 library( patchwork )
+library( ggtext )
 source( "misc.R" )
 
 read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
@@ -22,11 +23,12 @@ arrange( -CT ) %>%
 mutate_at( "group", fct_inorder ) %>% 
 ggplot + 
   geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
-  facet_grid( . ~ facet ) +
+  facet_grid( . ~ facet, scales = "free_x" ) +
   scale_color_ct( name="RT-qPCR\nCT value") +
-  theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank() ) + 
-  ylab( expression( "ΔOD"["30 min"] ) ) +
-  xlab( "minutes at 65 °C" ) -> plot9a
+  theme_bw() +
+  labs(title = "a",
+       x = "minutes at 65 °C",
+       y = expression( "ΔOD"["30 min"] ) ) -> plot9a
 
 tbl %>%
 mutate( diff = absBlue - absYellow ) %>%
@@ -36,10 +38,15 @@ ggplot +
   geom_point( aes( x=`30`-`10`, y=`30`, col=CT ) ) +
   facet_grid( . ~ facet ) +
   scale_color_ct() +
-  theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "none" ) + 
-  ylab( expression( "ΔOD"["30 min"] ) ) +
-  xlab( expression( "ΔOD"["30 min"] - "ΔOD"["10 min"] ) ) -> plot9b
+  theme_bw() + theme( legend.position = "none" ) +
+  labs(title = "b",
+       x = expression( "ΔOD"["30 min"] - "ΔOD"["10 min"] ),
+       y = expression( "ΔOD"["30 min"] ) ) -> plot9b
 
-plot9a / plot9b
-dev.copy( svg, "Figure_9.svg", width=7, height=7 )
-dev.off()
+plot9a / plot9b &
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), strip.background = element_blank(), plot.title = element_textbox_simple(face="bold"))
+
+#dev.copy( svg, "Figure_9.svg", width=7, height=7 )  # this somehow gives us a weird shiny color scale?
+#dev.off()
+ggsave("Figure_9.svg", width=20, height=20, units="cm")
+ggsave("Figure_9.png", width=20, height=20, units="cm", dpi=300)
