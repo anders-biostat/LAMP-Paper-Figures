@@ -17,36 +17,43 @@ ngs_threshold <- 3000
 tbl <- ngs %>%
   filter( !is.na(matchedTRUE)) %>%
   left_join( tecan ) %>% 
+  mutate(minutes = ifelse(plate == "CP00012" & minutes == 45, 40, minutes)) %>%
   filter( plate %in% plates_to_use ) %>%
-  filter( minutes==30, gene=="N" ) %>% 
+  filter( !(plate == "CP00003" & plateRemark != "2")) %>%
+  filter( minutes %in% c(30, 40), gene=="N" ) %>% 
   filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
   left_join( tblCT )%>%
-  filter( !is.na(CT) ) %>%
+  filter( !is.na(CT) )
+
+tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate( NGS = case_when(
     matchedTRUE > ngs_threshold ~ "positive",
     matchedTRUE <= ngs_threshold ~ "negative",
     TRUE                ~ "undetected")) %>%
-  mutate_at( "NGS", fct_relevel, "positive", "negative" )
-
-ggplot(tbl) +
+  mutate_at( "NGS", fct_relevel, "positive", "negative" ) %>%
+  group_by(minutes) %>%
+  mutate(facets = str_interp( "${unique(minutes)} min at 65°C\n${length(minutes)} samples on ${length(unique(plate))} plates" )) %>%
+  ungroup %>%
+ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
   geom_vline(xintercept = qpcr_thresholds, color = "darkgrey" ) +
   geom_point( aes( x = CT, y = absBlue - absYellow, fill = NGS ), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
-  scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ) ) +
-  #scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
-  labs(title = str_interp( "30 min at 65°C\n${nrow(tbl)} samples on ${tbl%>%select(plate)%>%unique%>%nrow} plates" ),
-       x = "RT-qPCR (CT value)",
+  #scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ) ) +
+  scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
+  labs(x = "RT-qPCR (CT value)",
        y = "RT-LAMP assay (ΔOD)") +
   scale_fill_manual(values = c("positive" = "black", "negative" = "white")) +
   #facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
+  facet_grid(cols = vars(facets)) +
   theme_bw() +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), strip.background = element_blank()) +
-  annotate("text", x = 11.25, y = -.26, label = str_glue("negative"), angle = 90) +
-  annotate("text", x = 11.25, y = .125, label = str_glue("inconclusive"), angle = 90) +
-  annotate("text", x = 11.25, y = .425, label = str_glue("positive"), angle = 90) +
-  coord_cartesian(xlim = c(11.75, 47.5))
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        strip.background = element_blank(), strip.text = element_text(hjust = 0)) +
+  annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
+  annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
+  annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
+  coord_cartesian(xlim = c(11.75, 49.5))
 
 # Export figures
-ggsave("figs/Figure_5b.svg", width=14, height=10, units="cm")
-ggsave("figs/Figure_5b.png", width=14, height=10, units="cm", dpi=300)
+ggsave("SVGs/Figure_5b.svg", width=20, height=10, units="cm")
+ggsave("Figure_5b.png", width=20, height=10, units="cm", dpi=300)

@@ -40,10 +40,12 @@ ggplot +
   labs(x = expression( "LAMP (ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
        y = expression( "LAMP (ΔOD"["30 min"]~")" )) -> plot9b
 
+
 plot9a / plot9b +
   plot_annotation(tag_levels = "a")
 
+
 #dev.copy( svg, "Figure_9.svg", width=7, height=7 )  # this somehow gives us a weird shiny color scale?
 #dev.off()
-ggsave("Figure_9.svg", width=20, height=20, units="cm")
-ggsave("Figure_9.png", width=20, height=20, units="cm", dpi=300)
+ggsave("SVGs/Figure_9.svg", width=15, height=15, units="cm")
+ggsave("Figure_9.png", width=15, height=15, units="cm", dpi=300)
