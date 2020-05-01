@@ -1,5 +1,6 @@
 library( tidyverse )
 library( patchwork )
+source( "misc.R" )
 
 read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
@@ -8,12 +9,37 @@ plates_to_use <- c( "CP00035", "CP00036", "CP00037" )
 
 tecan %>% 
 filter( plate %in% plates_to_use ) %>%
+filter( !( plate == "CP00036" & minutes==30 & plateRemark != "30 mins 2nd scan" ) ) %>%
 left_join( tblCT ) %>%
-mutate( CT = ifelse( CT>40, runif( n(), 43, 46 ), CT ) ) %>%
 filter( !is.na(CT) ) %>%
-ggplot + 
-  geom_line( aes( x=minutes, y=absBlue-absYellow, group=str_c(plate,well), col=CT ) ) +
-  facet_grid( . ~ heat95 )
+mutate( CT = ifelse( CT>40, 45, CT ) ) %>%
+filter( !is.na(CT) ) %>%
+mutate( facet = ifelse( heat95, "5 min 95 °C prior to testing at 65 °C", "direct testing at 65 °C" ) ) -> tbl
 
-tecan %>% 
-filter( plate %in% plates_to_use, well=="A1", minutes==30 )
+tbl %>%
+mutate( group = str_c( plate, well, heat95 ) ) %>%
+arrange( -CT ) %>%
+mutate_at( "group", fct_inorder ) %>% 
+ggplot + 
+  geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
+  facet_grid( . ~ facet ) +
+  scale_color_ct( name="RT-qPCR\nCT value") +
+  theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank() ) + 
+  ylab( expression( "ΔOD"["30 min"] ) ) +
+  xlab( "minutes at 65 °C" ) -> plot9a
+
+tbl %>%
+mutate( diff = absBlue - absYellow ) %>%
+select( -absBlue, -absYellow ) %>%
+pivot_wider( names_from = minutes, values_from = diff ) %>%
+ggplot +
+  geom_point( aes( x=`30`-`10`, y=`30`, col=CT ) ) +
+  facet_grid( . ~ facet ) +
+  scale_color_ct() +
+  theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank(), legend.position = "none" ) + 
+  ylab( expression( "ΔOD"["30 min"] ) ) +
+  xlab( expression( "ΔOD"["30 min"] - "ΔOD"["10 min"] ) ) -> plot9b
+
+plot9a / plot9b
+dev.copy( svg, "Figure_9.svg", width=7, height=7 )
+dev.off()
