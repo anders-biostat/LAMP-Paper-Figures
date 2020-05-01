@@ -1,7 +1,8 @@
 library( tidyverse )
 library( patchwork )
+source( "misc.R" )
 
-read_tsv( "data/tecan_values.tsv" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 
