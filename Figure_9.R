@@ -45,9 +45,9 @@ ggplot +
 
 plot9a / plot9b &
   theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), strip.background = element_blank(),
-        plot.title = element_textbox_simple(face="bold", size = 20))
+        plot.title = element_textbox_simple(face="bold", size = 15))
 
 #dev.copy( svg, "Figure_9.svg", width=7, height=7 )  # this somehow gives us a weird shiny color scale?
 #dev.off()
-ggsave("Figure_9.svg", width=20, height=20, units="cm")
-ggsave("Figure_9.png", width=20, height=20, units="cm", dpi=300)
+ggsave("SVGs/Figure_9.svg", width=15, height=15, units="cm")
+ggsave("Figure_9.png", width=15, height=15, units="cm", dpi=300)
