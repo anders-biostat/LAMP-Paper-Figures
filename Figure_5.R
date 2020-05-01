@@ -34,24 +34,23 @@ tbl %>%
     matchedTRUE <= ngs_threshold ~ "negative",
     TRUE                ~ "undetected")) %>%
   mutate_at( "NGS", fct_relevel, "positive", "negative" ) %>%
-  group_by(minutes) %>%
-  mutate(facets = str_interp( "${unique(minutes)} min at 65°C\n${length(minutes)} samples on ${length(unique(plate))} plates" )) %>%
-  ungroup %>%
 ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
   geom_vline(xintercept = qpcr_thresholds, color = "darkgrey" ) +
   geom_point( aes( x = CT, y = absBlue - absYellow, fill = NGS ), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   #scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ) ) +
   scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
-  labs(x = "RT-qPCR (CT value)",
+  labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
+      x = "RT-qPCR (CT value)",
        y = "RT-LAMP (ΔOD)") +
   scale_fill_manual(values = c("positive" = "black", "negative" = "white")) +
-  #facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
-  facet_grid(cols = vars(facets)) +
+  facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
+  #facet_grid(cols = vars(facets)) +
   annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
-  coord_cartesian(xlim = c(11.75, 49.5))
+  coord_cartesian(xlim = c(11.75, 49.5)) +
+  theme(plot.subtitle = element_text(hjust = .5))
 
 # Export figures
 ggsave("SVGs/Figure_5b.svg", width=20, height=10, units="cm")
