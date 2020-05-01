@@ -15,3 +15,4 @@ select( plate, gene, heat95, minutes, plateRemark=remark, well,
   absBlue=blue_absorbance, absYellow = yellow_absorbance ) -> tecan
 
 tecan %>% write_tsv( "data/tecan_values.tsv" ) 
+
