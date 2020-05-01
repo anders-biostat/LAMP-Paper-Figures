@@ -53,9 +53,9 @@ Phenolred-absorbance_20200402_225216.xlsx,Plate10A-40min,N,CP00010,A,40,NA,Qiasy
 Phenolred-absorbance_20200402_221555.xlsx,Plate11-20min,N,CP00011,NA,20,NA,Qiasymphonie,Diagnosic 2 floor,,
 Phenolred-absorbance_20200402_223413.xlsx,Plate11-30min,N,CP00011,NA,30,NA,Qiasymphonie,Diagnosic 2 floor,,
 Phenolred-absorbance_20200402_225356.xlsx,Plate11-40min,N,CP00011,NA,40,NA,Qiasymphonie,Diagnosic 2 floor,,
-Phenolred-absorbance_20200403_151848.xlsx,Plate12䓐ⲵ20min,N,CP00012,RNAstab,20,NA,Qiasymphonie,Diagnosic 2 floor,exclude stability test,only include 1-2 rwo
-Phenolred-absorbance_20200403_153456.xlsx,Plate12䓐ⲵ30min,N,CP00012,RNAstab,30,NA,Qiasymphonie,Diagnosic 2 floor,exclude stability test,
-Phenolred-absorbance_20200403_155208.xlsx,Plate12䓐ⲵ45min,N,CP00012,RNAstab,45,NA,Qiasymphonie,Diagnosic 2 floor,exclude stability test,
+Phenolred-absorbance_20200403_151848.xlsx,Plate12+RNAstab-20min,N,CP00012,RNAstab,20,NA,Qiasymphonie,Diagnosic 2 floor,exclude stability test,only include 1-2 rwo
+Phenolred-absorbance_20200403_153456.xlsx,Plate12+RNAstab-30min,N,CP00012,RNAstab,30,NA,Qiasymphonie,Diagnosic 2 floor,exclude stability test,
+Phenolred-absorbance_20200403_155208.xlsx,Plate12+RNAstab-45min,N,CP00012,RNAstab,45,NA,Qiasymphonie,Diagnosic 2 floor,exclude stability test,
 Phenolred-absorbance_20200407_084922.xlsx,Plate13-20min,N,CP00013,NA,20,NA,Qiacube,Diagnosic 4 floor,,
 Phenolred-absorbance_20200407_085903.xlsx,Plate13-25min,N,CP00013,NA,25,NA,Qiacube,Diagnosic 4 floor,,
 Phenolred-absorbance_20200407_090841.xlsx,Plate13-30min,N,CP00013,NA,30,NA,Qiacube,Diagnosic 4 floor,,

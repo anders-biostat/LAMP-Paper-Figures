@@ -1,7 +1,7 @@
 library( tidyverse )
 library( tecan )
 
-read_tsv( "data/tecan_sheets.tsv" ) -> sheet_list
+read_csv( "data/tecan_sheets.csv" ) -> sheet_list
 
 1:nrow(sheet_list) %>%
 map_dfr( function(i) read_tecan( 
