@@ -42,9 +42,6 @@ fig4a <- tbl %>%
 fig4a
 
 
-
-
-
 ## Confusion matrix
 tbl %>%
 mutate( CTbin = cut( CT, c( 0, 25, 30, 35, 40, Inf ) ) ) %>% 
