@@ -26,7 +26,8 @@ ggplot +
   geom_hline( yintercept = thresh_lower, col="lightgray" ) +
   geom_point( aes( x=CT, y=absBlue-absYellow, col=plate ) ) +
   theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank() ) + 
-  scale_x_continuous( breaks = c( 20, 30, 40, 44.5 ), labels = c( 20, 30, 40, "neg" ) ) +
+  scale_x_reverse( breaks = c( 20, 30, 40, 44.5 ), 
+    labels = c( 20, 30, 40, "neg" ) ) +
   xlab( "RT-qPCT (CT value)" ) + 
   ylab( "LAMP (ΔOD)" ) +
   ggtitle( "", subtitle = str_interp( "${nrow(tbl)} samples on ${tbl%>%select(plate)%>%unique%>%nrow} plates" )  )
