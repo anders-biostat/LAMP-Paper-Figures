@@ -24,23 +24,23 @@ tecan %>%
 fig4a <- tbl %>%
   mutate(CT = ifelse(CT > 40, runif(n(), 43, 47), CT)) %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
+  sample_frac() %>%  # shuffle points to randomize overplotting at least
   ggplot() +
   geom_hline(yintercept = lamp_thresh, color = "lightgray" ) +
   geom_vline(xintercept = c(30, 41.5), color = "darkgray" ) +
   geom_point(aes(x = CT, y = absBlue - absYellow, color = plate), size = .7) +
   scale_x_continuous(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
-  labs(title = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
-       x = glue("RT-qPCR (CT value)"),
-       y = "RT-LAMP assay (ΔOD)") +
   scale_color_d3(palette="category20") +
-  theme_bw() +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
   annotate("text", x = 11.25, y = -.26, label = glue("negative"), angle = 90) +
   annotate("text", x = 11.25, y = .125, label = glue("inconclusive"), angle = 90) +
   annotate("text", x = 11.25, y = .425, label = glue("positive"), angle = 90) +
-  coord_cartesian(xlim = c(11.75, 47.5))
-
-fig4a
+  coord_cartesian(xlim = c(11.75, 47.5)) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank()) +
+  labs(title = "a",
+       subtitle = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
+       x = glue("RT-qPCR (CT value)"),
+       y = "RT-LAMP assay (ΔOD)")
 
 
 
@@ -76,26 +76,29 @@ fig4b_pos <- ss_binned %>%
   ggplot(aes(x = ct_bin, y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
   scale_x_discrete(labels = ct_binlabels) +
-  xlab("RT-qPCR (CT value bin)")
+  labs(title="b",
+       x="RT-qPCR (CT value bin)")
 
 fig4b_neg <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
   scale_x_discrete(labels = c("negative")) +
-  xlab("")
+  labs(x="")
 
 fig4b <- (fig4b_pos + fig4b_neg + plot_layout(widths = c(5, 1))) &
   theme_bw() &
   coord_cartesian(ylim = c(0, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:4/4) &
-  theme(panel.grid.major.x = element_blank(), panel.grid.minor = element_blank())
+  theme(panel.grid.major.x = element_blank())
 
-fig4a + fig4b + plot_layout(widths = c(10, 8))
+fig4a + fig4b + plot_layout(widths = c(10, 8)) &
+  theme(plot.title = element_textbox_simple(face="bold"), panel.grid.minor = element_blank())
 
 # Export figures
 ggsave("Figure_4.svg", width=20, height=10, units="cm")
 ggsave("Figure_4.png", width=20, height=10, units="cm", dpi=300)
+
 
 
 ## Confusion matrix
