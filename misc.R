@@ -3,6 +3,7 @@ theme_set(theme_bw() + theme(text = element_text(family = 'Arial'),
                              panel.grid.minor = element_blank(),  # remove axis grid
                              panel.grid.major = element_blank(),
                              strip.background = element_blank(),  # remove silly gray bg of facet title
+                             strip.text = element_text(hjust = 0), # left-justify facets
                              plot.tag = element_text(size = 20, face = "bold")
 ))
 

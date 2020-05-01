@@ -2,6 +2,8 @@ library(dplyr)
 library(readr)
 library(ggplot2)
 
+source( "misc.R" )
+
 read_tsv( "data/tecan_values.tsv", guess_max = 1e4 ) -> tecan
 read_tsv( "data/ngs_counts.tsv" ) -> ngs
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
@@ -42,13 +44,10 @@ ggplot() +
   #scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ) ) +
   scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
   labs(x = "RT-qPCR (CT value)",
-       y = "RT-LAMP assay (ΔOD)") +
+       y = "RT-LAMP (ΔOD)") +
   scale_fill_manual(values = c("positive" = "black", "negative" = "white")) +
   #facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
   facet_grid(cols = vars(facets)) +
-  theme_bw() +
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-        strip.background = element_blank(), strip.text = element_text(hjust = 0)) +
   annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
