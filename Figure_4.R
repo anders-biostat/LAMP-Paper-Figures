@@ -29,8 +29,9 @@ ggplot +
   scale_x_reverse( breaks = c( 20, 30, 40, 44.5 ), 
     labels = c( 20, 30, 40, "neg" ) ) +
   xlab( "RT-qPCT (CT value)" ) + 
-  ylab( "LAMP (ΔOD)" ) +
-  ggtitle( "", subtitle = str_interp( "${nrow(tbl)} samples on ${tbl%>%select(plate)%>%unique%>%nrow} plates" )  )
+  ylab( "RT-LAMP (ΔOD)" ) +
+  ggtitle( "", subtitle = 
+      str_interp( "${nrow(tbl)} samples on ${ tbl %>% select(plate) %>% unique %>% nrow } plates" )  ) 
 
 tbl %>%
 mutate( CTbin = cut( CT, c( 0, 25, 30, 35, 40, Inf ) ) ) %>% 
@@ -41,7 +42,7 @@ mutate( LAMPres =
    { c( "neg", "incl", "pos" )[.] } ) %>%
 group_by( CTbin, LAMPres ) %>%
 count() %>%
-pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) )
+pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) ) 
 
 dev.copy( svg, "figs/Figure_4a.svg", width=3.8, height=2.5 )
 dev.off()
