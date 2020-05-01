@@ -3,7 +3,7 @@ theme_set(theme_bw() + theme(text = element_text(family = 'Arial'),
                              panel.grid.minor = element_blank(),  # remove axis grid
                              panel.grid.major = element_blank(),
                              strip.background = element_blank(),  # remove silly gray bg of facet title
-                             plot.title = ggtext::element_textbox_simple(face="bold", size = 20)  # so we can use ggtitle="a" to label panels a,b,c...
+                             plot.tag = element_text(size = 20, face = "bold")
 ))
 
 

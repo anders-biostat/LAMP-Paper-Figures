@@ -112,6 +112,9 @@ fig8b <- (p_pos_zl + p_neg_zl + plot_layout(widths = c(4, 1))) &
   scale_color_brewer(palette = "Set1", direction = -1L)
 
 
-fig8a / fig8b + plot_layout(heights = c(3, 2))
+fig8a / fig8b +
+  plot_layout(heights = c(3, 2)) +
+  plot_annotation(tag_levels = "a")
+
 ggsave("Figure_8.png", width=20, height=14.5, units="cm", dpi=400)
 ggsave("Figure_8.svg", width=20, height=14.5, units="cm")

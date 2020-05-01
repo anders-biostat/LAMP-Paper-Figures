@@ -37,8 +37,7 @@ tbl %>%
   annotate("text", color = "gray50", x = 49, y = -.26, label = glue("negative"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .125, label = glue("inconclusive"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .425, label = glue("positive"), angle = 90) +
-  labs(title = "a",
-       subtitle = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
+  labs(subtitle = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
        x = glue("RT-qPCR (CT value)"),
        y = "RT-LAMP (ΔOD)")
 
@@ -79,8 +78,7 @@ fig4b_pos <- ss_binned %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
   scale_x_discrete(labels = ct_binlabels) +
-  labs(title="b",
-       x="RT-qPCR (CT value)")
+  labs(x="RT-qPCR (CT value)")
 
 fig4b_neg <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
@@ -94,7 +92,9 @@ fig4b <- (fig4b_pos + fig4b_neg + plot_layout(widths = c(5, 1))) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
   theme(panel.grid.major.y = element_line(), panel.grid.minor.y = element_line())
 
-fig4a + fig4b + plot_layout(widths = c(10, 8))
+(fig4a + fig4b) +
+  plot_layout(widths = c(10, 8), tag_level = "new") +
+  plot_annotation(tag_levels = "a")
 
 # Export figures
 ggsave("SVGs/Figure_4.svg", width=20, height=10, units="cm")

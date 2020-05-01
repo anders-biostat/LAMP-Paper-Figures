@@ -25,10 +25,8 @@ ggplot +
   geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
   facet_grid( . ~ fct_rev(facet), scales = "free_x" ) +
   scale_color_ct( name="RT-qPCR\nCT value") +
-  theme_bw() +
-  labs(title = "a",
-       x = "minutes at 65 °C",
-       y = expression( "ΔOD"["30 min"] ) ) -> plot9a
+  labs(x = "minutes at 65 °C",
+       y = expression( "LAMP (ΔOD"["30 min"]~")" ) ) -> plot9a
 
 tbl %>%
 mutate( diff = absBlue - absYellow ) %>%
@@ -38,14 +36,12 @@ ggplot +
   geom_point( aes( x=`30`-`10`, y=`30`, col=CT ) ) +
   facet_grid( . ~ fct_rev(facet) ) +
   scale_color_ct() +
-  theme_bw() + theme( legend.position = "none" ) +
-  labs(title = "b",
-       x = expression( "ΔOD"["30 min"] - "ΔOD"["10 min"] ),
-       y = expression( "ΔOD"["30 min"] ) ) -> plot9b
+  theme( legend.position = "none" ) +
+  labs(x = expression( "LAMP (ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
+       y = expression( "LAMP (ΔOD"["30 min"]~")" )) -> plot9b
 
-plot9a / plot9b &
-  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(), strip.background = element_blank(),
-        plot.title = element_textbox_simple(face="bold", size = 20))
+plot9a / plot9b +
+  plot_annotation(tag_levels = "a")
 
 #dev.copy( svg, "Figure_9.svg", width=7, height=7 )  # this somehow gives us a weird shiny color scale?
 #dev.off()
