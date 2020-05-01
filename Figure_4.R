@@ -103,8 +103,8 @@ fig4a + fig4b + plot_layout(widths = c(10, 8)) &
   theme(plot.title = element_textbox_simple(face="bold"), panel.grid.minor = element_blank())
 
 # Export figures
-ggsave("figs/Figure_4.svg", width=20, height=10, units="cm")
-ggsave("figs/Figure_4.png", width=20, height=10, units="cm", dpi=300)
+ggsave("SVGs/Figure_4.svg", width=20, height=10, units="cm")
+ggsave("Figure_4.png", width=20, height=10, units="cm", dpi=300)
 
 
 
