@@ -43,6 +43,7 @@ fig4a <- tbl %>%
 fig4a
 
 
+
 ## Figure 4b
 ct_breaks <- c(0, 25, 30, 35, 40, Inf)
 ct_binlabels <- c("0-25", "26-30", "31-35", "36-40")
@@ -99,7 +100,7 @@ ggsave("Figure_4.png", width=20, height=10, units="cm", dpi=300)
 
 ## Confusion matrix
 tbl %>%
-mutate( CTbin = cut( CT, c( 0, 25, 30, 35, 40, Inf ) ) ) %>% 
+mutate( CTbin = cut( CT, ct_breaks ) ) %>% 
 mutate_at( "CTbin", recode, 	"neg" = "(40,Inf]" ) %>%
 mutate( LAMPres = 
    cut( absBlue-absYellow, c( -Inf, lamp_thresh, Inf ) ) %>%
@@ -107,5 +108,5 @@ mutate( LAMPres =
    { c( "neg", "incl", "pos" )[.] } ) %>%
 group_by( CTbin, LAMPres ) %>%
 count() %>%
-pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) )
+pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) ) 
 

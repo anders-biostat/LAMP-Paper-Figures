@@ -1,7 +1,8 @@
 library( tidyverse )
 library( patchwork )
+source( "misc.R" )
 
-read_tsv( "data/tecan_values.tsv" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 
@@ -13,9 +14,7 @@ filter( !is.na(CT) ) %>%
 filter( plate %in% "CP00001", gene=="N", plateRemark=="2" ) %>% 
 ggplot +
   geom_line( aes( x=minutes, y=absBlue-absYellow, group=well, col=CT ) ) +
-  scale_color_gradientn( 
-    colours=viridis::magma(100)[ c( 1:80, rep(90, 10 ) ) ],
-    breaks = c( 20, 30, 40, 44.5 ), labels = c( 20, 30, 40, "neg" ) ) +
+  scale_color_ct() +
   theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank() ) +
   xlab( "incubation time [minutes]" ) + 
   ylab( expression( "LAMP signal (ΔOD)" ) ) -> plot3b
@@ -34,7 +33,7 @@ mutate( facet = str_c( "gene ", gene, ", ", minutes, " min" ) ) %>%
 mutate_at( vars(facet), fct_rev ) %>%
 ggplot +
   geom_vline( xintercept = 41.5, col="darkgray" ) +
-  geom_point( aes( x=CT, y=absBlue-absYellow ) ) +
+  geom_point( aes( x=CT, y=absBlue-absYellow ), size=.7, shape=19, alpha=.6, fill="lightgray" ) +
   theme_bw() + theme( panel.grid.major = element_blank(), panel.grid.minor = element_blank() ) + 
   scale_x_reverse( breaks = c( 20, 30, 40, 44.5 ), labels = c( 20, 30, 40, "neg" ) ) +
   xlab( "RT-qPCT (CT value)" ) + 
@@ -42,5 +41,5 @@ ggplot +
   facet_wrap( . ~ facet ) -> plot3c
 
 ( plot_spacer() | plot3b ) / plot3c
-dev.copy( svg, "Figure_3.svg", width=6, height=4 )
+dev.copy( svg, "Figure_3.svg", width=9, height=6 )
 dev.off()
