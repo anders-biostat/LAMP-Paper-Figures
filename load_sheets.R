@@ -11,7 +11,7 @@ left_join( sheet_list ) -> a
 a %>%
 mutate_at( "remark", replace_na, "" ) %>% 
 mutate( heat95 = heat==95 ) %>%
-select( plate, gene, heat95, minutes, plateRemark=remark, well, 
+select( plate, gene, heat95, minutes, plateRemark=remark, exclude, well, 
   absBlue=blue_absorbance, absYellow = yellow_absorbance ) -> tecan
 
 tecan %>% write_tsv( "data/tecan_values.tsv" ) 
