@@ -1,0 +1,185 @@
+filename	sheetname	gene	plate	remark	minutes	heat
+1a-plate1-40min_20200329_212251.xlsx	1a.plate1.40min	1a	CP00001	NA	40	NA
+1a-plate1-55min_20200329_220052.xlsx	1a.plate1.55min	1a	CP00001	NA	55	NA
+N-plate1-30min_20200329_204210.xlsx	Nplate1.30min	N	CP00001	NA	30	NA
+Phenolred-absorbance_20200401_135750.xlsx	N.plate1-2.20min	N	CP00001	2	20	NA
+Phenolred-absorbance_20200401_140850.xlsx	N.plate1-2.25min	N	CP00001	2	25	NA
+Phenolred-absorbance_20200401_142023.xlsx	N.plate1-2.30min	N	CP00001	2	30	NA
+Phenolred-absorbance_20200401_143249.xlsx	N.plate1-2.35min	N	CP00001	2	35	NA
+Phenolred-absorbance_20200401_144357.xlsx	N.plate1-2.40min	N	CP00001	2	40	NA
+Phenolred-absorbance_20200401_145443.xlsx	N.plate1-2.45min	N	CP00001	2	45	NA
+1a-plate2-40min_20200329_212553.xlsx	1a.plate2.40min	1a	CP00002	NA	40	NA
+1a-plate2-55min_20200329_220423.xlsx	1a.plate2.55min	1a	CP00002	NA	55	NA
+N-plate2-30min_20200329_204533.xlsx	N.plate2.30min	N	CP00002	NA	30	NA
+Phenolred-absorbance_20200330_204755.xlsx	N.plate3.0min	N	CP00003	NA	0	NA
+Phenolred-absorbance_20200330_213202.xlsx	N.plate3.40min	N	CP00003	NA	40	NA
+Phenolred-absorbance_20200330_215806.xlsx	N.plate3.60min	N	CP00003	NA	60	NA
+Phenolred-absorbance_20200401_140014.xlsx	N.plate3-2.20min	N	CP00003	2	20	NA
+Phenolred-absorbance_20200401_141037.xlsx	N.plate3-2.25min	N	CP00003	2	25	NA
+Phenolred-absorbance_20200401_142238.xlsx	N.plate3-2.30min	N	CP00003	2	30	NA
+Phenolred-absorbance_20200401_143429.xlsx	N.plate3-2.35min	N	CP00003	2	35	NA
+Phenolred-absorbance_20200401_144530.xlsx	N.plate3-2.40min	N	CP00003	2	40	NA
+Phenolred-absorbance_20200401_145621.xlsx	N.plate3-2.45min	N	CP00003	2	45	NA
+Phenolred-absorbance_20200330_204611.xlsx	N.plate4.0min	N	CP00004	NA	0	NA
+Phenolred-absorbance_20200330_213402.xlsx	N.plate4.40min	N	CP00004	NA	40	NA
+Phenolred-absorbance_20200330_215955.xlsx	N.plate4.60min	N	CP00004	NA	60	NA
+Phenolred-absorbance_20200402_203526.xlsx	Plate5-15min	N	CP00005	NA	15	NA
+Phenolred-absorbance_20200402_205006.xlsx	Plate5-22min	N	CP00005	NA	22	NA
+Phenolred-absorbance_20200402_210634.xlsx	Plate5-30min	N	CP00005	NA	30	NA
+Phenolred-absorbance_20200402_212606.xlsx	PLate5-40min	N	CP00005	NA	40	NA
+Phenolred-absorbance_20200402_203705.xlsx	Plate6-15min	N	CP00006	NA	15	NA
+Phenolred-absorbance_20200402_205204.xlsx	Plate6-22min	N	CP00006	NA	22	NA
+Phenolred-absorbance_20200402_210821.xlsx	Plate6-30min	N	CP00006	NA	30	NA
+Phenolred-absorbance_20200402_212801.xlsx	Plate6-40min	N	CP00006	NA	40	NA
+Phenolred-absorbance_20200402_203840.xlsx	Plate7-15min	N	CP00007	NA	15	NA
+Phenolred-absorbance_20200402_204030.xlsx	Plate7_Hect-15min	N	CP00007	heat	15	NA
+Phenolred-absorbance_20200402_205355.xlsx	Plate7-22min	N	CP00007	NA	22	NA
+Phenolred-absorbance_20200402_205554.xlsx	Plate7_Hect-22min	N	CP00007	heat	22	NA
+Phenolred-absorbance_20200402_211009.xlsx	Plate7-30min	N	CP00007	NA	30	NA
+Phenolred-absorbance_20200402_211202.xlsx	Plate7_Hect-30min	N	CP00007	heat	30	NA
+Phenolred-absorbance_20200402_213006.xlsx	Plate7-40min	N	CP00007	NA	40	NA
+Phenolred-absorbance_20200402_213203.xlsx	Plate7hect-40min	N	CP00007	heat	40	NA
+Phenolred-absorbance_20200402_215325.xlsx	Plate7-50min	N	CP00007	NA	50	NA
+Phenolred-absorbance_20200402_215522.xlsx	Plate7hect-50min	N	CP00007	heat	50	NA
+Phenolred-absorbance_20200402_221038.xlsx	Plate8-20min	N	CP00008	NA	20	NA
+Phenolred-absorbance_20200402_222905.xlsx	Plate8-30min	N	CP00008	NA	30	NA
+Phenolred-absorbance_20200402_224743.xlsx	Plate8-40min	N	CP00008	NA	40	NA
+Phenolred-absorbance_20200402_221237.xlsx	Plate9-20min	N	CP00009	NA	20	NA
+Phenolred-absorbance_20200402_223059.xlsx	Plate9-30min	N	CP00009	NA	30	NA
+Phenolred-absorbance_20200402_224941.xlsx	Plate9-40min	N	CP00009	NA	40	NA
+Phenolred-absorbance_20200402_221413.xlsx	Plate10A-20min	N	CP00010	A	20	NA
+Phenolred-absorbance_20200402_223235.xlsx	Plate10A-30min	N	CP00010	A	30	NA
+Phenolred-absorbance_20200402_225216.xlsx	Plate10A-40min	N	CP00010	A	40	NA
+Phenolred-absorbance_20200402_221555.xlsx	Plate11-20min	N	CP00011	NA	20	NA
+Phenolred-absorbance_20200402_223413.xlsx	Plate11-30min	N	CP00011	NA	30	NA
+Phenolred-absorbance_20200402_225356.xlsx	Plate11-40min	N	CP00011	NA	40	NA
+Phenolred-absorbance_20200403_151848.xlsx	Plate12+RNAstab-20min	N	CP00012	RNAstab	20	NA
+Phenolred-absorbance_20200403_153456.xlsx	Plate12+RNAstab-30min	N	CP00012	RNAstab	30	NA
+Phenolred-absorbance_20200403_155208.xlsx	Plate12+RNAstab-45min	N	CP00012	RNAstab	45	NA
+Phenolred-absorbance_20200407_084922.xlsx	Plate13-20min	N	CP00013	NA	20	NA
+Phenolred-absorbance_20200407_085903.xlsx	Plate13-25min	N	CP00013	NA	25	NA
+Phenolred-absorbance_20200407_090841.xlsx	Plate13-30min	N	CP00013	NA	30	NA
+Phenolred-absorbance_20200407_092311.xlsx	Plate13-40min	N	CP00013	NA	40	NA
+Phenolred-absorbance_20200407_085056.xlsx	Plate14-20min	N	CP00014	NA	20	NA
+Phenolred-absorbance_20200407_090036.xlsx	Plate14-25min	N	CP00014	NA	25	NA
+Phenolred-absorbance_20200407_091018.xlsx	Plate14-30min	N	CP00014	NA	30	NA
+Phenolred-absorbance_20200407_092606.xlsx	Plate14-40min	N	CP00014	NA	40	NA
+Phenolred-absorbance_20200408_135717.xlsx	Plate15-20min	N	CP00015	NA	20	NA
+Phenolred-absorbance_20200408_140619.xlsx	Plate15-25min	N	CP00015	NA	25	NA
+Phenolred-absorbance_20200408_141616.xlsx	Plate15-30min	N	CP00015	NA	30	NA
+Phenolred-absorbance_20200408_142553.xlsx	Plate15-35min	N	CP00015	NA	35	NA
+Phenolred-absorbance_20200408_143552.xlsx	Plate15-40min	N	CP00015	NA	40	NA
+Phenolred-absorbance_20200408_135413.xlsx	Plate16-20min	N	CP00016	NA	20	NA
+Phenolred-absorbance_20200408_140801.xlsx	Plate16-25min	N	CP00016	NA	25	NA
+Phenolred-absorbance_20200408_141804.xlsx	Plate16-30min	N	CP00016	NA	30	NA
+Phenolred-absorbance_20200408_142740.xlsx	Plate16-35min	N	CP00016	NA	35	NA
+Phenolred-absorbance_20200408_143734.xlsx	Plate16-40min	N	CP00016	NA	40	NA
+CP00017.xlsx	CP00017.27min	N	CP00017	NA	27	NA
+Phenolred-absorbance_20200410_205613.xlsx	CP00017-TecanZMBH	N	CP00017	TecanZMBH	27	NA
+CP00018.xlsx	CP00018.27min	N	CP00018	NA	27	NA
+Phenolred-absorbance_20200410_205743.xlsx	CP00018-TecanZMBH	N	CP00018	TecanZMBH	27	NA
+CP00019.xlsx	30 mins 1ul	N	CP00019	Viro_1ul	30	NA
+CP00019.xlsx	20 mins 1 ul	N	CP00019	Viro_1ul	20	NA
+CP00019.xlsx	40 mins 1 ul	N	CP00019	Viro_1ul	40	NA
+CP00019.xlsx	40 mins 5ul	N	CP00019	Viro_5ul	40	NA
+CP00019.xlsx	30 mins 5 ul	N	CP00019	Viro_5ul	30	NA
+CP00019.xlsx	20 mins 5ul	N	CP00019	Viro_5ul	20	NA
+Phenolred-absorbance_20200410_201511.xlsx	CP00019-1ul-20min	N	CP00019	1ul	20	NA
+Phenolred-absorbance_20200410_201644.xlsx	CP00019-5ul-20min	N	CP00019	5ul	20	NA
+Phenolred-absorbance_20200410_202529.xlsx	CP00019-1ul-25min	N	CP00019	1ul	25	NA
+Phenolred-absorbance_20200410_202659.xlsx	CP00019-5ul-25min	N	CP00019	5ul	25	NA
+Phenolred-absorbance_20200410_203559.xlsx	CP00019-1ul-30min	N	CP00019	1ul	30	NA
+Phenolred-absorbance_20200410_203739.xlsx	CP00019-5ul-30min	N	CP00019	5ul	30	NA
+Phenolred-absorbance_20200410_205256.xlsx	CP00019-1ul-40min	N	CP00019	1ul	40	NA
+Phenolred-absorbance_20200410_205437.xlsx	CP00019-5ul-40min	N	CP00019	5ul	40	NA
+Phenolred-absorbance_20200411_150618.xlsx	Plate19-20min-3micro	N	CP00019	3ul	20	NA
+Phenolred-absorbance_20200411_151440.xlsx	Plate19-25min-3micro	N	CP00019	3ul	25	NA
+Phenolred-absorbance_20200411_152249.xlsx	Plate19-30min-3micro	N	CP00019	3ul	30	NA
+Phenolred-absorbance_20200411_153708.xlsx	Plate19-40min-3micron	N	CP00019	3ul	40	NA
+Phenolred-absorbance_20200414_152035.xlsx	Plate20-1ul-20min	N	CP00020	1ul	20	NA
+Phenolred-absorbance_20200414_152209.xlsx	Plate20-3ul-20min	N	CP00020	3ul	20	NA
+Phenolred-absorbance_20200414_152805.xlsx	Plate20-1ul-25min	N	CP00020	1ul	25	NA
+Phenolred-absorbance_20200414_152938.xlsx	Plate20-3ul-25min	N	CP00020	3ul	25	NA
+Phenolred-absorbance_20200414_153523.xlsx	Plate20-1ul-30min	N	CP00020	1ul	30	NA
+Phenolred-absorbance_20200414_153707.xlsx	Plate20-3ul-30min	N	CP00020	3ul	30	NA
+Phenolred-absorbance_20200414_155202.xlsx	Plate20-1ul-40min	N	CP00020	1ul	40	NA
+Phenolred-absorbance_20200414_155436.xlsx	Plate20-3ul-40min	N	CP00020	3ul	40	NA
+200414_TecanViro_CP00021.xlsx	20 mins	N	CP00021	NA	20	95
+200414_TecanViro_CP00021.xlsx	40 mins	N	CP00021	NA	40	95
+200414_TecanViro_CP00021.xlsx	30 mins	N	CP00021	NA	30	95
+CP00021.xlsx	20 mins	N	CP00021	Viro	20	NA
+CP00021.xlsx	40 mins	N	CP00021	Viro	40	NA
+CP00021.xlsx	30 mins	N	CP00021	Viro	30	NA
+Phenolred-absorbance_20200414_181916.xlsx	Plate21-ZeroLysis-40min	N	CP00021	ZeroLysis	40	NA
+200416_TecanViro_CP00022_2nd run.xlsx	40 min	N	CP00022	2nd run	40	95
+CP00022.xlsx	40 mins	N	CP00022	Viro	40	95
+CP00022.xlsx	30 mins	N	CP00022	Viro	30	95
+CP00022.xlsx	20 mins	N	CP00022	Viro	20	95
+CP00023.xlsx	40min	N	CP00023	Viro	40	NA
+CP00023.xlsx	30min	N	CP00023	Viro	30	NA
+CP00023.xlsx	20min	N	CP00023	Viro	20	NA
+Phenolred-absorbance_20200419_180111.xlsx	Plate23-20min-1ul-knop	N	CP00023	1ul-knop	20	NA
+Phenolred-absorbance_20200419_180526.xlsx	Plate23-20min-3ul-knop	N	CP00023	3ul-knop	20	NA
+Phenolred-absorbance_20200419_181437.xlsx	Plate23-25min-1ul-knop	N	CP00023	1ul-knop	25	NA
+Phenolred-absorbance_20200419_181721.xlsx	Plate23-25min-3ul-knop	N	CP00023	3ul-knop	25	NA
+Phenolred-absorbance_20200419_182758.xlsx	Plate23-30min-1ul-knop	N	CP00023	1ul-knop	30	NA
+Phenolred-absorbance_20200419_183040.xlsx	Plate23-30min-3ul-knop	N	CP00023	3ul-knop	30	NA
+Phenolred-absorbance_20200419_184425.xlsx	Plate23-40min-1ul-knop	N	CP00023	1ul-knop	40	NA
+Phenolred-absorbance_20200419_184624.xlsx	Plate23-40min-3ul-knop	N	CP00023	3ul-knop	40	NA
+CP00024.xlsx	40 mins	N	CP00024	NA	40	95
+CP00024.xlsx	30 mins	N	CP00024	NA	30	95
+CP00024.xlsx	20 mins	N	CP00024	NA	20	95
+CP00025 65 C.xlsx	40 mins	N	CP00025	NA	40	65
+CP00025 65 C.xlsx	30 min	N	CP00025	NA	30	65
+CP00025 65 C.xlsx	20 min	N	CP00025	NA	20	65
+CP00025 95 C.xlsx	Sheet0	N	CP00025	NA	40	95
+CP00025 95 C.xlsx	30 mins	N	CP00025	NA	30	95
+CP00025 95 C.xlsx	20 mins	N	CP00025	NA	20	95
+CP00025-65C.xlsx	40 mins	N	CP00025	NA	40	NA
+CP00025-65C.xlsx	30 min	N	CP00025	NA	30	NA
+CP00025-65C.xlsx	20 min	N	CP00025	NA	20	NA
+CP00025-95C.xlsx	40 mins	N	CP00025	NA	40	NA
+CP00025-95C.xlsx	30 mins	N	CP00025	NA	30	NA
+CP00025-95C.xlsx	20 mins	N	CP00025	NA	20	NA
+CP00026.xlsx	40 mins	N	CP00026	NA	40	65
+CP00026.xlsx	30 mins	N	CP00026	NA	30	65
+CP00026.xlsx	20 mins	N	CP00026	NA	20	65
+CP00030 zero lysis 65 C.xlsx	40 mins	N	CP00030	NA	40	65
+CP00030 zero lysis 65 C.xlsx	30 mins	N	CP00030	NA	30	65
+CP00030 zero lysis 65 C.xlsx	20 mins	N	CP00030	NA	20	65
+CP00030 zero lysis 95 C.xlsx	20 mins	N	CP00030	NA	20	95
+CP00030 zero lysis 95 C.xlsx	40 mins	N	CP00030	NA	40	95
+CP00030 zero lysis 95 C.xlsx	30 mins	N	CP00030	NA	30	95
+200424_ViroTecan_CP00035_65 C.xlsx	10 mins	N	CP00035	NA	10	65
+200424_ViroTecan_CP00035_65 C.xlsx	40 mins	N	CP00035	NA	40	65
+200424_ViroTecan_CP00035_65 C.xlsx	30 mins	N	CP00035	NA	30	65
+200424_ViroTecan_CP00035_65 C.xlsx	20 mins	N	CP00035	NA	20	65
+200424_ViroTecan_CP00035_65 C.xlsx	0 mins	N	CP00035	NA	0	65
+200424_ViroTecan_CP00035_95 C.xlsx	40 mins	N	CP00035	NA	40	95
+200424_ViroTecan_CP00035_95 C.xlsx	30 mins	N	CP00035	NA	30	95
+200424_ViroTecan_CP00035_95 C.xlsx	20 mins	N	CP00035	NA	20	95
+200424_ViroTecan_CP00035_95 C.xlsx	10 mins	N	CP00035	NA	10	95
+200426_Tecan Viro_CP00036_Zerolysis_65_1ul.xlsx	40 mins	N	CP00036	NA	40	65
+200426_Tecan Viro_CP00036_Zerolysis_65_1ul.xlsx	30 mins 2nd scan	N	CP00036	NA	30	65
+200426_Tecan Viro_CP00036_Zerolysis_65_1ul.xlsx	30 mins	N	CP00036	NA	30	65
+200426_Tecan Viro_CP00036_Zerolysis_65_1ul.xlsx	20 mins	N	CP00036	NA	20	65
+200426_Tecan Viro_CP00036_Zerolysis_65_1ul.xlsx	10 mins	N	CP00036	NA	10	65
+200426_Tecan Viro_CP00036_Zerolysis_65_1ul.xlsx	0 mins	N	CP00036	NA	0	65
+200426_Tecan Viro_CP00036_Zerolysis_95_1ul.xlsx	40 mins	N	CP00036	NA	40	95
+200426_Tecan Viro_CP00036_Zerolysis_95_1ul.xlsx	30 mins	N	CP00036	NA	30	95
+200426_Tecan Viro_CP00036_Zerolysis_95_1ul.xlsx	20 mins	N	CP00036	NA	20	95
+200426_Tecan Viro_CP00036_Zerolysis_95_1ul.xlsx	10 mins	N	CP00036	NA	10	95
+200429_Tecan Viro_CP00037_Zerolysis_65_1ul.xlsx	40 mins	N	CP00037	NA	40	65
+200429_Tecan Viro_CP00037_Zerolysis_65_1ul.xlsx	30 mins	N	CP00037	NA	30	65
+200429_Tecan Viro_CP00037_Zerolysis_65_1ul.xlsx	20 mins	N	CP00037	NA	20	65
+200429_Tecan Viro_CP00037_Zerolysis_65_1ul.xlsx	10 mins	N	CP00037	NA	10	65
+200429_Tecan Viro_CP00037_Zerolysis_95_1ul.xlsx	30 mins	N	CP00037	NA	30	95
+200429_Tecan Viro_CP00037_Zerolysis_95_1ul.xlsx	20 mins	N	CP00037	NA	20	95
+200429_Tecan Viro_CP00037_Zerolysis_95_1ul.xlsx	10 mins	N	CP00037	NA	10	95
+200413 Loan Zero Lysis.xlsx	50 mins	N	CP10020	NA	50	95
+200413 Loan Zero Lysis.xlsx	40 mins	N	CP10020	NA	40	95
+200413 Loan Zero Lysis.xlsx	30 mins	N	CP10020	NA	30	95
+200413 Loan Zero Lysis.xlsx	20 mins	N	CP10020	NA	20	95
+200413 Loan Zero Lysis.xlsx	2ns run 40 mins	N	CP10021	NA	40	95
+200413 Loan Zero Lysis.xlsx	2nd run 30mins	N	CP10021	NA	30	95
+200413 Loan Zero Lysis.xlsx	2nd run 20 mins	N	CP10021	NA	20	95
