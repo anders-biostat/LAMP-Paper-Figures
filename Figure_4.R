@@ -5,6 +5,8 @@ library(glue)
 library(ggsci)
 library(binom)
 
+source("misc.R")
+
 read_tsv( "data/tecan_values.tsv" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
@@ -27,20 +29,18 @@ fig4a <- tbl %>%
   sample_frac() %>%  # shuffle points to randomize overplotting at least
   ggplot() +
   geom_hline(yintercept = lamp_thresh, color = "lightgray" ) +
-  geom_vline(xintercept = c(30, 41.5), color = "darkgray" ) +
+  geom_vline(xintercept = c(30, 41.5), color = "lightgray" ) +
   geom_point(aes(x = CT, y = absBlue - absYellow, color = plate), size = .7) +
-  scale_x_continuous(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
+  scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
   scale_color_d3(palette="category20") +
-  annotate("text", x = 11.25, y = -.26, label = glue("negative"), angle = 90) +
-  annotate("text", x = 11.25, y = .125, label = glue("inconclusive"), angle = 90) +
-  annotate("text", x = 11.25, y = .425, label = glue("positive"), angle = 90) +
-  coord_cartesian(xlim = c(11.75, 47.5)) +
-  theme_bw() +
-  theme(panel.grid.major = element_blank()) +
+  annotate("text", color = "gray50", x = 50, y = -.26, label = glue("negative"), angle = 90) +
+  annotate("text", color = "gray50", x = 50, y = .125, label = glue("inconclusive"), angle = 90) +
+  annotate("text", color = "gray50", x = 50, y = .425, label = glue("positive"), angle = 90) +
+  #coord_cartesian(xlim = c(11.75, 47.5)) +
   labs(title = "a",
        subtitle = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
        x = glue("RT-qPCR (CT value)"),
-       y = "RT-LAMP assay (ΔOD)")
+       y = "RT-LAMP (ΔOD)")
 
 
 
@@ -73,11 +73,11 @@ ss_binned <- lamp_cls %>%
 
 fig4b_pos <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
-  ggplot(aes(x = ct_bin, y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
+  ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
   scale_x_discrete(labels = ct_binlabels) +
   labs(title="b",
-       x="RT-qPCR (CT value bin)")
+       x="RT-qPCR (CT value)")
 
 fig4b_neg <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
@@ -87,13 +87,11 @@ fig4b_neg <- ss_binned %>%
   labs(x="")
 
 fig4b <- (fig4b_pos + fig4b_neg + plot_layout(widths = c(5, 1))) &
-  theme_bw() &
   coord_cartesian(ylim = c(0, 1)) &
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:4/4) &
-  theme(panel.grid.major.x = element_blank())
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
+  theme(panel.grid.major.y = element_line(), panel.grid.minor.y = element_line())
 
-fig4a + fig4b + plot_layout(widths = c(10, 8)) &
-  theme(plot.title = element_textbox_simple(face="bold"), panel.grid.minor = element_blank())
+fig4a + fig4b + plot_layout(widths = c(10, 8))
 
 # Export figures
 ggsave("Figure_4.svg", width=20, height=10, units="cm")
