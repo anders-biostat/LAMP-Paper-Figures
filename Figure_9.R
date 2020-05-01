@@ -9,7 +9,7 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 plates_to_use <- c( "CP00035", "CP00036", "CP00037" ) 
 
 tecan %>% 
-filter( plate %in% plates_to_use ) %>%
+filter( plate %in% plates_to_use ) %>% 
 filter( !( plate == "CP00036" & minutes==30 & plateRemark != "30 mins 2nd scan" ) ) %>%
 left_join( tblCT ) %>%
 filter( !is.na(CT) ) %>%
