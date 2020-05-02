@@ -1,6 +1,8 @@
 # This script requires files stored on my laptop at ~/w/repos/covid_test/tidy/
 # The output of the script is the file data/plates_with_CTs.tsv
 
+setwd( "~/w/repos/covid_test/tidy/" )
+
 list.files( "qpcr_results", "xlsx$" ) %>%
 map_chr( ~ file.path( "qpcr_results/", . ) ) %>%
 map_dfr( readxl::read_excel, col_types="text" ) %>%
@@ -80,7 +82,7 @@ select( -labOrOrderID ) %>%
 filter( !is.na( labID ) ) %>%
 unique() -> plateContentsTbl
 
-plateContentsTbl %>%
+plateContentsTbl %>% 
 group_by( plate, row, col ) %>%
 summarise( n = n() ) %>%
 assertr::verify( n == 1 ) 
@@ -127,9 +129,6 @@ bind_rows(
       add_column( plate = "CP00026" ) ) %>%
   mutate( col = sprintf( "%02d", as.integer(col) ) ) %>%
   select( plate, everything() ),
-  
-  # Plate 30
-  plateContentsTbl %>% filter( plate == "CP00030" ) %>% left_join( resultsE )
   
 ) %>%
 mutate_at( "CP", str_replace, "negative?", "Inf" ) %>%
@@ -244,4 +243,4 @@ mutate( well = str_c( row, str_remove( col, "^0" ) ) ) %>%
 select( plate, well, barcode, CT, wellRemark=remark ) %>%
 mutate( CT = ifelse( str_starts( CT, "neg" ), Inf, suppressWarnings(as.numeric(CT)) ) ) -> plateCTs
 
-plateCTs %>% write_tsv( "../paper/plates_with_CTs.tsv" )
+plateCTs %>% write_tsv( "~/w/repos/LAMP-Paper-Figures/data/plates_with_CTs.tsv" )
