@@ -23,8 +23,7 @@ tecan %>%
   left_join( tblCT ) %>% 
   filter( !is.na(CT) ) -> tbl
 
-fig4a <- 
-tbl %>%
+fig4a <- tbl %>%
   mutate(CT = ifelse(CT > 40, runif(n(), 43, 47), CT)) %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
   sample_frac() %>%  # shuffle points to randomize overplotting at least
@@ -45,7 +44,6 @@ tbl %>%
 
 ## Figure 4b
 ct_breaks <- c(0, 25, 30, 35, 40, Inf)
-ct_binlabels <- c("0-25", "25-30", "30-35", "35-40")
 
 # classify samples into false positives, TP, FN, TN...
 lamp_cls <- tbl %>%
@@ -59,8 +57,7 @@ lamp_cls <- tbl %>%
                             lamp_result == "positive" & qpcr_result == "negative" ~ "FP",
                             lamp_result == "negative" & qpcr_result == "positive" ~ "FN"))
 
-ss_binned <- 
-lamp_cls %>%
+ss_binned <- lamp_cls %>%
   mutate(ct_bin = cut(CT, ct_breaks)) %>%
   group_by(result, ct_bin) %>%
   tally() %>% ungroup() %>%
@@ -71,30 +68,30 @@ lamp_cls %>%
          specificity = TN / (TN + FP),
          specificity_ci_upper = binom.confint(TN, (TN + FP), method="wilson")$upper,
          specificity_ci_lower = binom.confint(TN, (TN + FP), method="wilson")$lower) %>%
-  arrange(ct_bin)
+  mutate(ct_bin = if_else(str_detect(ct_bin, "Inf"), "negative",
+                          paste(str_extract(ct_bin, "(?<=,)\\d+"), str_extract(ct_bin, "\\d+"), sep="-")))
 
 fig4b_pos <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
-  scale_x_discrete(labels = ct_binlabels) +
-  labs(x="RT-qPCR (CT value)")
+  labs(x="RT-qPCR (CT value)") +
+  plot_layout(tag_level = "new")  # prevent making this panel c
 
 fig4b_neg <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
   scale_x_discrete(labels = c("negative")) +
-  labs(x="") +
-  plot_layout(tag_level = "new")  # prevent making this panel c
+  labs(x="")
 
-fig4b <- (fig4b_pos + fig4b_neg + plot_layout(widths = c(5, 1))) &
+fig4b <- (fig4b_neg + fig4b_pos + plot_layout(widths = c(2, 9))) &
   coord_cartesian(ylim = c(0, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
   theme(panel.grid.major.y = element_line(colour = "lightgrey"), panel.grid.minor.y = element_line(colour = "lightgrey"))
 
 fig4a + fig4b +
-  plot_layout(widths = c(10, 8)) +
+  plot_layout(widths = c(10, 9)) +
   plot_annotation(tag_levels = c("a", NULL))
 
 # Export figures
