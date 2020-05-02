@@ -53,8 +53,8 @@ fig8a <- tbl %>%
   scale_color_d3(palette="category10") +
   labs(y = expression("ΔOD"["30 min"]),
        x = "RT-qPCR (CT value)") +
-  annotate("text", color = "gray50", x = 50, y = -.06, label = "negative", angle = 90) +
-  annotate("text", color = "gray50", x = 50, y = .44, label = "positive", angle = 90)
+  annotate("text", color = "gray50", x = 50, y = 0, label = "negative", angle = 90) +
+  annotate("text", color = "gray50", x = 50, y = .47, label = "positive", angle = 90)
 
 
 # Fig 8b
@@ -88,13 +88,12 @@ ss_binned <- lamp_cls %>%
 p_pos_zl <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
   mutate(celsius = fct_rev(if_else(!heat95, "direct testing", "95°C treatment"))) %>%
-  ggplot(aes(x = ct_bin, y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, color = celsius, group = celsius)) +
+  ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, color = celsius, group = celsius)) +
   geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
   scale_x_discrete(labels = c("0-25", "26-30", "31-35", "36-40")) +
-  labs(x = "RT-qPCR CT value",
-       color = "") +
-  theme(legend.position = c(0.8, 0.9), legend.background = element_blank()) +
-  guides(color = guide_legend(label.position = "left", label.hjust = 1))
+  labs(x = "RT-qPCR CT value", color = "") +
+  theme(legend.position = c(0.18, 0.9), legend.background = element_blank())
+  #guides(color = guide_legend(label.position = "left", label.hjust = 1))
 
 p_neg_zl <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
@@ -105,7 +104,7 @@ p_neg_zl <- ss_binned %>%
   labs(x="") +
   theme(legend.position = "none")
 
-fig8b <- (p_pos_zl + p_neg_zl + plot_layout(widths = c(4, 1))) &
+fig8b <- (p_neg_zl + p_pos_zl + plot_layout(widths = c(1, 4))) &
   coord_cartesian(ylim = c(0, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
   scale_color_brewer(palette = "Set1", direction = -1L)
@@ -120,7 +119,7 @@ ggsave("SVGs/Figure_8.svg", width=20, height=14.5, units="cm")
 
 
 lamp_cls %>% 
-group_by( heat95, ct_bin, lamp_result ) %>%
-tally() %>%
-pivot_wider( names_from = lamp_result, values_from = n, values_fill = c(n=0) ) %>%
-left_join( ss_binned ) %>% write_csv( "LAMP_zeroLysis_confMatrix.tsv" )
+  group_by( heat95, ct_bin, lamp_result ) %>%
+  tally() %>%
+  pivot_wider( names_from = lamp_result, values_from = n, values_fill = c(n=0) ) %>%
+  left_join( ss_binned ) %>% write_csv( "LAMP_zeroLysis_confMatrix.tsv" )
