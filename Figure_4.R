@@ -7,7 +7,7 @@ library(binom)
 
 source("misc.R")
 
-read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 plates_to_use <- c( "CP00001", "CP00003", "CP00005", "CP00006", "CP00008", 
@@ -33,7 +33,7 @@ tbl %>%
   geom_vline(xintercept = c(30, 41.5), color = "lightgray" ) +
   geom_point(aes(x = CT, y = absBlue - absYellow, color = plate), size = .7) +
   scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
-  scale_color_d3(palette="category20") +
+  scale_color_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow)) +
   annotate("text", color = "gray50", x = 49, y = -.26, label = glue("negative"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .125, label = glue("inconclusive"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .425, label = glue("positive"), angle = 90) +
