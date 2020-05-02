@@ -51,7 +51,7 @@ fig8a <- tbl %>%
   facet_wrap( ~ fct_rev(celsius)) +
   scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
   scale_fill_d3(palette="category10") +
-  labs(y = expression("ΔOD"["30 min"]),
+  labs(y = expression( "RT-LAMP ( ΔOD"["30 min"]~")" ),
        x = "RT-qPCR (CT value)") +
   annotate("text", color = "gray50", x = 50, y = 0, label = "negative", angle = 90) +
   annotate("text", color = "gray50", x = 50, y = .47, label = "positive", angle = 90)
@@ -83,28 +83,30 @@ ss_binned <- lamp_cls %>%
          sensitivity_ci_lower = binom.confint(TP, (TP + FN), method="wilson")$lower,
          specificity = TN / (TN + FP),
          specificity_ci_upper = binom.confint(TN, (TN + FP), method="wilson")$upper,
-         specificity_ci_lower = binom.confint(TN, (TN + FP), method="wilson")$lower)
+         specificity_ci_lower = binom.confint(TN, (TN + FP), method="wilson")$lower) %>%
+  mutate(ct_bin = if_else(str_detect(ct_bin, "Inf"), "negative",
+    paste(str_extract(ct_bin, "\\d+"), str_extract(ct_bin, "(?<=,)\\d+"), sep="-")))
 
 p_pos_zl <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
   mutate(celsius = fct_rev(if_else(!heat95, "direct testing", "95°C treatment"))) %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, color = celsius, group = celsius)) +
   geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
-  scale_x_discrete(labels = c("0-25", "26-30", "31-35", "36-40")) +
   labs(x = "RT-qPCR CT value", color = "") +
-  theme(legend.position = c(0.18, 0.9), legend.background = element_blank())
-  #guides(color = guide_legend(label.position = "left", label.hjust = 1))
+  theme(legend.position = c(0.17, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank()) +
+  #guides(color = guide_legend(label.position = "left", label.hjust = 1)) +
+  plot_layout(tag_level = "new")
 
 p_neg_zl <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
   mutate(celsius = fct_rev(if_else(!heat95, "direct testing", "95°C treatment"))) %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, color = celsius, group = celsius)) +
   geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
-  scale_x_discrete(labels = c("negative")) +
   labs(x="") +
   theme(legend.position = "none")
 
 fig8b <- (p_neg_zl + p_pos_zl + plot_layout(widths = c(1, 4))) &
+  theme(panel.grid.major.y = element_line(colour = "lightgrey")) &
   coord_cartesian(ylim = c(0, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
   scale_color_brewer(palette = "Set1", direction = -1L)
