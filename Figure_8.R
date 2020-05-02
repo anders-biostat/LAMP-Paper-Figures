@@ -50,7 +50,7 @@ fig8a <- tbl %>%
   geom_point( aes( x = CT, y = absBlue - absYellow, fill = plate), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   facet_wrap( ~ fct_rev(celsius)) +
   scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
-  scale_fill_d3(palette="category10") +
+  scale_fill_d3(palette="category10", labels=rep("", 99)) +
   labs(y = expression( "RT-LAMP ( ΔOD"["30 min"]~")" ),
        x = "RT-qPCR (CT value)") +
   annotate("text", color = "gray50", x = 50, y = 0, label = "negative", angle = 90) +
