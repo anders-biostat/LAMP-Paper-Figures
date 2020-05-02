@@ -85,7 +85,7 @@ ss_binned <- lamp_cls %>%
          specificity_ci_upper = binom.confint(TN, (TN + FP), method="wilson")$upper,
          specificity_ci_lower = binom.confint(TN, (TN + FP), method="wilson")$lower) %>%
   mutate(ct_bin = if_else(str_detect(ct_bin, "Inf"), "negative",
-    paste(str_extract(ct_bin, "\\d+"), str_extract(ct_bin, "(?<=,)\\d+"), sep="-")))
+                          paste(str_extract(ct_bin, "(?<=,)\\d+"), str_extract(ct_bin, "\\d+"), sep="-")))
 
 p_pos_zl <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
