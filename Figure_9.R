@@ -26,6 +26,8 @@ n_95 <- tbl %>% filter(heat95) %>% distinct(well, plate) %>% nrow()
 n_95_dstnct <- tbl %>% filter(heat95) %>% distinct(barcode) %>% nrow()
 n_plates_95 <- tbl %>% filter(heat95) %>% distinct(plate) %>% nrow()
 
+ylimits <- range( tbl$absBlue - tbl$absYellow ) 
+
 tbl %>%
   mutate( group = str_c( plate, well, heat95 ) ) %>%
   arrange( -CT ) %>%
@@ -38,7 +40,8 @@ tbl %>%
   ggplot() + 
     geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
     facet_grid( . ~ fct_rev(celsius), scales = "free_x", space = "free_x" ) +
-    scale_color_ct( name="RT-qPCR\nCT value") +
+    scale_color_ct( name="RT-qPCR\nCT value") + 
+    ylim( ylimits ) +
     labs(x = "minutes at 65 °C",
          y = expression( "RT-LAMP (ΔOD"["30 min"]~")" ) ) -> plot9a
 
@@ -67,6 +70,7 @@ tbl_wide %>%
     scale_color_ct() +
     theme( legend.position = "none" ) +
     coord_fixed() +
+    ylim( ylimits ) +
     labs(x = expression( "RT-LAMP ( ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
          y = expression( "RT-LAMP ( ΔOD"["30 min"]~")" )) -> plot9b
 
