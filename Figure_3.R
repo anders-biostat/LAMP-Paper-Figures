@@ -16,7 +16,7 @@ ggplot +
   geom_line( aes( x=minutes, y=absBlue-absYellow, group=well, col=CT ), size=.5 ) +
   scale_color_ct() +
   xlab( "incubation time [minutes]" ) + 
-  ylab( expression( "LAMP signal (ΔOD)" ) ) -> plot3b
+  ylab( expression( RT-LAMP (ΔOD) ) ) -> plot3b
 
 plot3b
 
