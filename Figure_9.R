@@ -9,8 +9,9 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 plates_to_use <- c( "CP00035", "CP00036", "CP00037" ) 
 
 tecan %>% 
-filter( plate %in% plates_to_use ) %>% 
-filter( !( plate == "CP00036" & minutes==30 & plateRemark != "30 mins 2nd scan" ) ) %>%
+filter( plate %in% plates_to_use ) %>%  
+filter( exclude != "yes" ) %>%
+select( -plateRemark ) %>%
 left_join( tblCT ) %>%
 filter( !is.na(CT) ) %>%
 mutate( CT = ifelse( CT>40, 45, CT ) ) %>%
@@ -31,7 +32,7 @@ ggplot +
 tbl %>%
 mutate( diff = absBlue - absYellow ) %>%
 select( -absBlue, -absYellow ) %>%
-pivot_wider( names_from = minutes, values_from = diff ) %>%
+pivot_wider( names_from = minutes, values_from = diff ) %>% 
 ggplot +
   geom_point( aes( x=`30`-`10`, y=`30`, col=CT ), size=.8 ) +
   facet_grid( . ~ fct_rev(facet) ) +
@@ -41,9 +42,6 @@ ggplot +
   labs(x = expression( "LAMP ( ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
        y = expression( "LAMP ( ΔOD"["30 min"]~")" )) -> plot9b
 
-
-plot9a / plot9b +
-  plot_annotation(tag_levels = "a")
 
 plot9a + plot_annotation( title = "a" )
 ggsave("SVGs/Figure_9a.svg", width=15, height=8, units="cm")
