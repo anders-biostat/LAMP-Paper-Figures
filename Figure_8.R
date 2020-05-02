@@ -13,7 +13,7 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025", "CP00030", 
   "CP00035", "CP00036", "CP00037" ) 
 
-deltaOD_cutoff_zeroL <- 0.34
+deltaOD_cutoff_zeroL <- 0.3
 
 tecan %>%
   filter( plate %in% plates_to_use ) %>%
@@ -29,14 +29,18 @@ tbl %>%
 
 # Figure 8a
 n_65 <- tbl %>% filter( ! heat95) %>% nrow()
+n_65_dstnct <- tbl %>% filter( ! heat95) %>% distinct(barcode) %>% nrow()
 n_plates_65 <- tbl %>% filter( ! heat95) %>% distinct(plate) %>% nrow()
 n_95 <- tbl %>% filter(heat95) %>% nrow()
+n_95_dstnct <- tbl %>% filter(heat95) %>% distinct(barcode) %>% nrow()
 n_plates_95 <- tbl %>% filter(heat95) %>% distinct(plate) %>% nrow()
 
 fig8a <- tbl %>%
   mutate( celsius = if_else(heat95,
-                            glue("5 min 95°C prior to testing, 30 min at 65°C\n{n_95} samples on {n_plates_95} plates"),
-                            glue("direct testing, 30 min at 65°C\n{n_65} samples on {n_plates_65} plates"))) %>%
+                            glue("5 min 95°C prior to testing, 30 min at 65°C\n",
+                              "{n_95} aliquots from {n_95_dstnct} samples on {n_plates_95} plates"),
+                            glue("direct testing, 30 min at 65°C\n",
+                              "{n_65} aliquots from {n_65_dstnct} samples on {n_plates_65} plates"))) %>%
   mutate( CT = ifelse( CT > 40, runif( n(), 43, 47 ), CT ) ) %>% 
   mutate_at( "plate", fct_relevel,  "CP10020", "CP10021" ) %>% # to get plates in chronological order
   sample_frac() %>%  # randomize order of points so that it's not one specific plate plotted on top of all others
