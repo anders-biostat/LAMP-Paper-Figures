@@ -43,7 +43,7 @@ ggplot() +
   labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
       x = "RT-qPCR (CT value)",
        y = "RT-LAMP (ΔOD)") +
-  scale_fill_manual(values = c("positive" = "black", "negative" = "white")) +
+  scale_fill_manual(name  = "LAMP-sequencing", values = c("positive" = "black", "negative" = "white")) +
   facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
   #facet_grid(cols = vars(facets)) +
   annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
@@ -59,29 +59,23 @@ ggsave("Figure_5b.png", width=20, height=10, units="cm", dpi=300)
 # count table S3
 ct_breaks <- c(0, 25, 30, 35, 40, Inf)
 
+confusion_matrix <- tbl %>%
+  filter(minutes == 30) %>%
+  mutate( CTbin = cut( CT, ct_breaks ) ) %>% 
+  mutate_at( "CTbin", recode, 	"neg" = "(40,Inf]" ) %>%
+  mutate( LAMPres = 
+            cut( absBlue-absYellow, c( -Inf, lamp_thresh, Inf ) ) %>%
+            as.integer %>%
+            { c( "neg", "incl", "pos" )[.] } ) %>%
+  mutate( NGSres = case_when(
+    matchedTRUE > ngs_threshold ~ "pos",
+    matchedTRUE <= ngs_threshold ~ "neg",
+    TRUE                ~ "undet")) %>%
+  mutate_at( "LAMPres", fct_relevel, "pos", "incl", "neg" ) %>%
+  mutate_at( "NGSres", fct_relevel, "pos", "neg" ) %>%
+  count( LAMPres, NGSres, CTbin ) %>%
+  pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) ) %>%
+  arrange(NGSres, CTbin)
+confusion_matrix
 
-tbl %>%
-  mutate( qPCR = case_when(
-    CT > 40 ~ "negative",
-    CT > qpcr_thresholds[[1]] ~ "weak pos",
-    TRUE            ~ "positive" ) ) %>%
-  mutate( LAMP = case_when(
-    absBlue - absYellow > lamp_thresholds[[2]] ~ "positive",
-    absBlue - absYellow < lamp_thresholds[[1]] ~ "negative",
-    TRUE                               ~ "inconclusive" ) ) %>%
-  mutate( NGS = case_when(
-    matchedTRUE > ngs_threshold ~ "positive",
-    matchedTRUE <= ngs_threshold ~ "negative",
-    TRUE                ~ "undetected")) %>%
-  mutate_at( "NGS", fct_relevel, "positive", "negative" ) %>%
-  mutate_at( "qPCR", fct_relevel, "negative", "weak pos", "positive" ) %>%
-  mutate_at( "LAMP", fct_relevel, "negative", "inconclusive", "positive" )
-tbl %>% filter(minutes == 30) %>%
-  group_by( qPCR, LAMP, NGS ) %>%
-  summarise( n = n() ) %>%
-  ungroup() %>%
-  pivot_wider( names_from = c("qPCR"), names_prefix = "qPCR:", values_from = n, values_fill = c(n=0))
-
-%>%
-  mutate( LAMP = str_c("LAMP:", LAMP), NGS = str_c("NGS:", NGS) ) %>%
-  kable %>% kable_styling( full_width=FALSE) %>% column_spec( 1:2, bold=TRUE, border_right=TRUE) 
+confusion_matrix %>% write_tsv( "NGS_confMatrix.tsv" )
