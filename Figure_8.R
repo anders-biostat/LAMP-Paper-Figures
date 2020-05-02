@@ -10,7 +10,7 @@ source( "misc.R" )
 read_tsv( "data/tecan_values.tsv", col_types = "cclicccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
-plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025", "CP00030", 
+plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025",# "CP00030", 
   "CP00035", "CP00036", "CP00037" ) 
 
 deltaOD_cutoff_zeroL <- 0.3
