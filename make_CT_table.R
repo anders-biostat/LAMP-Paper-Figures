@@ -94,17 +94,9 @@ assertr::verify( n == 1 )
 bind_rows(
 
   # Plate without number, of 20-04-13, now named CP10020 and CP10021:
-  bind_rows(
-    read_csv( "plate_contents/CP10020.s.csv", col_types = "ccccccccccccc" ) %>%
-      rename( row = X1 ) %>%
-      pivot_longer( names_to = "col", values_to = "CP", -row ) %>%
-      add_column( plate = "CP10020" ),
-    read_csv( "plate_contents/CP10021.s.csv", col_types = "ccccccccccccc" ) %>%
-      rename( row = X1 ) %>%
-      pivot_longer( names_to = "col", values_to = "CP", -row ) %>%
-      add_column( plate = "CP10021" ) ) %>%
-  mutate( col = sprintf( "%02d", as.integer(col) ) ) %>%
-  mutate_at( "CP", str_replace, "Neg", "negativ"  ),
+  read_csv( "plate_contents/CP10020+CP10021.s.csv") %>%
+  rename( labID = sample ) %>%
+  mutate( col = sprintf( "%02d", as.integer(col) ) ),
   
   # Plate 21
   plateContentsTbl %>% filter( plate == "CP00021" ) %>% left_join( resultsE ),
@@ -136,58 +128,7 @@ mutate_at( "CP", ~ ifelse( .=="unknown", NA, . ) ) %>%
 mutate_at( "CP", as.numeric ) %>%
 select( plate, row, col, CP, everything() ) -> platesA  
 
-bind_rows( plateContentsTbl, plates )
-
-bind_rows(
-
-  # Plate without number, of 20-04-13, now named CP10020 and CP10021:
-  bind_rows(
-    read_csv( "plate_contents/CP10020.s.csv", col_types = "ccccccccccccc" ) %>%
-      rename( row = X1 ) %>%
-      pivot_longer( names_to = "col", values_to = "CP", -row ) %>%
-      add_column( plate = "CP10020" ),
-    read_csv( "plate_contents/CP10021.s.csv", col_types = "ccccccccccccc" ) %>%
-      rename( row = X1 ) %>%
-      pivot_longer( names_to = "col", values_to = "CP", -row ) %>%
-      add_column( plate = "CP10021" ) ) %>%
-  mutate( col = sprintf( "%02d", as.integer(col) ) ) %>%
-  mutate_at( "CP", str_replace, "Neg", "negativ"  ),
-  
-  # Plate 21
-  plateContentsTbl %>% filter( plate == "CP00021" ) %>% left_join( resultsE ),
-  
-  # Plate 22
-  readxl::read_excel( "tests/200416_Layout_CP00022.xlsx", skip=4 ) %>%
-  rename( row=Reihe, col=Spalte, barcode=Barcode, remark=Remark ) %>%
-  add_column( plate = "CP00022" ) %>%
-  mutate( col = sprintf( "%02d", as.integer(col) ) ),
-    
-  # Plate 24-26
-  bind_rows(
-    read_csv( "plate_contents/CP00024.s.csv", col_types="cccc" ) %>% 
-      add_column( plate="CP00024" ),
-    read_csv( "plate_contents/CP00025.s.csv", col_types="cccc" ) %>% 
-      add_column( plate="CP00025" ) %>%
-      mutate( barcode = str_c( "V20", barcode ) ),
-    readxl::read_excel( "plate_contents/200419_Layout_CP00026.xlsx", skip=4, col_types = "text" ) %>%
-      rename( CP = "...4" ) %>%
-      rename( barcode = Barcode ) %>%
-      rename( row = Reihe, col = Spalte ) %>%
-      add_column( plate = "CP00026" ) ) %>%
-  mutate( col = sprintf( "%02d", as.integer(col) ) ) %>%
-  select( plate, everything() ),
-  
-  # Plate 30
-  plateContentsTbl %>% filter( plate == "CP00030" ) %>% left_join( resultsE )
-  
-) %>%
-mutate_at( "CP", str_replace, "negative?", "Inf" ) %>%
-mutate_at( "CP", ~ ifelse( .=="unknown", NA, . ) ) %>%
-mutate_at( "CP", as.numeric ) %>%
-select( plate, row, col, CP, everything() ) -> plates
-
 # Plates 35 and 36
-
 read_csv( "plate_contents/CP00035.s.csv" ) %>%
 mutate( col = sprintf( "%02d", as.integer(col) ) ) %>%
 mutate( index = case_when(
@@ -243,4 +184,13 @@ mutate( well = str_c( row, str_remove( col, "^0" ) ) ) %>%
 select( plate, well, barcode, CT, wellRemark=remark ) %>%
 mutate( CT = ifelse( str_starts( CT, "neg" ), Inf, suppressWarnings(as.numeric(CT)) ) ) -> plateCTs
 
-plateCTs %>% write_tsv( "~/w/repos/LAMP-Paper-Figures/data/plates_with_CTs.tsv" )
+plateCTs %>%
+mutate( barcode_prefix = str_sub( barcode, 1, 3 ) ) %>%
+mutate( sensitive_barcode = barcode_prefix %in% c( "799", "V20", "204" ) ) %>%
+mutate( barcode = ifelse( sensitive_barcode, 
+  str_c( barcode_prefix, "_R", sample( 100000, n() ) ),
+  barcode ) ) %>%
+select( -barcode_prefix, -sensitive_barcode )
+  
+setwd( "~/w/repos/LAMP-Paper-Figures/" )
+plateCTs %>% write_tsv( "data/plates_with_CTs.tsv" )
