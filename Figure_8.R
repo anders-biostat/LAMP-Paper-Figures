@@ -17,11 +17,15 @@ deltaOD_cutoff_zeroL <- 0.25
 
 tecan %>%
   filter( plate %in% plates_to_use ) %>%
-  filter( !( plate == "CT00036" & minutes==30 & plateRemark != "30 mins 2nd scan" ) ) %>%
-  filter( !( plate == "CT10020" & as.integer(str_sub(well,1,-1)) > 4 ) ) %>%
+  filter( !( plate == "CP00036" & minutes==30 & plateRemark != "2nd scan" ) ) %>%
+  filter( !( plate == "CP10020" & as.integer(str_sub(well,2,-1)) > 4 ) ) %>%
   left_join( tblCT, by = c("plate", "well") ) %>%
   filter( !is.na(CT) & minutes == 30 ) -> tbl
 
+# Check that we have each plate only once
+tbl %>%
+  group_by( plate, heat95, well ) %>%
+  count() %>% group_by(n) %>% filter(n>1) %>% View()
 
 # Figure 8a
 n_65 <- tbl %>% filter( ! heat95) %>% nrow()
