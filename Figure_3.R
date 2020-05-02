@@ -9,14 +9,14 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 ## Figure 3b 
 tecan %>% 
 left_join( tblCT ) %>%
-mutate( CT = ifelse( CT>40, runif( n(), 43, 46 ), CT ) ) %>%
+mutate( CT = ifelse( CT>40, 46.5, CT ) ) %>%
 filter( !is.na(CT) ) %>%
 filter( plate %in% "CP00001", gene=="N", plateRemark=="2" ) %>% 
 ggplot +
   geom_line( aes( x=minutes, y=absBlue-absYellow, group=well, col=CT ), size=.5 ) +
   scale_color_ct() +
   xlab( "incubation time [minutes]" ) + 
-  ylab( expression( RT-LAMP (ΔOD) ) ) -> plot3b
+  ylab( expression( "RT-LAMP (ΔOD)" ) ) -> plot3b
 
 plot3b
 
