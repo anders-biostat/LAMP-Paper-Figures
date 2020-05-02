@@ -7,16 +7,18 @@ library( binom )
 source( "misc.R" )
 
 # Load data
-read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "cclicccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
-plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025", "CP00030", "CP00035", "CP00036", "CP00037" ) 
+plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025", "CP00030", 
+  "CP00035", "CP00036", "CP00037" ) 
 
 deltaOD_cutoff_zeroL <- 0.25
 
 tecan %>%
   filter( plate %in% plates_to_use ) %>%
   filter( !( plate == "CT00036" & minutes==30 & plateRemark != "30 mins 2nd scan" ) ) %>%
+  filter( !( plate == "CT10020" & as.integer(str_sub(well,1,-1)) > 4 ) ) %>%
   left_join( tblCT, by = c("plate", "well") ) %>%
   filter( !is.na(CT) & minutes == 30 ) -> tbl
 
@@ -32,7 +34,7 @@ fig8a <- tbl %>%
                             glue("5 min 95°C prior to testing, 30 min at 65°C\n{n_95} samples on {n_plates_95} plates"),
                             glue("direct testing, 30 min at 65°C\n{n_65} samples on {n_plates_65} plates"))) %>%
   mutate( CT = ifelse( CT > 40, runif( n(), 43, 47 ), CT ) ) %>% 
-  #mutate_at( "plate", fct_relevel, "CP10020", "CP10021" ) %>%
+  mutate_at( "plate", fct_relevel,  "CP10020", "CP10021" ) %>% # to get plates in chronological order
   sample_frac() %>%  # randomize order of points so that it's not one specific plate plotted on top of all others
   ggplot() +
   geom_hline( yintercept = deltaOD_cutoff_zeroL, col="lightgray" ) +
