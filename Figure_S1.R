@@ -67,5 +67,5 @@ panel_a + panel_b +
   theme(plot.tag = element_text(face = "bold"))
 
 # Export figures
-ggsave("SVGs/Figure_S1.svg", width=20, height=9.5, units="cm")
-ggsave("Figure_S1.png", width=20, height=9.5, units="cm", dpi=300)
+ggsave("SVGs/Figure_S1.svg", width=22, height=10, units="cm")
+ggsave("Figure_S1.png", width=22, height=10, units="cm", dpi=300)
