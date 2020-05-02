@@ -191,7 +191,7 @@ mutate( sensitive_barcode = barcode_prefix %in% c( "799", "V20", "204" ) ) %>%
 mutate( barcode = ifelse( sensitive_barcode, 
   str_c( barcode_prefix, "_R", sample( 100000, n() ) ),
   barcode ) ) %>%
-select( -barcode_prefix, -sensitive_barcode )
+select( -barcode_prefix, -sensitive_barcode ) -> plateCTs
   
 setwd( "~/w/repos/LAMP-Paper-Figures/" )
 plateCTs %>% write_tsv( "data/plates_with_CTs.tsv" )
