@@ -188,9 +188,11 @@ set.seed( 1234567 )
 plateCTs %>%
 mutate( barcode_prefix = str_sub( barcode, 1, 3 ) ) %>%
 mutate( sensitive_barcode = barcode_prefix %in% c( "799", "V20", "204" ) ) %>%
+group_by( barcode, sensitive_barcode, barcode_prefix ) %>% nest() %>% ungroup() %>%
 mutate( barcode = ifelse( sensitive_barcode, 
   str_c( barcode_prefix, "_R", sample( 100000, n() ) ),
   barcode ) ) %>%
+unnest( everything() ) %>%
 select( -barcode_prefix, -sensitive_barcode ) -> plateCTs
   
 setwd( "~/w/repos/LAMP-Paper-Figures/" )
