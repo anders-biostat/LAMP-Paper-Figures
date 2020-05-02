@@ -79,5 +79,5 @@ tbl_wide %>%
   plot_layout(heights = c(4, 4), widths = c(1, 2), guides="collect") +
   plot_annotation(tag_levels = "a")
 
-ggsave("Figure_9.png", width=20, height=20, units="cm", dpi=300)
-ggsave("SVGs/Figure_9.svg", width=20, height=20, units="cm")
+ggsave("Figure_9.png", width=20, height=25, units="cm", dpi=300)
+ggsave("SVGs/Figure_9.svg", width=20, height=25, units="cm")
