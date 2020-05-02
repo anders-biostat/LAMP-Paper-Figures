@@ -3,7 +3,7 @@ library( patchwork )
 library( ggtext )
 source( "misc.R" )
 
-read_tsv( "data/tecan_values.tsv", col_types = "ccliccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "cclicccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 plates_to_use <- c( "CP00035", "CP00036", "CP00037" ) 
@@ -33,19 +33,18 @@ mutate( diff = absBlue - absYellow ) %>%
 select( -absBlue, -absYellow ) %>%
 pivot_wider( names_from = minutes, values_from = diff ) %>%
 ggplot +
-  geom_point( aes( x=`30`-`10`, y=`30`, col=CT ) ) +
+  geom_point( aes( x=`30`-`10`, y=`30`, col=CT ), size=.8 ) +
   facet_grid( . ~ fct_rev(facet) ) +
   scale_color_ct() +
   theme( legend.position = "none" ) +
-  labs(x = expression( "LAMP (ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
-       y = expression( "LAMP (ΔOD"["30 min"]~")" )) -> plot9b
+  coord_fixed() +
+  labs(x = expression( "LAMP ( ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
+       y = expression( "LAMP ( ΔOD"["30 min"]~")" )) -> plot9b
 
 
 plot9a / plot9b +
   plot_annotation(tag_levels = "a")
 
 
-#dev.copy( svg, "Figure_9.svg", width=7, height=7 )  # this somehow gives us a weird shiny color scale?
-#dev.off()
-ggsave("SVGs/Figure_9.svg", width=15, height=15, units="cm")
+ggsave("SVGs/Figure_9.svg", width=20, height=20, units="cm")
 ggsave("Figure_9.png", width=15, height=15, units="cm", dpi=300)
