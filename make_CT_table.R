@@ -184,6 +184,7 @@ mutate( well = str_c( row, str_remove( col, "^0" ) ) ) %>%
 select( plate, well, barcode, CT, wellRemark=remark ) %>%
 mutate( CT = ifelse( str_starts( CT, "neg" ), Inf, suppressWarnings(as.numeric(CT)) ) ) -> plateCTs
 
+set.seed( 1234567 )
 plateCTs %>%
 mutate( barcode_prefix = str_sub( barcode, 1, 3 ) ) %>%
 mutate( sensitive_barcode = barcode_prefix %in% c( "799", "V20", "204" ) ) %>%
