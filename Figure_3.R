@@ -33,7 +33,7 @@ tbl_3c %>%
   filter(gene == "N") %>%
   ggplot() +
   geom_vline( xintercept = 42, col="darkgray" ) +
-  geom_point( aes( x=CT, y=absBlue-absYellow ), size=.7, shape=19, alpha=.6, fill="lightgray" ) +
+  geom_point( aes( x = CT, y = absBlue - absYellow ), fill = "black", colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse( breaks = c( 10, 20, 30, 40, 45 ), labels = c( 10, 20, 30, 40, "neg" ) ) +
   xlab( "RT-qPCT (CT value)" ) + 
   ylab( "RT-LAMP (ΔOD)" ) -> plot3c
@@ -43,7 +43,7 @@ tbl_3c %>%
   filter(gene == "1a") %>%
   ggplot() +
   geom_vline( xintercept = 42, col="darkgray" ) +
-  geom_point( aes( x=CT, y=absBlue-absYellow ), size=.7, shape=19, alpha=.6, fill="lightgray" ) +
+  geom_point( aes( x = CT, y = absBlue - absYellow ), fill = "black", colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse( breaks = c( 10, 20, 30, 40, 45 ), labels = c( 10, 20, 30, 40, "neg" ) ) +
   xlab( "RT-qPCT (CT value)" ) + 
   ylab( "RT-LAMP (ΔOD)" ) -> plotS3

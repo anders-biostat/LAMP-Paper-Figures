@@ -31,9 +31,9 @@ tbl %>%
   ggplot() +
   geom_hline(yintercept = lamp_thresh, color = "lightgray" ) +
   geom_vline(xintercept = c(30, 41.5), color = "lightgray" ) +
-  geom_point(aes(x = CT, y = absBlue - absYellow, color = plate), size = .7) +
+  geom_point( aes( x = CT, y = absBlue - absYellow, fill = plate), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
-  scale_color_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow)) +
+  scale_fill_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow)) +
   annotate("text", color = "gray50", x = 49, y = -.26, label = glue("negative"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .125, label = glue("inconclusive"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .425, label = glue("positive"), angle = 90) +
@@ -91,7 +91,7 @@ fig4b_neg <- ss_binned %>%
 fig4b <- (fig4b_pos + fig4b_neg + plot_layout(widths = c(5, 1))) &
   coord_cartesian(ylim = c(0, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
-  theme(panel.grid.major.y = element_line(), panel.grid.minor.y = element_line())
+  theme(panel.grid.major.y = element_line(colour = "lightgrey"), panel.grid.minor.y = element_line(colour = "lightgrey"))
 
 fig4a + fig4b +
   plot_layout(widths = c(10, 8)) +

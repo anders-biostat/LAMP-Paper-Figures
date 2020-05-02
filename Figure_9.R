@@ -65,9 +65,9 @@ tbl_wide %>%
                             glue("direct testing, 30 min at 65°C\n",
                                  "{n_65} aliquots from {n_65_dstnct} samples on {n_plates_65} plates"))) %>%
   ggplot() +
-    geom_point( aes( x=`30`-`10`, y=`30`, col=CT ), size=.8 ) +
+     geom_point( aes( `30`-`10`, y=`30`, fill = CT), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
     facet_grid( . ~ fct_rev(celsius) ) +
-    scale_color_ct() +
+    scale_fill_ct() +
     theme( legend.position = "none" ) +
     coord_fixed() +
     ylim( ylimits ) +
