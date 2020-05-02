@@ -55,3 +55,33 @@ ggplot() +
 # Export figures
 ggsave("SVGs/Figure_5b.svg", width=20, height=10, units="cm")
 ggsave("Figure_5b.png", width=20, height=10, units="cm", dpi=300)
+
+# count table S3
+ct_breaks <- c(0, 25, 30, 35, 40, Inf)
+
+
+tbl %>%
+  mutate( qPCR = case_when(
+    CT > 40 ~ "negative",
+    CT > qpcr_thresholds[[1]] ~ "weak pos",
+    TRUE            ~ "positive" ) ) %>%
+  mutate( LAMP = case_when(
+    absBlue - absYellow > lamp_thresholds[[2]] ~ "positive",
+    absBlue - absYellow < lamp_thresholds[[1]] ~ "negative",
+    TRUE                               ~ "inconclusive" ) ) %>%
+  mutate( NGS = case_when(
+    matchedTRUE > ngs_threshold ~ "positive",
+    matchedTRUE <= ngs_threshold ~ "negative",
+    TRUE                ~ "undetected")) %>%
+  mutate_at( "NGS", fct_relevel, "positive", "negative" ) %>%
+  mutate_at( "qPCR", fct_relevel, "negative", "weak pos", "positive" ) %>%
+  mutate_at( "LAMP", fct_relevel, "negative", "inconclusive", "positive" )
+tbl %>% filter(minutes == 30) %>%
+  group_by( qPCR, LAMP, NGS ) %>%
+  summarise( n = n() ) %>%
+  ungroup() %>%
+  pivot_wider( names_from = c("qPCR"), names_prefix = "qPCR:", values_from = n, values_fill = c(n=0))
+
+%>%
+  mutate( LAMP = str_c("LAMP:", LAMP), NGS = str_c("NGS:", NGS) ) %>%
+  kable %>% kable_styling( full_width=FALSE) %>% column_spec( 1:2, bold=TRUE, border_right=TRUE) 
