@@ -23,7 +23,7 @@ arrange( -CT ) %>%
 mutate_at( "group", fct_inorder ) %>% 
 ggplot + 
   geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
-  facet_grid( . ~ fct_rev(facet), scales = "free_x" ) +
+  facet_grid( . ~ fct_rev(facet) ) + #, scales = "free_x" ) +
   scale_color_ct( name="RT-qPCR\nCT value") +
   labs(x = "minutes at 65 °C",
        y = expression( "LAMP (ΔOD"["30 min"]~")" ) ) -> plot9a
@@ -45,6 +45,10 @@ ggplot +
 plot9a / plot9b +
   plot_annotation(tag_levels = "a")
 
+plot9a + plot_annotation( title = "a" )
+ggsave("SVGs/Figure_9a.svg", width=15, height=8, units="cm")
+ggsave("Figure_9a.png", width=15, height=8, units="cm", dpi=300)
 
-ggsave("SVGs/Figure_9.svg", width=20, height=20, units="cm")
-ggsave("Figure_9.png", width=15, height=15, units="cm", dpi=300)
+plot9b 
+ggsave("SVGs/Figure_9b.svg", width=15, height=8, units="cm")
+ggsave("Figure_9b.png", width=15, height=8, units="cm", dpi=300)
