@@ -27,7 +27,7 @@ ggplot +
   facet_grid( . ~ fct_rev(facet), scales = "free_x", space = "free_x" ) +
   scale_color_ct( name="RT-qPCR\nCT value") +
   labs(x = "minutes at 65 °C",
-       y = expression( "LAMP (ΔOD"["30 min"]~")" ) ) -> plot9a
+       y = expression( "RT-LAMP (ΔOD"["30 min"]~")" ) ) -> plot9a
 
 tbl %>%
 mutate( diff = absBlue - absYellow ) %>%
@@ -40,13 +40,13 @@ ggplot +
   scale_color_ct() +
   theme( legend.position = "none" ) +
   coord_fixed() +
-  labs(x = expression( "LAMP ( ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
-       y = expression( "LAMP ( ΔOD"["30 min"]~")" )) -> plot9b
+  labs(x = expression( "RT-LAMP ( ΔOD"["30 min"] - "ΔOD"["10 min"]~")" ),
+       y = expression( "RT-LAMP ( ΔOD"["30 min"]~")" )) -> plot9b
 
 
 (plot9a / plot9b) +
-  plot_layout(heights = c(3, 5), widths = c(1, 2), guides="collect") +
+  plot_layout(heights = c(4, 4), widths = c(1, 2), guides="collect") +
   plot_annotation(tag_levels = "a")
 
-ggsave("Figure_9.png", width=20, height=16.7, units="cm", dpi=300)
-ggsave("SVGs/Figure_9.svg", width=20, height=16.7, units="cm")
+ggsave("Figure_9.png", width=20, height=20, units="cm", dpi=300)
+ggsave("SVGs/Figure_9.svg", width=20, height=20, units="cm")
