@@ -57,5 +57,5 @@ ggsave("Figure_3.png", width=20, height=14, units="cm", dpi=300)
 
 plotS3
 
-ggsave("SVGs/Figure_S3.svg", width=10, height=10, units="cm")
-ggsave("Figure_S3.png", width=10, height=10, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3.svg", width=9, height=7, units="cm")
+ggsave("Figure_S3.png", width=9, height=7, units="cm", dpi=300)
