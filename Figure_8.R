@@ -62,6 +62,7 @@ fig8a <- tbl %>%
 # Treating replicates as independent samples
 
 # classify samples into false positives, TP, FN, TN...
+ct_breaks <- c(0, 25, 30, 35, 40, Inf)
 lamp_cls <- tbl %>%
   mutate(delta_abs = absBlue - absYellow,
          lamp_result = if_else(delta_abs > deltaOD_cutoff_zeroL, "positive", "negative"),
@@ -69,23 +70,11 @@ lamp_cls <- tbl %>%
   mutate(result = case_when(lamp_result == "negative" & qpcr_result == "negative" ~ "TN",
                             lamp_result == "positive" & qpcr_result == "positive" ~ "TP",
                             lamp_result == "positive" & qpcr_result == "negative" ~ "FP",
-                            lamp_result == "negative" & qpcr_result == "positive" ~ "FN"))
+                            lamp_result == "negative" & qpcr_result == "positive" ~ "FN")) %>%
+  mutate(ct_bin = cut(CT, ct_breaks)) 
 
-lamp_cls %>%
-  group_by(result, heat95) %>%
-  tally() %>% ungroup() %>%
-  pivot_wider(names_from = result, values_from = n) %>%
-  mutate(sensitivity = TP / (TP + FN),
-         sensitivity_ci_upper = binom.confint(TP, (TP + FN), method="wilson")$upper,
-         sensitivity_ci_lower = binom.confint(TP, (TP + FN), method="wilson")$lower,
-         specificity = TN / (TN + FP),
-         specificity_ci_upper = binom.confint(TN, (TN + FP), method="wilson")$upper,
-         specificity_ci_lower = binom.confint(TN, (TN + FP), method="wilson")$lower)
-
-ct_breaks <- c(0, 25, 30, 35, 40, Inf)
 
 ss_binned <- lamp_cls %>%
-  mutate(ct_bin = cut(CT, ct_breaks)) %>%
   group_by(result, heat95, ct_bin) %>%
   tally() %>% ungroup() %>%
   pivot_wider(names_from = result, values_from = n, values_fill = list(n=0)) %>%
@@ -128,3 +117,10 @@ fig8a / fig8b +
 
 ggsave("Figure_8.png", width=20, height=14.5, units="cm", dpi=400)
 ggsave("SVGs/Figure_8.svg", width=20, height=14.5, units="cm")
+
+
+lamp_cls %>% 
+group_by( heat95, ct_bin, lamp_result ) %>%
+tally() %>%
+pivot_wider( names_from = lamp_result, values_from = n, values_fill = c(n=0) ) %>%
+left_join( ss_binned ) %>% write_csv( "LAMP_zeroLysis_confMatrix.tsv" )
