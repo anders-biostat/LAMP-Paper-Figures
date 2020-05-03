@@ -1,5 +1,7 @@
 library(dplyr)
 library(readr)
+library(scales)
+library(stringr)
 library(ggplot2)
 library(patchwork)
 library(ggsci)
@@ -9,6 +11,9 @@ source( "misc.R" )
 read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
 read_tsv( "data/ngs_counts.tsv" ) -> ngs
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
+
+plates_to_use <- c( "CP00001", "CP00003", "CP00005", "CP00006", "CP00008", 
+                    "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
 lamp_thresholds <- c(-.05, .3)
 qpcr_thresholds <- c(30, 42)
@@ -56,7 +61,7 @@ panel_b <-  tbl %>%
   labs(subtitle = str_interp( "${unique(tbl$minutes)} min at 65°C\n${length(tbl$minutes)} samples on ${length(unique(tbl$plate))} plates"), 
        x = expression(paste("Multiplexed sequencing (", log[10](count), ")")),
        y = expression(paste("RT-LAMP (", Delta, OD, ")"))) +
-  scale_fill_d3(palette="category20") +
+  scale_fill_d3(palette="category20", guide = guide_legend(label = FALSE)) +
   annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
   annotate("text", x = 0.1, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 0.1, y = .425, label = str_glue("positive"), angle = 90, col="grey50")
@@ -67,5 +72,5 @@ panel_a + panel_b +
   theme(plot.tag = element_text(face = "bold"))
 
 # Export figures
-ggsave("SVGs/Figure_S1.svg", width=22, height=10, units="cm")
-ggsave("Figure_S1.png", width=22, height=10, units="cm", dpi=300)
+ggsave("SVGs/Figure_S2.svg", width=22, height=10, units="cm")
+ggsave("Figure_S2.png", width=22, height=10, units="cm", dpi=300)
