@@ -12,14 +12,14 @@ read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
 read_tsv( "data/ngs_counts.tsv" ) -> ngs
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
-plates_to_use <- c( "CP00001", "CP00003", "CP00005", "CP00006", "CP00008", 
+plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
                     "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
 lamp_thresholds <- c(-.05, .3)
 qpcr_thresholds <- c(30, 42)
 ngs_threshold <- 3000
 
-## Figure S1
+## Figure S2
 tbl <- ngs %>%
   filter( !is.na(matchedTRUE)) %>%
   left_join( tecan ) %>%
@@ -30,7 +30,7 @@ tbl <- ngs %>%
   left_join( tblCT )%>%
   filter( !is.na(CT) )
 
-## Figure S1a
+## Figure S2a
 panel_a <-  tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   ggplot() +
@@ -48,7 +48,7 @@ panel_a <-  tbl %>%
   annotate("text", x = 0.1, y = .425, label = str_glue("positive"), angle = 90, col="grey50")
 panel_a
 
-# Figure S1b
+# Figure S2b
 panel_b <-  tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
