@@ -10,7 +10,7 @@ read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
 read_tsv( "data/ngs_counts.tsv" ) -> ngs
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
-plates_to_use <- c( "CP00001", "CP00003", "CP00005", "CP00006", "CP00008", 
+plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
                     "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
 lamp_thresholds <- c(-.05, .3)
@@ -29,6 +29,7 @@ tbl <- ngs %>%
   left_join( tblCT )%>%
   filter( !is.na(CT) )
 
+set.seed(2020)
 tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate( NGS = case_when(
