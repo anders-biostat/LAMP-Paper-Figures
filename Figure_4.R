@@ -1,6 +1,5 @@
 library(tidyverse)
 library(patchwork)
-library(ggtext)
 library(glue)
 library(ggsci)
 library(binom)
@@ -10,7 +9,7 @@ source("misc.R")
 read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
-plates_to_use <- c( "CP00001", "CP00003", "CP00005", "CP00006", "CP00008", 
+plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
    "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
 lamp_thresh <- c(-.05, .3)
@@ -23,6 +22,7 @@ tecan %>%
   left_join( tblCT ) %>% 
   filter( !is.na(CT) ) -> tbl
 
+set.seed(2020)
 fig4a <- tbl %>%
   mutate(CT = ifelse(CT > 40, runif(n(), 43, 47), CT)) %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
@@ -39,7 +39,6 @@ fig4a <- tbl %>%
   labs(subtitle = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
        x = glue("RT-qPCR (CT value)"),
        y = "RT-LAMP (ΔOD)")
-
 
 
 ## Figure 4b
