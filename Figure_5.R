@@ -1,4 +1,6 @@
 library(dplyr)
+library(tidyr)
+library(forcats)
 library(readr)
 library(ggplot2)
 
@@ -64,7 +66,7 @@ confusion_matrix <- tbl %>%
   mutate( CTbin = cut( CT, ct_breaks ) ) %>% 
   mutate_at( "CTbin", recode, 	"neg" = "(40,Inf]" ) %>%
   mutate( LAMPres = 
-            cut( absBlue-absYellow, c( -Inf, lamp_thresh, Inf ) ) %>%
+            cut( absBlue-absYellow, c( -Inf, lamp_thresholds, Inf ) ) %>%
             as.integer %>%
             { c( "neg", "incl", "pos" )[.] } ) %>%
   mutate( NGSres = case_when(
