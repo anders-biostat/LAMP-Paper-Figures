@@ -12,7 +12,7 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
    "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
-lamp_thresh <- c(-.05, .3)
+lamp_thresh <- c(.3)
 
 ## Figure 4a
 tecan %>% 
@@ -29,17 +29,19 @@ fig4a <- tbl %>%
   sample_frac() %>%  # shuffle points to randomize overplotting at least
   ggplot() +
   geom_hline(yintercept = lamp_thresh, color = "lightgray" ) +
+  #geom_hline(yintercept = lamp_thresh[[1]], color = "lightgray", linetype = "dashed" ) +
   geom_vline(xintercept = c(30, 41.5), color = "lightgray" ) +
   geom_point( aes( x = CT, y = absBlue - absYellow, fill = plate), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
   scale_fill_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow)) +
-  annotate("text", color = "gray50", x = 49, y = -.26, label = glue("negative"), angle = 90) +
-  annotate("text", color = "gray50", x = 49, y = .125, label = glue("inconclusive"), angle = 90) +
+  #annotate("text", color = "gray50", x = 49, y = -.26, label = glue("negative"), angle = 90) +
+  annotate("text", color = "gray50", x = 49, y = 0, label = glue("negative"), angle = 90) +
+  #annotate("text", color = "gray50", x = 49, y = .125, label = glue("inconclusive"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = .425, label = glue("positive"), angle = 90) +
   labs(subtitle = glue("30 min at 65°C\n{nrow(tbl)} samples on {tbl%>%distinct(plate)%>%nrow} plates"),
        x = glue("RT-qPCR (CT value)"),
        y = "RT-LAMP (ΔOD)")
-
+fig4a
 
 ## Figure 4b
 ct_breaks <- c(0, 25, 30, 35, 40, Inf)
@@ -47,8 +49,8 @@ ct_breaks <- c(0, 25, 30, 35, 40, Inf)
 # classify samples into false positives, TP, FN, TN...
 lamp_cls <- tbl %>%
   mutate(delta_abs = absBlue - absYellow,
-         lamp_result = case_when(delta_abs > lamp_thresh[2] ~ "positive", 
-                                 delta_abs < lamp_thresh[1] ~ "negative",
+         lamp_result = case_when(delta_abs > lamp_thresh ~ "positive", 
+                                 delta_abs <= lamp_thresh ~ "negative",
                                  TRUE                       ~ "inconclusive" ),
          qpcr_result = if_else(CT == Inf, "negative", "positive")) %>%
   mutate(result = case_when(lamp_result == "negative" & qpcr_result == "negative" ~ "TN",
@@ -61,7 +63,8 @@ ss_binned <- lamp_cls %>%
   group_by(result, ct_bin) %>%
   tally() %>% ungroup() %>%
   pivot_wider(names_from = result, values_from = n, values_fill = list(n=0)) %>%
-  mutate(sensitivity = TP / (TP + FN),
+  mutate(n = FN + FP + TN + TP,
+         sensitivity = TP / (TP + FN),
          sensitivity_ci_upper = binom.confint(TP, (TP + FN), method="wilson")$upper,
          sensitivity_ci_lower = binom.confint(TP, (TP + FN), method="wilson")$lower,
          specificity = TN / (TN + FP),
@@ -70,10 +73,14 @@ ss_binned <- lamp_cls %>%
   mutate(ct_bin = if_else(str_detect(ct_bin, "Inf"), "negative",
                           paste(str_extract(ct_bin, "(?<=,)\\d+"), str_extract(ct_bin, "\\d+"), sep="-")))
 
+## number of LAMP `incl` samples, which will not be accounted for in sensitivity/specificity calculations
+sum(ss_binned$`NA`)
+
 fig4b_pos <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
+  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
   labs(x="RT-qPCR (CT value)") +
   plot_layout(tag_level = "new")  # prevent making this panel c
 
@@ -81,12 +88,13 @@ fig4b_neg <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
+  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
   scale_x_discrete(labels = c("negative")) +
   labs(x="")
 
 fig4b <- (fig4b_neg + fig4b_pos + plot_layout(widths = c(2, 9))) &
-  coord_cartesian(ylim = c(0, 1)) &
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(0,1), breaks=0:5/5) &
+  coord_cartesian(ylim = c(-.08, 1)) &
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(-.08,1), breaks=0:5/5) &
   theme(panel.grid.major.y = element_line(colour = "lightgrey"), panel.grid.minor.y = element_line(colour = "lightgrey"))
 
 fig4a + fig4b +
@@ -97,8 +105,6 @@ fig4a + fig4b +
 ggsave("SVGs/Figure_4.svg", width=20, height=10, units="cm")
 ggsave("Figure_4.png", width=20, height=10, units="cm", dpi=300)
 
-
-
 ## Confusion matrix
 ## Alernative code, for manual comparison
 
@@ -108,11 +114,10 @@ mutate_at( "CTbin", recode, 	"neg" = "(40,Inf]" ) %>%
 mutate( LAMPres = 
    cut( absBlue-absYellow, c( -Inf, lamp_thresh, Inf ) ) %>%
    as.integer %>%
-   { c( "neg", "incl", "pos" )[.] } ) %>%
+   { c( "neg", "pos" )[.] } ) %>%
 group_by( CTbin, LAMPres ) %>%
 count() %>%
 pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) )  ->
   confusion_matrix
 
 bind_cols( confusion_matrix, ss_binned ) %>% write_tsv( "LAMP_confMatrix.tsv" )
-
