@@ -13,7 +13,7 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
                     "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
-lamp_thresholds <- c(-.05, .3)
+lamp_thresholds <- c(.3)
 qpcr_thresholds <- c(30, 42)
 ngs_threshold <- 3000
 
@@ -29,7 +29,7 @@ tbl <- ngs %>%
   left_join( tblCT )%>%
   filter( !is.na(CT) )
 
-set.seed(2020)
+set.seed(42)
 tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate( NGS = case_when(
@@ -49,8 +49,9 @@ ggplot() +
   scale_fill_manual(name  = "LAMP-sequencing", values = c("positive" = "black", "negative" = "white")) +
   facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
   #facet_grid(cols = vars(facets)) +
-  annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
-  annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
+  annotate("text", x = 50, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
+  #annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
+  #annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
   coord_cartesian(xlim = c(11.75, 49.5)) +
   theme(plot.subtitle = element_text(hjust = .5))
@@ -69,12 +70,12 @@ confusion_matrix <- tbl %>%
   mutate( LAMPres = 
             cut( absBlue-absYellow, c( -Inf, lamp_thresholds, Inf ) ) %>%
             as.integer %>%
-            { c( "neg", "incl", "pos" )[.] } ) %>%
+            { c( "neg", "pos" )[.] } ) %>%
   mutate( NGSres = case_when(
     matchedTRUE > ngs_threshold ~ "pos",
     matchedTRUE <= ngs_threshold ~ "neg",
     TRUE                ~ "undet")) %>%
-  mutate_at( "LAMPres", fct_relevel, "pos", "incl", "neg" ) %>%
+  mutate_at( "LAMPres", fct_relevel, "pos", "neg" ) %>%
   mutate_at( "NGSres", fct_relevel, "pos", "neg" ) %>%
   count( LAMPres, NGSres, CTbin ) %>%
   pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) ) %>%

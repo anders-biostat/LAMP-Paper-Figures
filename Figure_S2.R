@@ -15,7 +15,7 @@ read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
                     "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
 
-lamp_thresholds <- c(-.05, .3)
+lamp_thresholds <- c(.3)
 qpcr_thresholds <- c(30, 42)
 ngs_threshold <- 3000
 
@@ -43,8 +43,9 @@ panel_a <-  tbl %>%
        x = expression(paste("Multiplexed sequencing (", log[10](count), ")")),
        y = expression(paste("RT-LAMP (", Delta, OD, ")"))) +
   scale_fill_ct( name="RT-qPCR\nCT value") +
-  annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
-  annotate("text", x = 0.1, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
+  #annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
+  annotate("text", x = 0.1, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
+  #annotate("text", x = 0.1, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 0.1, y = .425, label = str_glue("positive"), angle = 90, col="grey50")
 panel_a
 
@@ -62,8 +63,9 @@ panel_b <-  tbl %>%
        x = expression(paste("Multiplexed sequencing (", log[10](count), ")")),
        y = expression(paste("RT-LAMP (", Delta, OD, ")"))) +
   scale_fill_d3(palette="category20", guide = guide_legend(label = FALSE)) +
-  annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
-  annotate("text", x = 0.1, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
+  #annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
+  annotate("text", x = 0.1, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
+  #annotate("text", x = 0.1, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 0.1, y = .425, label = str_glue("positive"), angle = 90, col="grey50")
 panel_b
 
