@@ -54,7 +54,7 @@ ggplot() +
   #annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
   coord_cartesian(xlim = c(11.75, 49.5)) +
-  theme(plot.subtitle = element_text(hjust = .5))
+  theme(plot.subtitle = element_text(hjust = .5), legend.position = "bottom")
 
 # Export figures
 ggsave("SVGs/Figure_5b.svg", width=20, height=10, units="cm")
