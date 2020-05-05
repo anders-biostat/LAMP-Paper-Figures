@@ -93,7 +93,7 @@ p_pos_zl <- ss_binned %>%
   mutate(celsius = fct_rev(if_else(!heat95, "direct testing", "95°C treatment"))) %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, color = celsius, group = celsius)) +
   geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
-  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
+  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3, show.legend = FALSE) +
   labs(x = "RT-qPCR CT value", color = "") +
   theme(legend.position = c(0.17, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank()) +
   #guides(color = guide_legend(label.position = "left", label.hjust = 1)) +
