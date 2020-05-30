@@ -8,7 +8,7 @@ library(ggsci)
 
 source( "misc.R" )
 
-read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccldccccdd" ) -> tecan
 read_tsv( "data/ngs_counts.tsv" ) -> ngs
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
@@ -28,7 +28,8 @@ tbl <- ngs %>%
   filter( minutes == 30, gene=="N" ) %>% 
   filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
   left_join( tblCT )%>%
-  filter( !is.na(CT) )
+  filter( !is.na(CT) ) %>%
+  filter( is.na(wellRemark) )
 
 ## Figure S2a
 panel_a <-  tbl %>%

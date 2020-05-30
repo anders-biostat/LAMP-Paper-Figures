@@ -3,10 +3,11 @@ library(patchwork)
 library(glue)
 library(ggsci)
 library(binom)
+library(ggbeeswarm)
 
 source("misc.R")
 
-read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccldccccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
@@ -20,20 +21,25 @@ tecan %>%
   filter( minutes==30, gene=="N" ) %>% 
   filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
   left_join( tblCT ) %>% 
-  filter( !is.na(CT) ) -> tbl
+  left_join( tblRNAextract ) %>%
+  filter( !is.na(CT) ) %>%
+  filter( is.na(wellRemark) ) -> tbl
 
 set.seed(2020)
 fig4a <- tbl %>%
   mutate(CT = ifelse(CT > 40, runif(n(), 43, 47), CT)) %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
+  mutate(extraction = recode(extraction, "Qiasymphonie" = "QS", "Qiacube" = "QC")) %>%
   sample_frac() %>%  # shuffle points to randomize overplotting at least
   ggplot() +
   geom_hline(yintercept = lamp_thresh, color = "lightgray" ) +
   #geom_hline(yintercept = lamp_thresh[[1]], color = "lightgray", linetype = "dashed" ) +
   geom_vline(xintercept = c(30, 41.5), color = "lightgray" ) +
-  geom_point( aes( x = CT, y = absBlue - absYellow, fill = plate), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
+  geom_point( aes( x = CT, y = absBlue - absYellow, fill = plate, shape = extraction), colour = "black", alpha = .6, size = 1.2 ) + 
   scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
-  scale_fill_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow)) +
+  scale_shape_manual(values = c("QS" = 21, "QC" = 24)) +
+  scale_fill_d3(palette="category20") +
+  guides(fill = guide_legend(override.aes = list(shape = 21), label = FALSE, ncol = 2, title.hjust = 0.5)) +
   #annotate("text", color = "gray50", x = 49, y = -.26, label = glue("negative"), angle = 90) +
   annotate("text", color = "gray50", x = 49, y = 0, label = glue("negative"), angle = 90) +
   #annotate("text", color = "gray50", x = 49, y = .125, label = glue("inconclusive"), angle = 90) +
@@ -43,8 +49,16 @@ fig4a <- tbl %>%
        y = "RT-LAMP (ΔOD)")
 fig4a
 
+tbl %>%
+  ggplot() +
+  geom_quasirandom(aes(x = plate, y = absBlue - absYellow, fill = plate, shape = extraction), varwidth = TRUE,
+                   colour = "black", alpha = .6, size = 1.2) +
+  scale_fill_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow), guide = FALSE) +
+  scale_shape_manual(values = c("Qiasymphonie" = 21, "Qiacube" = 24)) #+
+  #theme(axis.text.x = element_blank())
+
 ## Figure 4b
-ct_breaks <- c(0, 25, 30, 35, 40, Inf)
+ct_breaks <- c(0, 30, 35, 40, Inf)
 
 # classify samples into false positives, TP, FN, TN...
 lamp_cls <- tbl %>%
@@ -121,3 +135,4 @@ pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) )  ->
   confusion_matrix
 
 bind_cols( confusion_matrix, ss_binned ) %>% write_tsv( "LAMP_confMatrix.tsv" )
+

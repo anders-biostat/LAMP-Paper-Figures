@@ -3,6 +3,7 @@ library(tidyr)
 library(forcats)
 library(readr)
 library(ggplot2)
+library(stringr)
 
 source( "misc.R" )
 
@@ -20,16 +21,17 @@ ngs_threshold <- 3000
 ## Figure 5B
 tbl <- ngs %>%
   filter( !is.na(matchedTRUE)) %>%
-  left_join( tecan ) %>% 
+  full_join( tecan ) %>% 
   mutate(minutes = ifelse(plate == "CP00012" & minutes == 45, 40, minutes)) %>%
   filter( plate %in% plates_to_use ) %>%
   filter( !(plate == "CP00003" & plateRemark != "2")) %>%
   filter( minutes %in% c(30, 40), gene=="N" ) %>% 
   filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
   left_join( tblCT )%>%
-  filter( !is.na(CT) )
+  filter( !is.na(CT) ) %>%
+  filter( is.na(wellRemark) )
 
-set.seed(42)
+set.seed(2020)
 tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate( NGS = case_when(
@@ -46,7 +48,7 @@ ggplot() +
   labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
       x = "RT-qPCR (CT value)",
        y = "RT-LAMP (ΔOD)") +
-  scale_fill_manual(name  = "LAMP-sequencing", values = c("positive" = "black", "negative" = "white")) +
+  scale_fill_manual(name  = "LAMP-sequencing", values = c("positive" = "#377eb8", "negative" = "#e41a1c", "undetected" = "black")) +
   facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
   #facet_grid(cols = vars(facets)) +
   annotate("text", x = 50, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
@@ -83,3 +85,4 @@ confusion_matrix <- tbl %>%
 confusion_matrix
 
 confusion_matrix %>% write_tsv( "NGS_confMatrix.tsv" )
+
