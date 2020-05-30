@@ -12,13 +12,13 @@ left_join( sheet_list ) %>%
 mutate_at( "remark", replace_na, "(none)" ) %>% 
 mutate_at( "exclude", replace_na, "no" ) %>% 
 mutate( heat95 = heat==95 ) %>%
-select( plate, gene, heat95, minutes, plateRemark=remark, exclude, well, 
+select( plate, gene, heat95, minutes, extraction, plateRemark=remark, exclude, well, 
   absBlue=blue_absorbance, absYellow = yellow_absorbance ) -> tecan
 
 tecan %>%
-group_by( plate, minutes, heat95, plateRemark, exclude, well ) %>%
+group_by( plate, minutes, heat95, extraction, plateRemark, exclude, well ) %>%
 count() %>%
-group_by( plate, minutes, heat95, plateRemark, exclude ) %>%
+group_by( plate, minutes, heat95, extraction, plateRemark, exclude ) %>%
 summarise( n=max(n) ) %>%
 assertr::verify( n==1 ) 
 
