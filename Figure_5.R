@@ -7,7 +7,7 @@ library(stringr)
 
 source( "misc.R" )
 
-read_tsv( "data/tecan_values.tsv", col_types = "ccldcccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccldccccdd" ) -> tecan
 read_tsv( "data/ngs_counts.tsv" ) -> ngs
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 

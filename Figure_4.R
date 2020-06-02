@@ -54,8 +54,8 @@ tbl %>%
   geom_quasirandom(aes(x = plate, y = absBlue - absYellow, fill = plate, shape = extraction), varwidth = TRUE,
                    colour = "black", alpha = .6, size = 1.2) +
   scale_fill_d3(palette="category20", labels=rep("", tbl%>%distinct(plate)%>%nrow), guide = FALSE) +
-  scale_shape_manual(values = c("Qiasymphonie" = 21, "Qiacube" = 24)) #+
-  #theme(axis.text.x = element_blank())
+  scale_shape_manual(values = c("Qiasymphonie" = 21, "Qiacube" = 24)) +
+  theme(axis.text.x = element_blank())
 
 ## Figure 4b
 ct_breaks <- c(0, 30, 35, 40, Inf)
