@@ -36,7 +36,7 @@ panel_a <-  tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
-  geom_vline(xintercept = ngs_threshold, color = "darkgray" ) +
+  geom_vline(xintercept = ngs_threshold, color = "lightgray" ) +
   geom_point( aes( x = matchedTRUE, y = absBlue - absYellow, fill = CT ),
               colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_continuous(trans = "log10", labels = label_math(10^.x, format = log10) ) +
@@ -56,7 +56,7 @@ panel_b <-  tbl %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
   ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
-  geom_vline(xintercept = ngs_threshold, color = "darkgray" ) +
+  geom_vline(xintercept = ngs_threshold, color = "lightgray" ) +
   geom_point( aes( x = matchedTRUE, y = absBlue - absYellow, fill = plate ),
               colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_continuous(trans = "log10", labels = label_math(10^.x, format = log10) ) +
@@ -73,6 +73,15 @@ panel_b
 panel_a + panel_b +
   plot_annotation(tag_levels = "a") & 
   theme(plot.tag = element_text(face = "bold"))
+
+tbl %>%
+  ggplot() +
+  geom_hline(yintercept = ngs_threshold, color = "lightgray" ) +
+  geom_point( aes( x = matchedFALSE + 1e4, y = matchedTRUE + 1e4, fill = matchedTRUE > 3000 ),
+              colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
+ # scale_fill_ct( name="RT-qPCR\nCT value") +
+  scale_x_continuous(trans = "log10", labels = label_math(10^.x, format = log10) ) +
+  scale_y_continuous(trans = "log10", labels = label_math(10^.x, format = log10) )
 
 # Export figures
 ggsave("SVGs/Figure_S2.svg", width=22, height=10, units="cm")
