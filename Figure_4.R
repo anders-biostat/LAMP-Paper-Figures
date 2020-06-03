@@ -94,7 +94,7 @@ fig4b_pos <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
-  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
+  #geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
   labs(x="RT-qPCR (CT value)") +
   plot_layout(tag_level = "new")  # prevent making this panel c
 
@@ -102,7 +102,7 @@ fig4b_neg <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, group = 1)) +
   geom_crossbar(fill="white", width=.7) +
-  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
+  #geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
   scale_x_discrete(labels = c("negative")) +
   labs(x="")
 
