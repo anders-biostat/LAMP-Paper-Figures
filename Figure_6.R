@@ -6,7 +6,7 @@ library( binom )
 source( "misc.R" )
 
 # Load data
-read_tsv( "data/tecan_values.tsv", col_types = "cclicccdd" ) -> tecan
+read_tsv( "data/tecan_values.tsv", col_types = "ccliccccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
 plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025",# "CP00030", 
@@ -26,7 +26,7 @@ tbl %>%
   group_by( plate, heat95, well ) %>%
   count() %>% group_by(n) %>% filter(n>1) 
 
-# Figure 8a
+# Figure 6a
 n_65 <- tbl %>% filter( ! heat95) %>% nrow()
 n_65_dstnct <- tbl %>% filter( ! heat95) %>% distinct(barcode) %>% nrow()
 n_plates_65 <- tbl %>% filter( ! heat95) %>% distinct(plate) %>% nrow()
@@ -35,7 +35,7 @@ n_95_dstnct <- tbl %>% filter(heat95) %>% distinct(barcode) %>% nrow()
 n_plates_95 <- tbl %>% filter(heat95) %>% distinct(plate) %>% nrow()
 
 set.seed(2020)
-fig8a <- tbl %>%
+panel_a <- tbl %>%
   mutate( celsius = if_else(heat95,
                             glue("5 min 95°C prior to testing, 30 min at 65°C\n",
                               "{n_95} aliquots from {n_95_dstnct} samples on {n_plates_95} plates"),
@@ -57,7 +57,7 @@ fig8a <- tbl %>%
   annotate("text", color = "gray50", x = 50, y = 0, label = "negative", angle = 90) +
   annotate("text", color = "gray50", x = 50, y = .47, label = "positive", angle = 90)
 
-# Fig 8b
+# Fig 6b
 # Sensitivity + Specificity of Zero Lysis plates
 # Treating replicates as independent samples
 
@@ -90,37 +90,37 @@ ss_binned <- lamp_cls %>%
 
 p_pos_zl <- ss_binned %>%
   filter(!is.na(sensitivity)) %>%
-  mutate(celsius = fct_rev(if_else(!heat95, "direct testing", "95°C treatment"))) %>%
+  mutate(celsius = if_else(!heat95, "direct swab-to-RT-LAMP", "hot swab-to-RT-LAMP")) %>%
   ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, color = celsius, group = celsius)) +
   geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
-  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3, show.legend = FALSE) +
+  #geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3, show.legend = FALSE) +
   labs(x = "RT-qPCR CT value", color = "") +
-  theme(legend.position = c(0.17, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank()) +
+  theme(legend.position = c(0.2, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank()) +
   #guides(color = guide_legend(label.position = "left", label.hjust = 1)) +
   plot_layout(tag_level = "new")
 
 p_neg_zl <- ss_binned %>%
   filter(is.na(sensitivity)) %>%
-  mutate(celsius = fct_rev(if_else(!heat95, "direct testing", "95°C treatment"))) %>%
+  mutate(celsius = if_else(!heat95, "direct swab-to-RT-LAMP", "hot swab-to-RT-LAMP")) %>%
   ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, color = celsius, group = celsius)) +
   geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
-  geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
+  #geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
   labs(x="") +
   theme(legend.position = "none")
 
-fig8b <- (p_neg_zl + p_pos_zl + plot_layout(widths = c(1, 4))) &
+panel_b <- (p_neg_zl + p_pos_zl + plot_layout(widths = c(1, 4))) &
   theme(panel.grid.major.y = element_line(colour = "lightgrey")) &
   coord_cartesian(ylim = c(-.1, 1)) &
   scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(-.1,1), breaks=0:5/5) &
   scale_color_brewer(palette = "Set1", direction = -1L)
-fig8b
+panel_b
 
-fig8a / fig8b +
+panel_a / panel_b +
   plot_layout(heights = c(3, 2)) +
   plot_annotation(tag_levels = "a")
 
-ggsave("Figure_8.png", width=20, height=14.5, units="cm", dpi=400)
-ggsave("SVGs/Figure_8.svg", width=20, height=14.5, units="cm")
+ggsave("Figure_6.png", width=20, height=14.5, units="cm", dpi=400)
+ggsave("SVGs/Figure_6.svg", width=20, height=14.5, units="cm")
 
 
 lamp_cls %>% 
