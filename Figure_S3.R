@@ -46,7 +46,7 @@ panel_a <-  panels_data %>%
               colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_continuous(trans = "log10", labels = label_math(10^.x, format = log10) ) +
   labs(subtitle = str_interp( "${unique(tbl$minutes)} min at 65°C\n${length(tbl$minutes)} samples on ${length(unique(tbl$plate))} plates"), 
-       x = expression(paste("Multiplexed sequencing (", log[10](CPM), ")")),
+       x = expression(paste("LAMP-sequencing (", log[10](CPM), ")")),
        y = expression(paste("RT-LAMP (", Delta, OD, ")"))) +
   scale_fill_ct( name="RT-qPCR\nCT value") +
   #annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
@@ -64,7 +64,7 @@ panel_b <-  panels_data %>%
               colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_continuous(trans = "log10", labels = label_math(10^.x, format = log10) ) +
   labs(subtitle = str_interp( "${unique(tbl$minutes)} min at 65°C\n${length(tbl$minutes)} samples on ${length(unique(tbl$plate))} plates"), 
-       x = expression(paste("Multiplexed sequencing (", log[10](CPM), ")")),
+       x = expression(paste("LAMP-sequencing (", log[10](CPM), ")")),
        y = expression(paste("RT-LAMP (", Delta, OD, ")"))) +
   scale_fill_d3(palette="category20", guide = guide_legend(label = FALSE)) +
   #annotate("text", x = 0.1, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
