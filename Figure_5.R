@@ -32,6 +32,7 @@ tbl <- ngs %>%
   filter( is.na(wellRemark) )
 
 set.seed(2020)
+lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "undetected" = "black")
 tbl %>%
   mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate( NGS = case_when(
@@ -41,14 +42,14 @@ tbl %>%
   mutate_at( "NGS", fct_relevel, "positive", "negative" ) %>%
 ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
-  geom_vline(xintercept = qpcr_thresholds, color = "darkgrey" ) +
+  geom_vline(xintercept = qpcr_thresholds, color = "lightgrey" ) +
   geom_point( aes( x = CT, y = absBlue - absYellow, fill = NGS ), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   #scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ) ) +
   scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
   labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
       x = "RT-qPCR (CT value)",
        y = "RT-LAMP (ΔOD)") +
-  scale_fill_manual(name  = "LAMP-sequencing", values = c("positive" = "#377eb8", "negative" = "#e41a1c", "undetected" = "black")) +
+  scale_fill_manual(name  = "LAMP-sequencing", values = lamp_colors) +
   facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
   #facet_grid(cols = vars(facets)) +
   annotate("text", x = 50, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
