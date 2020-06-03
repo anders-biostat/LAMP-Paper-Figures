@@ -13,7 +13,7 @@ mutate_at( c( "vNCOVE", "vNCOVN" ),
 assertr::verify( ( !is.finite(CT) & !is.finite(vNCOVE) ) | abs( CT - vNCOVE ) < .2 ) ->
 qPCRpl1  
 
-read_tsv( "~/w/repos/LAMP-Paper-Figures/data/tecan_values.tsv" ) %>%
+read_tsv( "data/tecan_values.tsv" ) %>%
   filter( plate == "CP00001", gene == "N", minutes==30 ) %>%
 left_join( qPCRpl1 ) -> tbl
 
@@ -21,7 +21,7 @@ tbl %>%
 mutate_at( c( "vNCOVE", "vNCOVN" ), 
    ~ ifelse( .=="negativ", runif( n(), 43, 47 ), suppressWarnings(as.numeric(.)) ) ) %>%  
 ggplot() +
-  geom_vline( xintercept = 42, col="darkgray" ) +
+  geom_vline( xintercept = 42, col="lightgrey" ) +
   geom_point( aes( x = vNCOVE, y = absBlue - absYellow ), 
     fill = "black", colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse( breaks = c( 10, 20, 30, 40, 45 ), labels = c( 10, 20, 30, 40, "neg" ) ) +
@@ -32,7 +32,7 @@ tbl %>%
 mutate_at( c( "vNCOVE", "vNCOVN" ), 
    ~ ifelse( .=="negativ" | is.na(.), runif( n(), 43, 47 ), suppressWarnings(as.numeric(.)) ) ) %>%  
 ggplot() +
-  geom_vline( xintercept = 42, col="darkgray" ) +
+  geom_vline( xintercept = 42, col="lightgray" ) +
   geom_point( aes( x = vNCOVN, y = absBlue - absYellow ), 
     fill = "black", colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse( breaks = c( 10, 20, 30, 40, 45 ), labels = c( 10, 20, 30, 40, "neg" ) ) +
