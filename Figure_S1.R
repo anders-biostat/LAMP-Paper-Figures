@@ -29,12 +29,12 @@ ggplot() +
   ylab( "RT-LAMP (ΔOD)" ) + theme_bw() + theme(panel.grid = element_blank())
 panel_a
 
-## TODO @Simon: which one is it?
+## calculation of mean difference (assumption of a slope of 1)
 tbl_panel_b_diff <- tbl_panel_b %>% mutate(diff = vNCOVN - vNCOVE) %>% summarise(n = n(), mean = mean(diff), se = sd(diff) / sqrt(n))
 tbl_panel_b_diff
-tbl_panel_b_lm <- summary(lm(vNCOVN ~ vNCOVE, tbl_panel_b))
-tbl_panel_b_lm$coefficients[1, 1:2]
-tbl_panel_b_lm$coefficients[1, 2] / tbl_panel_b_diff$n
+# tbl_panel_b_lm <- summary(lm(vNCOVN ~ vNCOVE, tbl_panel_b))
+# tbl_panel_b_lm$coefficients[1, 1:2]
+# tbl_panel_b_lm$coefficients[1, 2] / tbl_panel_b_diff$n
 
 tbl_panel_b <- tbl %>%
   filter_at( c( "vNCOVE", "vNCOVN" ), all_vars(!(. > 40 | is.na(.))) )
@@ -44,8 +44,6 @@ panel_b <- tbl_panel_b %>%
               colour = "black", alpha = .8, shape = 21, size = 1.6 ) +
   coord_fixed() +
   geom_abline() +
-  geom_abline(slope = 0.8957, intercept = 8.1998, linetype = 2) +
-  geom_abline(slope = 1, intercept = 5.6, linetype = 3) +
   scale_fill_ct(  name="CT_E" ) +
   xlab("RT-qPCR (CT value for E gene)" ) +
   ylab("RT-qPCR (CT value for N gene)" ) 
