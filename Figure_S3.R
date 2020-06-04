@@ -87,5 +87,5 @@ panel_a + panel_b +
 #   scale_y_continuous(trans = "log10", labels = label_math(10^.x, format = log10) )
 
 # Export figures
-ggsave("SVGs/Figure_S3.svg", width=22, height=10, units="cm")
-ggsave("Figure_S3.png", width=22, height=10, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3.svg", width=20, height=9, units="cm")
+ggsave("Figure_S3.png", width=20, height=9, units="cm", dpi=300)
