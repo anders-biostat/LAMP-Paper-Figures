@@ -44,7 +44,7 @@ panel_b <- tbl_panel_b %>%
               colour = "black", alpha = .8, shape = 21, size = 1.6 ) +
   coord_fixed() +
   geom_abline() +
-  scale_fill_ct(  name="CT_E" ) +
+  scale_fill_ct(  name="CT value\nE gene" ) +
   xlab("RT-qPCR (CT value for E gene)" ) +
   ylab("RT-qPCR (CT value for N gene)" ) 
 panel_b
