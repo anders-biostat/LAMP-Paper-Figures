@@ -21,7 +21,6 @@ tecan %>%
   filter( minutes==30, gene=="N" ) %>% 
   filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
   left_join( tblCT ) %>% 
-  left_join( tblRNAextract ) %>%
   filter( !is.na(CT) ) %>%
   filter( is.na(wellRemark) ) -> tbl
 
