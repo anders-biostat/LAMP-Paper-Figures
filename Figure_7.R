@@ -1,6 +1,5 @@
 library( tidyverse )
 library( patchwork )
-library( ggtext )
 library( glue )
 source( "misc.R" )
 
@@ -44,6 +43,47 @@ tbl %>%
     ylim( ylimits ) +
     labs(x = "minutes at 65 °C",
          y = expression( "RT-LAMP (ΔOD"["30 min"]~")" ) ) -> plot9a
+
+## color-scale comparisons
+# (tbl %>%
+#   mutate( group = str_c( plate, well, heat95 ) ) %>%
+#   mutate( celsius = if_else(heat95,
+#                             glue("5 min 95°C prior to testing, 30 min at 65°C\n",
+#                                  "{n_95} aliquots from {n_95_dstnct} samples on {n_plates_95} plates"),
+#                             glue("direct testing, 30 min at 65°C\n",
+#                                  "{n_65} aliquots from {n_65_dstnct} samples on {n_plates_65} plates"))) %>%
+#   mutate(group = fct_reorder(group, desc(CT))) %>%
+#   ggplot() + 
+#   geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
+#   facet_grid( . ~ fct_rev(celsius), scales = "free_x", space = "free_x" ) +
+# scale_color_gradientn(
+#   name="RT-qPCR\nCT value",
+#         guide = guide_colourbar(reverse = TRUE),
+#         breaks = rev(c(10, 15, 20, 25, 30, 35, 40, 45)),
+#         labels = rev(c(10, 15, 20, 25, 30, 35, 40, "neg")),
+#         colors = c(viridis::magma(100, direction=1L)[1:75],         # range of CP values
+#                    rep("#FFFFFF", 5),                               # white spacer
+#                    viridis::magma(100, direction=1L)[rep(90, 10)])  # negative
+#       ) +
+#   ylim( ylimits ) +
+#   labs(x = "minutes at 65 °C",
+#        y = expression( "RT-LAMP (ΔOD"["30 min"]~")" ) )) /
+# tbl %>%
+#   mutate( group = str_c( plate, well, heat95 ) ) %>%
+#   mutate( celsius = if_else(heat95,
+#                             glue("5 min 95°C prior to testing, 30 min at 65°C\n",
+#                                  "{n_95} aliquots from {n_95_dstnct} samples on {n_plates_95} plates"),
+#                             glue("direct testing, 30 min at 65°C\n",
+#                                  "{n_65} aliquots from {n_65_dstnct} samples on {n_plates_65} plates"))) %>%
+#   mutate(group = fct_reorder(group, desc(CT))) %>%
+#   ggplot() + 
+#   geom_line( aes( x=minutes, y=absBlue-absYellow, group=group, col=CT ), alpha=.4 ) +
+#   facet_grid( . ~ fct_rev(celsius), scales = "free_x", space = "free_x" ) +
+#   scale_color_ct( name="RT-qPCR\nCT value") +
+#   ylim( ylimits ) +
+#   labs(x = "minutes at 65 °C",
+#        y = expression( "RT-LAMP (ΔOD"["30 min"]~")" ) )
+
 
 tbl %>%
   mutate( diff = absBlue - absYellow ) %>%
