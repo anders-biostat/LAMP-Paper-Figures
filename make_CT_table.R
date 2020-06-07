@@ -1,6 +1,7 @@
 # This script requires files stored on my laptop at ~/w/repos/covid_test/tidy/
 # The output of the script is the file data/plates_with_CTs.tsv
 
+library( tidyverse )
 setwd( "~/w/repos/covid_test/tidy/" )
 
 list.files( "qpcr_results", "xlsx$" ) %>%
