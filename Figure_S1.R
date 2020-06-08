@@ -26,18 +26,14 @@ ggplot() +
     fill = "black", colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
   scale_x_reverse( breaks = c( 10, 20, 30, 40, 45 ), labels = c( 10, 20, 30, 40, "neg" ) ) +
   xlab( "RT-qPCT (CT value for gene 'N')" ) + 
-  ylab( "RT-LAMP (ΔOD)" ) + theme_bw() + theme(panel.grid = element_blank())
+  ylab( "RT-LAMP (ΔOD)" )
 panel_a
 
 ## calculation of mean difference (assumption of a slope of 1)
-tbl_panel_b_diff <- tbl_panel_b %>% mutate(diff = vNCOVN - vNCOVE) %>% summarise(n = n(), mean = mean(diff), se = sd(diff) / sqrt(n))
-tbl_panel_b_diff
-# tbl_panel_b_lm <- summary(lm(vNCOVN ~ vNCOVE, tbl_panel_b))
-# tbl_panel_b_lm$coefficients[1, 1:2]
-# tbl_panel_b_lm$coefficients[1, 2] / tbl_panel_b_diff$n
-
 tbl_panel_b <- tbl %>%
   filter_at( c( "vNCOVE", "vNCOVN" ), all_vars(!(. > 40 | is.na(.))) )
+tbl_panel_b_diff <- tbl_panel_b %>% mutate(diff = vNCOVN - vNCOVE) %>% summarise(n = n(), mean = mean(diff), se = sd(diff) / sqrt(n))
+tbl_panel_b_diff
 panel_b <- tbl_panel_b %>%
   ggplot() + 
   geom_point( aes(x=vNCOVE, y=vNCOVN, fill=vNCOVE), 
@@ -50,8 +46,7 @@ panel_b <- tbl_panel_b %>%
 panel_b
 
 panel_a + panel_b +
-  plot_annotation(tag_levels = "a") & 
-  theme(plot.tag = element_text(face = "bold"))
+  plot_annotation(tag_levels = "a") 
 
 # Export figures
 ggsave("SVGs/Figure_S1.svg", width=20, height=10, units="cm")
