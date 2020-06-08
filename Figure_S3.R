@@ -54,15 +54,16 @@ depth <-
 cumratio_limit <- max(depth$reads)
 
 panel_a <- ggplot(depth) +
-  geom_area(aes(pos/1e3, cumratio * max(reads) / 1e6 ), fill = "#b3cde3", colour = "#b3cde3", alpha = .3) +
-  geom_hline(yintercept = cumratio_limit / 1e6, color = "lightgrey" ) +
+  geom_area(aes(pos/1e3, cumratio * .8 * max(reads) / 1e6 ), fill = "#b3cde3", colour = "#b3cde3", alpha = .3) +
+  geom_hline(yintercept = cumratio_limit * .8/ 1e6, color = "lightgrey", linetype = 2 ) +
   geom_rect(aes(xmin = start/1e3, xmax = stop/1e3, ymin = -.45, ymax = -.05), data = lamp_product, fill = "#fed9a6") +
   geom_area(aes(pos/1e3, reads/1e6), fill = "darkgray", colour = "black", alpha = .3) +
   facet_zoom(x = between(pos, 2.75e4, 3e4), zoom.size = 3) +
-  labs(x = "genomic position (kbp)",
+  labs(#title = str_interp("virus-mapped reads (${(matched_total_frac)*100}% of 10 M reads)"),
+       x = "genomic position (kbp)",
        y = expression(paste("mapped reads / ", 10^6, ""))) +
   scale_y_continuous(limits = c(-.5, cumratio_limit/1e6+.2), breaks = c(0, 3, 6), expand = c(0,0),
-                     sec.axis = sec_axis(~ . / (max(.) - .2) * 100, breaks = c(0, 50, 100), name = "cumulative mapped\nreads (%)")) +
+                     sec.axis = sec_axis(~ . / (.8 * max(.) - .2) * 100, breaks = c(0, 50, 100), name = "cumulative mapped\nreads (%)")) +
   theme_light() + theme( text = element_text(family = 'Arial'),
                          panel.grid.minor = element_blank(), panel.grid.major = element_blank(),
                         panel.grid = element_line(colour = "grey92"), 
@@ -80,8 +81,8 @@ panel_b <- tbl %>%
   geom_point( aes( x = matchedTRUE/1e4, y = matchedFALSE/1e4, fill = NGS ),
               colour = "black", alpha = .6, shape = 21, size = 1.2 ) +
   scale_fill_manual(name  = "LAMP-sequencing", values = lamp_colors) +
-  labs(x = expression(paste("virus-matching seq. (CPM / ", 10^4, ")")),
-       y = expression(paste("unmatching seq. (CPM / ", 10^4, ")"))) +
+  labs(x = expression(atop("virus-matching seq.", paste("(CPM / ", 10^4, ")"))),
+       y = expression(atop("unmatched seq.", paste("(CPM / ", 10^4, ")")))) +
   theme(legend.position = c(0.7, 0.7), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank())
 panel_b
 
@@ -126,9 +127,9 @@ AABB
 AABB
 CCDD
 CCDD
-CCDD
 '
-wrap_elements(full = panel_a) + panel_b + panel_c + panel_d +
+wrap_elements(full = panel_a + theme(plot.margin = margin(t = 15, r = 5.5, b = 5.5, l = 15, "pt"))) +
+  panel_b + panel_c + panel_d +
   plot_layout(design = fig_layout) +
   plot_annotation(tag_levels = "a")
 
