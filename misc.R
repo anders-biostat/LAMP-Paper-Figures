@@ -35,3 +35,12 @@ scale_fill_ct <- function(...) {
                rep("grey55", 15))                               # negative 
   )
 }
+
+# considered log-scale
+logap_trans <- function( a=0 ) {
+  scales::trans_new("logap",
+                    function(x) log10( x + 10^a), 
+                    function(x) 10^x - 10^a,
+                    format = label_math(10^.x, format = log10))
+}
+
