@@ -40,7 +40,8 @@ scale_fill_ct <- function(...) {
 logap_trans <- function( a=0 ) {
   scales::trans_new("logap",
                     function(x) log10( x + 10^a), 
-                    function(x) 10^x - 10^a,
-                    format = label_math(10^.x, format = log10))
+                    function(x) 10^x - 10^a)
+                    #format = scales::label_math(10^.x, format = log10)
+                    # ^^ This here does not work, removes zeros
 }
 
