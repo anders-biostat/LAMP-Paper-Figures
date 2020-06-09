@@ -12,7 +12,7 @@ plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008",
 
 lamp_thresholds <- c(.3)
 qpcr_thresholds <- c(30, 42)
-ngs_threshold <- c(100, 1e4)
+ngs_thresholds <- c(200, 1e4)
 
 tbl <- ngs %>%
   full_join( tecan ) %>%
@@ -29,9 +29,9 @@ tbl <- ngs %>%
 set.seed(42)
 panels_data <-  tbl %>%
   mutate( NGS = case_when(
-    matchedTRUE > ngs_threshold[[2]] ~ "positive",
-    between(matchedTRUE, ngs_threshold[[1]], ngs_threshold[[2]]) ~ "negative",
-    matchedTRUE <= ngs_threshold[[1]]           ~ "too_low")) %>%
+    matchedTRUE > ngs_thresholds[[2]] ~ "positive",
+    between(matchedTRUE, ngs_thresholds[[1]], ngs_thresholds[[2]]) ~ "negative",
+    matchedTRUE <= ngs_thresholds[[1]]           ~ "too_low")) %>%
   mutate(CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate(plate = str_extract(plate, "\\d{2}$")) %>%
   mutate(well = fct_reorder(well, -CT))
@@ -41,8 +41,8 @@ mylabels <- c( 0, 1, 10, expression(10^2), expression(10^3), expression(10^4), e
 panel_b <- panels_data %>%
   mutate(NGSshape = if_else(NGS != "undetected", "detected", NGS)) %>%
   ggplot(aes(x = matchedTRUE + matchedFALSE, y = matchedTRUE)) +
-  geom_vline(xintercept = ngs_threshold[[1]], color = "lightgray" ) +
-  geom_hline(yintercept = ngs_threshold[[2]], color = "lightgray" ) +
+  geom_vline(xintercept = ngs_thresholds[[1]], color = "lightgray" ) +
+  geom_hline(yintercept = ngs_thresholds[[2]], color = "lightgray" ) +
   geom_point(aes( col = CT ), alpha = .6, size = 1.2 ) +
   scale_x_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
   scale_y_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
