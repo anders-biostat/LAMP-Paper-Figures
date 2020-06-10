@@ -13,7 +13,7 @@
    version="1.1"
    id="svg852"
    sodipodi:docname="Figure_S3N1.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="0.92.4 (unknown)"
    inkscape:export-filename="/home/konrad/Desktop/LAMP/LAMP-Paper-Figures/SVGs/Figure_S3N1.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -38,15 +38,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="3200"
-     inkscape:window-height="1729"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
      id="namedview854"
      showgrid="false"
-     inkscape:zoom="1.6055662"
-     inkscape:cx="263.57912"
-     inkscape:cy="586.8864"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:zoom="1.1353067"
+     inkscape:cx="280.3965"
+     inkscape:cy="322.89489"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg852" />
   <defs
@@ -1945,14 +1945,13 @@
        lengthAdjust="spacingAndGlyphs"
        id="text694">no match</text>
   </g>
-  <rect
-     x="25.92"
-     y="443.32"
-     width="530.05"
-     height="103.86"
-     style="stroke-width: 1.07; stroke: #333333;"
+  <path
+     style="fill:none;stroke:#333333;stroke-width:1.07000005;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect698" />
+     d="m 25.92,443.32001 h 530.04999 v 103.86 H 25.92 v -103.86"
+     id="rect698"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
   <defs
      id="defs704">
     <clipPath
@@ -2505,4 +2504,25 @@
        d="m 121.36356,93.141887 h 27.6963"
        style="fill:none;stroke:#000000;stroke-width:0.35277778;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2771-6-3-3)" />
   </g>
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.47727272"
+     id="rect1434"
+     width="20.479046"
+     height="127.49858"
+     x="15.854746"
+     y="436.66611" />
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.47727272"
+     id="rect1436"
+     width="1.0538923"
+     height="114.89915"
+     x="554.91608"
+     y="443.32004" />
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.62921494;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:0.47727272"
+     id="rect1438"
+     width="12.23853"
+     height="123.58802"
+     x="551.92621"
+     y="441.89789" />
 </svg>
