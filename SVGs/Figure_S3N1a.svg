@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="159.43112mm"
+   width="162.01169mm"
    height="29.070698mm"
-   viewBox="0 0 159.43112 29.070698"
+   viewBox="0 0 162.01169 29.070698"
    version="1.1"
    id="svg1878"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -206,9 +206,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="-33.184301"
-     inkscape:cy="241.15325"
+     inkscape:zoom="3.959798"
+     inkscape:cx="489.65578"
+     inkscape:cy="105.97228"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -341,7 +341,7 @@
          x="164.83215"
          y="117.42226"
          style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan3914-9">primer content</tspan></text>
+         id="tspan3914-9">primer sequences</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.35277778;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker2771-7)"
        d="m 94.018188,98.092617 v 8.117133"

@@ -44,16 +44,16 @@ panel_b <- panels_data %>%
   ggplot(aes(x = matchedTRUE + matchedFALSE, y = matchedTRUE)) +
   geom_vline(xintercept = ngs_thresholds[[1]], color = "lightgray" ) +
   geom_hline(yintercept = ngs_thresholds[[2]], color = "lightgray" ) +
-  geom_point(aes( fill = CT ), colour = "black", alpha = .6, size = 1.2, shape = 21 ) +
+  geom_point(aes( fill = CT ), colour = "black", alpha = .6, size = 2.2, shape = 21 ) +
   geom_text_repel(aes(label = well), data = filter(panels_data, plate == "CP00012", str_detect(well, "^A")), size = 2.5, nudge_x = -.1, nudge_y = .6) +
   scale_x_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
   scale_y_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
   scale_fill_ct( name="RT-qPCR\nCT value") +
   labs(x = "total UMI count",
        y = "virus-matching UMI count") +
-  annotate("text", color = "gray40", x = 3e6, y = 1e5, label = "positive", angle = 90) +
-  annotate("text", color = "gray40", x = 3e6, y = 1e3, label = "negative", angle = 90) +
-  annotate("text", color = "gray70", x = 1e6, y = 5e3, label = "LAMP-sequencing result", angle = 90) +
+  annotate("text", x = 3e6, y = 5e2, label = "negative", angle = 90, colour = lamp_colors[["negative"]]) +
+  annotate("text", x = 3e6, y = 1e5, label = "positive", angle = 90, colour = lamp_colors[["positive"]]) +
+  annotate("text", color = "gray70", x = 1e6, y = 4e3, label = "LAMP-sequencing result", angle = 90) +
   annotate("text", color = "gray40", x = 20, y = 0, label = "too few", angle = 0) +
   annotate("text", color = "gray40", x = 3e3, y = 0, label = "sufficient", angle = 0) +
   annotate("text", color = "gray70", x = 2e2, y = 1, label = "UMI count", angle = 0) 
@@ -65,7 +65,7 @@ lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few" = "bl
 panel_d <- 
 panels_data %>%
   ggplot(aes(x = absBlue-absYellow, y = matchedTRUE)) +
-  geom_point(aes(fill=NGS), alpha = .6, size = 1.2, shape = 21 ) +
+  geom_point(aes(fill=NGS), alpha = .6, size = 2.2, shape = 21 ) +
   scale_y_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
   labs(y = "virus-matching UMI count",
        x = "ΔOD", col="LAMP-sequencing") +
@@ -77,7 +77,7 @@ panels_data %>%
   annotate("text", color = "gray70", x = .3, y = 1, label = "RT-LAMP result", angle = 0) +
   annotate("text", x = .62, y = 1e3, label = "negative", angle = 90, colour = lamp_colors[["negative"]]) +
   annotate("text", x = .62, y = 1e5, label = "positive", angle = 90, colour = lamp_colors[["positive"]]) +
-  annotate("text", x = .62, y = 1e1, label = "too few reads", angle = 90, colour = lamp_colors[["too few"]]) +
+  annotate("text", x = .62, y = 1e1, label = "too few UMIs", angle = 90, colour = lamp_colors[["too few"]]) +
   annotate("text", color = "gray70", x = .55, y = 1e3, label = "LAMP-sequencing result", angle = 90) +
   theme(legend.position = "none")
 #  theme(legend.position = c(0.3, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank())
@@ -104,6 +104,6 @@ wrap_elements(plot =  grid::rasterGrob(panel_a))  +
   plot_annotation(tag_levels = "a")
 
 # Export figures
-ggsave("SVGs/Figure_S3N2_tmp.svg", width=20, height=24, units="cm")
-ggsave("Figure_S3N2_tmp.png", width=20, height=24, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3N2tmp.svg", width=20, height=24, units="cm")
+ggsave("Figure_S3N2tmp.png", width=20, height=24, units="cm", dpi=300)
 
