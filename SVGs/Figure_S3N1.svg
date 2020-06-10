@@ -11,14 +11,14 @@
    height="623.62pt"
    viewBox="0 0 566.93 623.62"
    version="1.1"
-   id="svg814"
+   id="svg834"
    sodipodi:docname="Figure_S3.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    inkscape:export-filename="/home/konrad/Desktop/LAMP/LAMP-Paper-Figures/SVGs/Figure_S3.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   inkscape:export-xdpi="600"
+   inkscape:export-ydpi="600">
   <metadata
-     id="metadata818">
+     id="metadata838">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -38,17 +38,17 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="3200"
+     inkscape:window-width="1594"
      inkscape:window-height="1729"
-     id="namedview816"
+     id="namedview836"
      showgrid="false"
      inkscape:zoom="1.1353068"
-     inkscape:cx="-296.13116"
-     inkscape:cy="464.5888"
+     inkscape:cx="324.03242"
+     inkscape:cy="371.00486"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg814" />
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg834" />
   <defs
      id="defs4">
     <style
@@ -1434,9 +1434,42 @@
   </defs>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g506">
+    <text
+       x="177.41"
+       y="176.86"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="92.39px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text504">mapped reads (</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g510">
+    <text
+       x="269.80"
+       y="176.86"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="25.68px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text508">80.6</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g514">
+    <text
+       x="295.48"
+       y="176.86"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="26.40px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text512">% of</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
      id="g518">
     <text
-       x="201.36"
+       x="321.87"
        y="176.86"
        style="font-size: 13.20px; font-family: Standard Symbols PS;"
        textLength="3.30px"
@@ -1444,149 +1477,123 @@
        id="text516" />
   </g>
   <g
-     id="g2276"
-     transform="translate(120.34605)">
-    <g
-       id="g506"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text504"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="92.389999"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="176.86"
-         x="56.900002">mapped reads (</text>
-    </g>
-    <g
-       id="g510"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text508"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="25.68"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="176.86"
-         x="149.28999">80.6</text>
-    </g>
-    <g
-       id="g514"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text512"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="26.4"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="176.86"
-         x="174.96001">% of</text>
-    </g>
-    <g
-       id="g522"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text520"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="14.67"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="176.86"
-         x="204.64999">10</text>
-    </g>
-    <g
-       id="g526"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text524"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="5.1399999"
-         style="font-size:9.23999977px;font-family:Arial"
-         y="170.23"
-         x="219.33">6</text>
-    </g>
-    <g
-       id="g530"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text528"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="41.049999"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="176.86"
-         x="224.47">reads)</text>
-    </g>
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g522">
+    <text
+       x="325.17"
+       y="176.86"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="14.67px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text520">10</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g526">
+    <text
+       x="339.84"
+       y="170.23"
+       style="font-size: 9.24px; font-family: Arial;"
+       textLength="5.14px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text524">6</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g530">
+    <text
+       x="344.98"
+       y="176.86"
+       style="font-size: 13.20px; font-family: Standard Symbols PS;"
+       textLength="3.30px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text528" />
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g534">
+    <text
+       x="348.28"
+       y="176.86"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="37.39px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text532">reads)</text>
   </g>
   <defs
-     id="defs536">
+     id="defs540">
     <clipPath
-       id="clipPath534">
+       id="clipPath538">
       <rect
          x="23.18"
          y="158.30"
          width="532.79"
          height="207.71"
-         id="rect532" />
+         id="rect536" />
     </clipPath>
   </defs>
   <defs
-     id="defs542">
+     id="defs546">
     <clipPath
-       id="clipPath540">
+       id="clipPath544">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect538" />
+         id="rect542" />
     </clipPath>
   </defs>
   <defs
-     id="defs548">
+     id="defs552">
     <clipPath
-       id="clipPath546">
+       id="clipPath550">
       <rect
          x="23.18"
          y="158.30"
          width="532.79"
          height="207.71"
-         id="rect544" />
+         id="rect548" />
     </clipPath>
   </defs>
   <defs
-     id="defs554">
+     id="defs558">
     <clipPath
-       id="clipPath552">
+       id="clipPath556">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect550" />
+         id="rect554" />
     </clipPath>
   </defs>
   <defs
-     id="defs560">
+     id="defs564">
     <clipPath
-       id="clipPath558">
+       id="clipPath562">
       <rect
          x="23.18"
          y="158.30"
          width="532.79"
          height="207.71"
-         id="rect556" />
+         id="rect560" />
     </clipPath>
   </defs>
   <defs
-     id="defs566">
+     id="defs570">
     <clipPath
-       id="clipPath564">
+       id="clipPath568">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect562" />
+         id="rect566" />
     </clipPath>
   </defs>
   <defs
-     id="defs571">
+     id="defs575">
     <clipPath
        id="cpMjUuOTJ8NTU1Ljk3fDE1OC4zMHwxNTguMzA=">
       <rect
@@ -1594,47 +1601,47 @@
          y="158.30"
          width="530.05"
          height="0.00"
-         id="rect568" />
+         id="rect572" />
     </clipPath>
   </defs>
   <defs
-     id="defs577">
+     id="defs581">
     <clipPath
-       id="clipPath575">
+       id="clipPath579">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect573" />
+         id="rect577" />
     </clipPath>
   </defs>
   <defs
-     id="defs583">
+     id="defs587">
     <clipPath
-       id="clipPath581">
+       id="clipPath585">
       <rect
          x="25.92"
          y="158.30"
          width="530.05"
          height="0.00"
-         id="rect579" />
+         id="rect583" />
     </clipPath>
   </defs>
   <defs
-     id="defs589">
+     id="defs593">
     <clipPath
-       id="clipPath587">
+       id="clipPath591">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect585" />
+         id="rect589" />
     </clipPath>
   </defs>
   <defs
-     id="defs594">
+     id="defs598">
     <clipPath
        id="cpMjUuOTJ8NTU1Ljk3fDM2Ni4wMnwzNjYuMDI=">
       <rect
@@ -1642,34 +1649,34 @@
          y="366.02"
          width="530.05"
          height="0.00"
-         id="rect591" />
+         id="rect595" />
     </clipPath>
   </defs>
   <defs
-     id="defs600">
+     id="defs604">
     <clipPath
-       id="clipPath598">
+       id="clipPath602">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect596" />
+         id="rect600" />
     </clipPath>
   </defs>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g604">
+     id="g608">
     <text
        x="10.96"
        y="157.06"
        style="font-size: 20.00px; font-weight: bold; font-family: Arial;"
        textLength="12.22px"
        lengthAdjust="spacingAndGlyphs"
-       id="text602">b</text>
+       id="text606">b</text>
   </g>
   <defs
-     id="defs609">
+     id="defs613">
     <clipPath
        id="cpNS40OHw1NjEuNDV8NjE4LjE0fDM3MS41MA==">
       <rect
@@ -1677,7 +1684,7 @@
          y="371.50"
          width="555.97"
          height="246.65"
-         id="rect606" />
+         id="rect610" />
     </clipPath>
   </defs>
   <rect
@@ -1687,21 +1694,21 @@
      height="246.65"
      style="stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;"
      clip-path="url(#cpNS40OHw1NjEuNDV8NjE4LjE0fDM3MS41MA==)"
-     id="rect611" />
+     id="rect615" />
   <defs
-     id="defs617">
+     id="defs621">
     <clipPath
-       id="clipPath615">
+       id="clipPath619">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect613" />
+         id="rect617" />
     </clipPath>
   </defs>
   <defs
-     id="defs622">
+     id="defs626">
     <clipPath
        id="cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=">
       <rect
@@ -1709,7 +1716,7 @@
          y="443.32"
          width="530.05"
          height="103.86"
-         id="rect619" />
+         id="rect623" />
     </clipPath>
   </defs>
   <rect
@@ -1719,7 +1726,7 @@
      height="103.86"
      style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect624" />
+     id="rect628" />
   <rect
      x="50.01"
      y="456.30"
@@ -1727,7 +1734,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #B3E2CD;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect626" />
+     id="rect630" />
   <rect
      x="248.61"
      y="456.30"
@@ -1735,7 +1742,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #B3E2CD;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect628" />
+     id="rect632" />
   <rect
      x="299.23"
      y="456.30"
@@ -1743,7 +1750,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #B3E2CD;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect630" />
+     id="rect634" />
   <rect
      x="328.78"
      y="456.30"
@@ -1751,7 +1758,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #B3E2CD;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect632" />
+     id="rect636" />
   <rect
      x="355.32"
      y="456.30"
@@ -1759,7 +1766,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #B3E2CD;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect634" />
+     id="rect638" />
   <rect
      x="371.89"
      y="456.30"
@@ -1767,7 +1774,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #B3E2CD;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect636" />
+     id="rect640" />
   <rect
      x="385.22"
      y="456.30"
@@ -1775,7 +1782,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CBD5E8;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect638" />
+     id="rect642" />
   <rect
      x="438.35"
      y="456.30"
@@ -1783,7 +1790,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CBD5E8;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect640" />
+     id="rect644" />
   <rect
      x="456.56"
      y="456.30"
@@ -1791,7 +1798,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CBD5E8;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect642" />
+     id="rect646" />
   <rect
      x="465.50"
      y="456.30"
@@ -1799,7 +1806,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CBD5E8;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect644" />
+     id="rect648" />
   <rect
      x="473.00"
      y="456.30"
@@ -1807,7 +1814,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CBD5E8;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect646" />
+     id="rect650" />
   <rect
      x="479.96"
      y="456.30"
@@ -1815,7 +1822,7 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CBD5E8;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect648" />
+     id="rect652" />
   <rect
      x="482.90"
      y="456.30"
@@ -1823,66 +1830,96 @@
      height="77.89"
      style="stroke-width: 1.07; stroke-linecap: butt; fill: #CCCCCC;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect650" />
+     id="rect654" />
   <g
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="g654">
+     id="g658">
     <text
        transform="translate(153.33,529.57) rotate(-90)"
        style="font-size: 11.04px; font-family: Arimo;"
        textLength="68.64px"
        lengthAdjust="spacingAndGlyphs"
-       id="text652">GeneN-A-FIP</text>
-  </g>
-  <g
-     clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="g658">
-    <text
-       transform="translate(277.94,528.30) rotate(-90)"
-       style="font-size: 11.04px; font-family: Arimo;"
-       textLength="66.10px"
-       lengthAdjust="spacingAndGlyphs"
-       id="text656">GeneN-A-LB</text>
+       id="text656">GeneN-A-FIP</text>
   </g>
   <g
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
      id="g662">
     <text
-       transform="translate(318.02,528.12) rotate(-90)"
+       transform="translate(277.94,528.30) rotate(-90)"
        style="font-size: 11.04px; font-family: Arimo;"
-       textLength="65.75px"
+       textLength="66.10px"
        lengthAdjust="spacingAndGlyphs"
-       id="text660">GeneN-A-F3</text>
+       id="text660">GeneN-A-LB</text>
   </g>
   <g
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
      id="g666">
     <text
-       transform="translate(346.07,527.69) rotate(-90)"
+       transform="translate(318.02,528.12) rotate(-90)"
        style="font-size: 11.04px; font-family: Arimo;"
-       textLength="64.88px"
+       textLength="65.75px"
        lengthAdjust="spacingAndGlyphs"
-       id="text664">GeneN-A-LF</text>
+       id="text664">GeneN-A-F3</text>
   </g>
   <g
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
      id="g670">
     <text
-       transform="translate(415.81,529.57) rotate(-90)"
+       transform="translate(346.07,527.69) rotate(-90)"
        style="font-size: 11.04px; font-family: Arimo;"
-       textLength="68.64px"
+       textLength="64.88px"
        lengthAdjust="spacingAndGlyphs"
-       id="text668">GeneN-A-FIP</text>
+       id="text668">GeneN-A-LF</text>
   </g>
   <g
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
      id="g674">
     <text
-       transform="translate(511.41,509.94) rotate(-90)"
+       transform="translate(367.63,529.98) rotate(-90)"
        style="font-size: 11.04px; font-family: Arimo;"
-       textLength="29.39px"
+       textLength="69.47px"
        lengthAdjust="spacingAndGlyphs"
-       id="text672">other</text>
+       id="text672">GeneN-A-BIP</text>
+  </g>
+  <g
+     clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
+     id="g678">
+    <text
+       transform="translate(382.57,528.54) rotate(-90)"
+       style="font-size: 11.04px; font-family: Arimo;"
+       textLength="66.58px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text676">GeneN-A-B3</text>
+  </g>
+  <g
+     clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
+     id="g682">
+    <text
+       transform="translate(415.81,529.57) rotate(-90)"
+       style="font-size: 11.04px; font-family: Arimo;"
+       textLength="68.64px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text680">GeneN-A-FIP</text>
+  </g>
+  <g
+     clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
+     id="g686">
+    <text
+       transform="translate(451.48,528.30) rotate(-90)"
+       style="font-size: 11.04px; font-family: Arimo;"
+       textLength="66.10px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text684">GeneN-A-LB</text>
+  </g>
+  <g
+     clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
+     id="g690">
+    <text
+       transform="translate(511.41,521.31) rotate(-90)"
+       style="font-size: 11.04px; font-family: Arimo;"
+       textLength="52.13px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text688">no match</text>
   </g>
   <rect
      x="25.92"
@@ -1891,395 +1928,402 @@
      height="103.86"
      style="stroke-width: 1.07; stroke: #333333;"
      clip-path="url(#cpMjUuOTJ8NTU1Ljk3fDU0Ny4xN3w0NDMuMzI=)"
-     id="rect676" />
+     id="rect692" />
   <defs
-     id="defs682">
+     id="defs698">
     <clipPath
-       id="clipPath680">
+       id="clipPath696">
       <rect
          x="0.00"
          y="0.00"
          width="566.93"
          height="623.62"
-         id="rect678" />
+         id="rect694" />
     </clipPath>
   </defs>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g686">
+     id="g702">
     <text
        x="47.32"
        y="438.39"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="4.90px"
        lengthAdjust="spacingAndGlyphs"
-       id="text684">0</text>
+       id="text700">0</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g690">
+     id="g706">
     <text
        x="171.35"
        y="438.39"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="4.90px"
        lengthAdjust="spacingAndGlyphs"
-       id="text688">5</text>
+       id="text704">5</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g694">
+     id="g710">
     <text
        x="294.00"
        y="438.39"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="9.79px"
        lengthAdjust="spacingAndGlyphs"
-       id="text692">10</text>
+       id="text708">10</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g698">
+     id="g714">
     <text
        x="418.03"
        y="438.39"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="9.79px"
        lengthAdjust="spacingAndGlyphs"
-       id="text696">15</text>
+       id="text712">15</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g702">
+     id="g718">
     <text
        x="542.06"
        y="438.39"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="9.79px"
        lengthAdjust="spacingAndGlyphs"
-       id="text700">20</text>
+       id="text716">20</text>
   </g>
   <polyline
      points="49.77,443.32 49.77,440.58 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline704" />
+     id="polyline720" />
   <polyline
      points="173.80,443.32 173.80,440.58 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline706" />
+     id="polyline722" />
   <polyline
      points="298.89,443.32 298.89,440.58 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline708" />
+     id="polyline724" />
   <polyline
      points="422.93,443.32 422.93,440.58 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline710" />
+     id="polyline726" />
   <polyline
      points="546.96,443.32 546.96,440.58 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline712" />
+     id="polyline728" />
   <polyline
      points="50.01,549.91 50.01,547.17 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline714" />
+     id="polyline730" />
   <polyline
      points="170.48,549.91 170.48,547.17 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline716" />
+     id="polyline732" />
   <polyline
      points="290.94,549.91 290.94,547.17 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline718" />
+     id="polyline734" />
   <polyline
      points="411.41,549.91 411.41,547.17 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline720" />
+     id="polyline736" />
   <polyline
      points="531.88,549.91 531.88,547.17 "
      style="stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="polyline722" />
+     id="polyline738" />
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g726">
+     id="g742">
     <text
        x="47.56"
        y="558.16"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="4.90px"
        lengthAdjust="spacingAndGlyphs"
-       id="text724">0</text>
+       id="text740">0</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g730">
+     id="g746">
     <text
        x="165.58"
        y="558.16"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="9.79px"
        lengthAdjust="spacingAndGlyphs"
-       id="text728">25</text>
+       id="text744">25</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g734">
+     id="g750">
     <text
        x="286.05"
        y="558.16"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="9.79px"
        lengthAdjust="spacingAndGlyphs"
-       id="text732">50</text>
+       id="text748">50</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g738">
+     id="g754">
     <text
        x="406.51"
        y="558.16"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="9.79px"
        lengthAdjust="spacingAndGlyphs"
-       id="text736">75</text>
+       id="text752">75</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g742">
+     id="g758">
     <text
        x="524.53"
        y="558.16"
        style="font-size: 8.80px; fill: #4D4D4D; font-family: Arial;"
        textLength="14.69px"
        lengthAdjust="spacingAndGlyphs"
-       id="text740">100</text>
+       id="text756">100</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g746">
+     id="g762">
     <text
        x="240.49"
        y="427.09"
        style="font-size: 11.00px; font-family: Arial;"
        textLength="100.91px"
        lengthAdjust="spacingAndGlyphs"
-       id="text744">fraction all reads (%)</text>
+       id="text760">fraction all reads (%)</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g750">
+     id="g766">
     <text
        x="219.99"
        y="570.97"
        style="font-size: 11.00px; font-family: Arial;"
        textLength="141.91px"
        lengthAdjust="spacingAndGlyphs"
-       id="text748">fraction unmapped reads (%)</text>
+       id="text764">fraction unmapped reads (%)</text>
   </g>
   <rect
-     x="166.32"
+     x="158.25"
      y="584.42"
-     width="249.25"
+     width="265.39"
      height="28.24"
      style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="rect752" />
-  <g
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g756">
-    <text
-       x="171.80"
-       y="602.33"
-       style="font-size: 11.00px; font-family: Arial;"
-       textLength="61.14px"
-       lengthAdjust="spacingAndGlyphs"
-       id="text754">k-mer match</text>
-  </g>
-  <rect
-     x="238.42"
-     y="589.90"
-     width="17.28"
-     height="17.28"
-     style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="rect758" />
-  <rect
-     x="239.13"
-     y="590.61"
-     width="15.86"
-     height="15.86"
-     style="stroke-width: 1.07; stroke-linejoin: miter; fill: #B3E2CD;"
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="rect760" />
-  <rect
-     x="291.59"
-     y="589.90"
-     width="17.28"
-     height="17.28"
-     style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="rect762" />
-  <rect
-     x="292.30"
-     y="590.61"
-     width="15.86"
-     height="15.86"
-     style="stroke-width: 1.07; stroke-linejoin: miter; fill: #CBD5E8;"
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="rect764" />
-  <rect
-     x="367.26"
-     y="589.90"
-     width="17.28"
-     height="17.28"
-     style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="rect766" />
-  <rect
-     x="367.97"
-     y="590.61"
-     width="15.86"
-     height="15.86"
-     style="stroke-width: 1.07; stroke-linejoin: miter; fill: #CCCCCC;"
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
      id="rect768" />
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
      id="g772">
     <text
-       x="261.18"
+       x="163.73"
+       y="602.33"
+       style="font-size: 11.00px; font-family: Arial;"
+       textLength="61.14px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text770">k-mer match</text>
+  </g>
+  <rect
+     x="230.35"
+     y="589.90"
+     width="17.28"
+     height="17.28"
+     style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="rect774" />
+  <rect
+     x="231.06"
+     y="590.61"
+     width="15.86"
+     height="15.86"
+     style="stroke-width: 1.07; stroke-linejoin: miter; fill: #B3E2CD;"
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="rect776" />
+  <rect
+     x="283.52"
+     y="589.90"
+     width="17.28"
+     height="17.28"
+     style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="rect778" />
+  <rect
+     x="284.23"
+     y="590.61"
+     width="15.86"
+     height="15.86"
+     style="stroke-width: 1.07; stroke-linejoin: miter; fill: #CBD5E8;"
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="rect780" />
+  <rect
+     x="359.19"
+     y="589.90"
+     width="17.28"
+     height="17.28"
+     style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="rect782" />
+  <rect
+     x="359.90"
+     y="590.61"
+     width="15.86"
+     height="15.86"
+     style="stroke-width: 1.07; stroke-linejoin: miter; fill: #CCCCCC;"
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="rect784" />
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g788">
+    <text
+       x="253.11"
        y="601.57"
        style="font-size: 8.80px; font-family: Arial;"
        textLength="24.93px"
        lengthAdjust="spacingAndGlyphs"
-       id="text770">primer</text>
+       id="text786">primer</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g776">
+     id="g792">
     <text
-       x="314.35"
+       x="306.28"
        y="601.57"
        style="font-size: 8.80px; font-family: Arial;"
        textLength="47.43px"
        lengthAdjust="spacingAndGlyphs"
-       id="text774">primer (r. c.)</text>
-  </g>
-  <g
-     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
-     id="g780">
-    <text
-       x="390.02"
-       y="601.57"
-       style="font-size: 8.80px; font-family: Arial;"
-       textLength="20.07px"
-       lengthAdjust="spacingAndGlyphs"
-       id="text778">other</text>
+       id="text790">primer (r. c.)</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
      id="g796">
     <text
-       x="185.05"
-       y="406.31"
-       style="font-size: 13.20px; font-family: Standard Symbols PS;"
-       textLength="3.30px"
+       x="381.95"
+       y="601.57"
+       style="font-size: 8.80px; font-family: Arial;"
+       textLength="36.21px"
        lengthAdjust="spacingAndGlyphs"
-       id="text794" />
+       id="text794">no match</text>
   </g>
   <g
-     id="g2290"
-     transform="translate(144.00072)">
-    <g
-       id="g784"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text782"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="107.06"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="406.31"
-         x="25.92">unmapped reads (</text>
-    </g>
-    <g
-       id="g788"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text786"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="25.68"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="406.31"
-         x="132.98">19.4</text>
-    </g>
-    <g
-       id="g792"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text790"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="26.4"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="406.31"
-         x="158.66">% of</text>
-    </g>
-    <g
-       id="g800"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text798"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="14.67"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="406.31"
-         x="188.35001">10</text>
-    </g>
-    <g
-       id="g804"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text802"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="5.1399999"
-         style="font-size:9.23999977px;font-family:Arial"
-         y="399.69"
-         x="203.02">6</text>
-    </g>
-    <g
-       id="g808"
-       clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)">
-      <text
-         id="text806"
-         lengthAdjust="spacingAndGlyphs"
-         textLength="41.049999"
-         style="font-size:13.19999981px;font-family:Arial"
-         y="406.31"
-         x="208.16">reads)</text>
-    </g>
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g800">
+    <text
+       x="179.48"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="107.06px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text798">unmapped reads (</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g804">
+    <text
+       x="286.54"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="25.68px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text802">19.4</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g808">
+    <text
+       x="312.22"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="26.40px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text806">% of</text>
   </g>
   <g
      clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
      id="g812">
+    <text
+       x="338.61"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Standard Symbols PS;"
+       textLength="3.30px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text810" />
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g816">
+    <text
+       x="341.91"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="14.67px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text814">10</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g820">
+    <text
+       x="356.58"
+       y="399.69"
+       style="font-size: 9.24px; font-family: Arial;"
+       textLength="5.14px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text818">6</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g824">
+    <text
+       x="361.72"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Standard Symbols PS;"
+       textLength="3.30px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text822" />
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g828">
+    <text
+       x="365.02"
+       y="406.31"
+       style="font-size: 13.20px; font-family: Arial;"
+       textLength="37.39px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text826">reads)</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1NjYuOTN8NjIzLjYyfDAuMDA=)"
+     id="g832">
     <text
        x="11.51"
        y="391.99"
        style="font-size: 20.00px; font-weight: bold; font-family: Arial;"
        textLength="11.12px"
        lengthAdjust="spacingAndGlyphs"
-       id="text810">c</text>
+       id="text830">c</text>
   </g>
   <g
-     transform="matrix(3.3418208,0,0,3.3418208,-33.060448,-266.99711)"
+     transform="matrix(3.2885914,0,0,3.2885914,-32.164635,-261.48351)"
      id="layer1"
      inkscape:label="Layer 1">
     <text
@@ -2385,7 +2429,7 @@
          style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
          y="117.42226"
          x="164.83215"
-         sodipodi:role="line">primer content</tspan></text>
+         sodipodi:role="line">primer sequences</tspan></text>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"

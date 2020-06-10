@@ -33,12 +33,12 @@ panel_b <- ggplot(depth) +
   geom_rect(aes(xmin = start/1e3, xmax = stop/1e3, ymin = -.45, ymax = -.05), data = lamp_product, fill = "#fff2ae") +
   geom_area(aes(pos/1e3, reads/1e6), fill = "darkgray", colour = "black", alpha = .3) +
   facet_zoom(x = between(pos, 2.75e4, 3e4), zoom.size = 3) +
-  labs(title = bquote(paste("mapped reads (", .((matched_total_frac)*100), "% of", ~10^6, " reads)")),
+  labs(title = bquote(paste("mapped reads (", .((matched_total_frac)*100), "% of", ~10^6, ~"reads)")),
        x = "genomic position (kbp)",
        y = expression(paste("mapped reads / ", 10^6, ""))) +
   scale_y_continuous(limits = c(-.5, cumratio_limit/1e6+.2), breaks = c(0, 3, 6), expand = c(0,0),
                      sec.axis = sec_axis(~ . / (.8 * max(.) - .2) * 100, breaks = c(0, 50, 100), name = "cumulative mapped\nreads (%)")) +
-  theme_light() + theme( text = element_text(family = 'Arial'),
+  theme_light() + theme( text = element_text(family = 'Arial'), plot.title = element_text(hjust = .5),
                          panel.grid.minor = element_blank(), panel.grid.major = element_blank(),
                         panel.grid = element_line(colour = "grey92"), 
                         panel.border = element_rect(colour = "grey20", inherit.blank = TRUE))
@@ -59,7 +59,7 @@ match_primer <- function(kmer){
   ifelse(length(res) > 0, res, integer(0))
 }
 
-# this is computationally slightly extensive, that's why only do if needed
+# this is computationally slightly extensive, that's why only do it if needed
 file_kmers_primers <- "ngs_SARS-CoV-2_10Mreads_unmapped_9kmers_primers.tsv"
 if(!file.exists(file_kmers_primers) & (file.info(file_kmers)[["mtime"]] > file.info(file_kmers_primers)[["mtime"]])){
 tbl_kmers <- kmers %>%
@@ -72,32 +72,33 @@ tbl_kmers <- kmers %>%
 
 matched_total_frac <- 0.806
 
-match_colors <- c("primer" = "#b3e2cd", "primer (r. c.)" = "#cbd5e8", "other" = "#cccccc")
+match_colors <- c("primer" = "#b3e2cd", "primer (r. c.)" = "#cbd5e8", "no match" = "#cccccc")
 tbl_primer <- tbl_kmers %>% group_by(match) %>%
   summarise(counts = sum(count)) %>%
   ungroup %>%
   mutate(perc =  counts / sum(counts) * 100, perc_total = perc * (1-matched_total_frac)) %>%
-  mutate(primer = map_chr(match, function(.){ifelse(is.na(.), "other", primer$name[[.]])})) %>%
+  mutate(primer = map_chr(match, function(.){ifelse(is.na(.), "no match", primer$name[[.]])})) %>%
   mutate(group = case_when(
     str_detect(primer, "_rc") ~ "primer (r. c.)",
-    primer == "other" ~ "other",
+    primer == "no match" ~ "no match",
     TRUE ~ "primer"),
-    group = fct_relevel(group, c("other", "primer (r. c.)", "primer"))) %>%
+    group = fct_relevel(group, c("no match", "primer (r. c.)", "primer"))) %>%
   mutate(name = map_chr(str_split(primer, "_"), `[[`, 1))
 
 panel_c <- tbl_primer %>%
   arrange(desc(group), desc(perc_total)) %>%
   #       xx = x - .5 * perc_total) %>%
-  mutate(label = if_else(perc_total > 1, name, "")) %>%
+  mutate(label = if_else(perc_total > .5, name, "")) %>%
   ggplot(aes("a", perc, fill = group)) +
   geom_col(colour= "black") +
   geom_text(aes(label = label), position = position_stack(vjust = .5), angle = 90) +
   scale_fill_manual(name  = "k-mer match", values = match_colors, guide = guide_legend(reverse = TRUE)) +
   scale_y_continuous(name = "fraction unmapped reads (%)", sec.axis = sec_axis(~.*(1-matched_total_frac), name = "fraction all reads (%)")) +
   theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
-  labs(title = bquote(paste("unmapped reads (", .((1-matched_total_frac)*100), "% of", ~10^6, " reads)"))) +
+  labs(title = bquote(paste("unmapped reads (", .((1-matched_total_frac)*100), "% of", ~10^6, ~"reads)"))) +
   theme(legend.position = "bottom") +
-coord_flip()
+coord_flip() +
+  theme(plot.title = element_text(hjust = .5))
 panel_c
 
 fig_layout <- '
