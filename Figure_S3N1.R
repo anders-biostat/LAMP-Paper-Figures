@@ -3,15 +3,15 @@ library(tidyr)
 library(readr)
 library(scales)
 library(forcats)
+library(purrr)
 library(stringr)
 library(ggplot2)
 library(patchwork)
-library(ggsci)
 library(ggforce)
 
 source("misc.R")
 
-panel_a <- wrap_elements(panel = grid::textGrob('Mapping analysis schema.'))
+panel_a <- rsvg::rsvg("SVGs/Figure_S3N1a.svg")
 
 lamp_product <- data.frame(pos = 28515, start = 28515, stop = 28751)
 depth <-
@@ -30,7 +30,7 @@ cumratio_limit <- max(depth$reads)
 panel_b <- ggplot(depth) +
   geom_area(aes(pos/1e3, cumratio * .8 * max(reads) / 1e6 ), fill = "#b3cde3", colour = "#b3cde3", alpha = .3) +
   geom_hline(yintercept = cumratio_limit * .8/ 1e6, color = "lightgrey", linetype = 2 ) +
-  geom_rect(aes(xmin = start/1e3, xmax = stop/1e3, ymin = -.45, ymax = -.05), data = lamp_product, fill = "#fed9a6") +
+  geom_rect(aes(xmin = start/1e3, xmax = stop/1e3, ymin = -.45, ymax = -.05), data = lamp_product, fill = "#fff2ae") +
   geom_area(aes(pos/1e3, reads/1e6), fill = "darkgray", colour = "black", alpha = .3) +
   facet_zoom(x = between(pos, 2.75e4, 3e4), zoom.size = 3) +
   labs(title = bquote(paste("mapped reads (", .((matched_total_frac)*100), "% of", ~10^6, " reads)")),
@@ -50,7 +50,8 @@ primer <- bind_rows(
   primer %>% mutate(name = str_c(name, "_rc"), sequence = rc(sequence))
 )
 
-kmers <- read_tsv("data/ngs_SARS-CoV-2_10Mreads_unmapped_9kmers.tsv") %>%
+file_kmers <- "data/ngs_SARS-CoV-2_10Mreads_unmapped_9kmers.tsv"
+kmers <- read_tsv(file_kmers) %>%
   rename(kmer = Kmer, count = Count) 
 
 match_primer <- function(kmer){
@@ -58,26 +59,30 @@ match_primer <- function(kmer){
   ifelse(length(res) > 0, res, integer(0))
 }
 
+# this is computationally slightly extensive, that's why only do if needed
+file_kmers_primers <- "ngs_SARS-CoV-2_10Mreads_unmapped_9kmers_primers.tsv"
+if(!file.exists(file_kmers_primers) & (file.info(file_kmers)[["mtime"]] > file.info(file_kmers_primers)[["mtime"]])){
 tbl_kmers <- kmers %>%
   mutate(rank = row_number(), cumsum = cumsum(count), cumratio = cumsum/max(cumsum)) %>%
   mutate(match = map_int(kmer, match_primer)) %>%
-  write_tsv("ngs_SARS-CoV-2_10Mreads_unmapped_9kmers_primers.tsv")
-
-tbl %>%
-  ggplot(.) +
-  geom_point(aes(rank, cumratio, colour = !is.na(match)))
+  write_tsv(file_kmers_primers)
+} else {
+  tbl_kmers <- read_tsv(file_kmers_primers)
+}
 
 matched_total_frac <- 0.806
 
+match_colors <- c("primer" = "#b3e2cd", "primer (r. c.)" = "#cbd5e8", "other" = "#cccccc")
 tbl_primer <- tbl_kmers %>% group_by(match) %>%
   summarise(counts = sum(count)) %>%
   ungroup %>%
   mutate(perc =  counts / sum(counts) * 100, perc_total = perc * (1-matched_total_frac)) %>%
-  mutate(primer = map_chr(match, function(.){ifelse(is.na(.), "unspecific", primer$name[[.]])})) %>%
+  mutate(primer = map_chr(match, function(.){ifelse(is.na(.), "other", primer$name[[.]])})) %>%
   mutate(group = case_when(
     str_detect(primer, "_rc") ~ "primer (r. c.)",
-    primer == "unspecific" ~ "unspecific",
-    TRUE ~ "primer")) %>%
+    primer == "other" ~ "other",
+    TRUE ~ "primer"),
+    group = fct_relevel(group, c("other", "primer (r. c.)", "primer"))) %>%
   mutate(name = map_chr(str_split(primer, "_"), `[[`, 1))
 
 panel_c <- tbl_primer %>%
@@ -87,7 +92,7 @@ panel_c <- tbl_primer %>%
   ggplot(aes("a", perc, fill = group)) +
   geom_col(colour= "black") +
   geom_text(aes(label = label), position = position_stack(vjust = .5), angle = 90) +
-  scale_fill_brewer(name = "k-mer match", palette = "Set2", direction = -1) +
+  scale_fill_manual(name  = "k-mer match", values = match_colors, guide = guide_legend(reverse = TRUE)) +
   scale_y_continuous(name = "fraction unmapped reads (%)", sec.axis = sec_axis(~.*(1-matched_total_frac), name = "fraction all reads (%)")) +
   theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
   labs(title = bquote(paste("unmapped reads (", .((1-matched_total_frac)*100), "% of", ~10^6, " reads)"))) +
@@ -105,14 +110,13 @@ B
 C
 C
 '
-panel_a + 
-  wrap_elements(panel = panel_b) + 
+wrap_elements(plot =  grid::rasterGrob(panel_a)) + 
+  wrap_elements(plot = panel_b) + 
   panel_c +
   plot_layout(design = fig_layout) +
   plot_annotation(tag_levels = "a")
 
 
 # Export figures
-ggsave("SVGs/Figure_S3.svg", width=20, height=22, units="cm")
-ggsave("Figure_S3.png", width=20, height=22, units="cm", dpi=300)
-
+ggsave("SVGs/Figure_S3tmp.svg", width=20, height=22, units="cm")
+ggsave("Figure_S3tmp.png", width=20, height=22, units="cm", dpi=300)

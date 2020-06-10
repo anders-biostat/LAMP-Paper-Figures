@@ -1,5 +1,6 @@
 library(tidyverse)
 library(patchwork)
+library(ggrepel)
 
 source( "misc.R" )
 
@@ -24,16 +25,16 @@ tbl <- ngs %>%
   filter( !is.na(CT) ) %>%
   filter( is.na(wellRemark) ) %>%
   replace_na(list(matchedTRUE = 0, matchedFALSE = 0)) 
-  
+
+panel_a <- rsvg::rsvg("SVGs/Figure_S3bisa.svg")
 
 set.seed(42)
 panels_data <-  tbl %>%
   mutate( NGS = case_when(
-    matchedTRUE > ngs_thresholds[[2]] ~ "positive",
-    between(matchedTRUE, ngs_thresholds[[1]], ngs_thresholds[[2]]) ~ "negative",
-    matchedTRUE <= ngs_thresholds[[1]]           ~ "too_low")) %>%
+    matchedTRUE + matchedFALSE <= ngs_thresholds[[1]] ~ "too few",
+    matchedTRUE > ngs_thresholds[[2]]                 ~ "positive",
+    TRUE                                              ~ "negative")) %>%
   mutate(CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
-  mutate(plate = str_extract(plate, "\\d{2}$")) %>%
   mutate(well = fct_reorder(well, -CT))
 
 mybreaks <- c( 0, 1, 10, 100, 1000, 1e4, 1e5, 1e6 )
@@ -43,57 +44,66 @@ panel_b <- panels_data %>%
   ggplot(aes(x = matchedTRUE + matchedFALSE, y = matchedTRUE)) +
   geom_vline(xintercept = ngs_thresholds[[1]], color = "lightgray" ) +
   geom_hline(yintercept = ngs_thresholds[[2]], color = "lightgray" ) +
-  geom_point(aes( col = CT ), alpha = .6, size = 1.2 ) +
+  geom_point(aes( fill = CT ), colour = "black", alpha = .6, size = 1.2, shape = 21 ) +
+  geom_text_repel(aes(label = well), data = filter(panels_data, plate == "CP00012", str_detect(well, "^A")), size = 2.5, nudge_x = -.1, nudge_y = .6) +
   scale_x_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
   scale_y_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
-  scale_color_ct() +
-  labs(x = "total read count",
-       y = "virus-matching read count") +
+  scale_fill_ct( name="RT-qPCR\nCT value") +
+  labs(x = "total UMI count",
+       y = "virus-matching UMI count") +
   annotate("text", color = "gray40", x = 3e6, y = 1e5, label = "positive", angle = 90) +
   annotate("text", color = "gray40", x = 3e6, y = 1e3, label = "negative", angle = 90) +
-  annotate("text", color = "gray70", x = 1e6, y = 1e4, label = "LAMP-seq result:", angle = 90) +
-  annotate("text", color = "gray40", x = 20, y = 0, label = "too low", angle = 0) +
-  annotate("text", color = "gray40", x = 3e2, y = 0, label = "ok", angle = 0) +
-  annotate("text", color = "gray70", x = 1e2, y = 1, label = "read count", angle = 0) +
-  coord_fixed()
+  annotate("text", color = "gray70", x = 1e6, y = 5e3, label = "LAMP-sequencing result", angle = 90) +
+  annotate("text", color = "gray40", x = 20, y = 0, label = "too few", angle = 0) +
+  annotate("text", color = "gray40", x = 3e3, y = 0, label = "sufficient", angle = 0) +
+  annotate("text", color = "gray70", x = 2e2, y = 1, label = "UMI count", angle = 0) 
 panel_b
 
+panel_c <- rsvg::rsvg("SVGs/Figure_S3bisc.svg")
 
-panel_c <- 
+lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few" = "black")
+panel_d <- 
 panels_data %>%
   ggplot(aes(x = absBlue-absYellow, y = matchedTRUE)) +
-  geom_point(aes(col=NGS), alpha = .6, size = 1.2 ) +
+  geom_point(aes(fill=NGS), alpha = .6, size = 1.2, shape = 21 ) +
   scale_y_continuous( trans=logap_trans(), breaks = mybreaks, labels=mylabels ) +
-  labs(y = "LAMP-sequencing: virus-matching read count",
-       x = "RT-LAMP: ΔOD", col="LAMP-sequencing") +
+  labs(y = "virus-matching UMI count",
+       x = "ΔOD", col="LAMP-sequencing") +
+  scale_fill_manual(name  = "LAMP-sequencing", values = lamp_colors) +
   geom_hline(yintercept = ngs_thresholds[[2]], color = "lightgray" ) +
   geom_vline(xintercept = lamp_thresholds, color = "lightgray" ) +
-  annotate("text", color = "gray40", x = .2, y = 0, label = "negative", angle = 0) +
-  annotate("text", color = "gray40", x = .4, y = 0, label = "positive", angle = 0) +
-  annotate("text", color = "gray70", x = .3, y = 1, label = "LAMP result", angle = 0) +
-  annotate("text", color = "gray40", x = .6, y = 1e3, label = "negative", angle = 90) +
-  annotate("text", color = "gray40", x = .6, y = 1e5, label = "positive", angle = 90) +
-  annotate("text", color = "gray40", x = .6, y = 1e1, label = "too few reads", angle = 90) +
-  annotate("text", color = "gray70", x = .55, y = 1e3, label = "LAMP-sequencing result", angle = 90) 
-panel_c
-
-
-panel_a <- wrap_elements(panel = grid::textGrob('Here goes the figrue with the primers')) +
-  theme(plot.margin = margin(t = 15, r = 5.5, b = 5.5, l = 15, "pt"))
-
+  annotate("text", color = "gray40", x = .15, y = 0, label = "negative", angle = 0) +
+  annotate("text", color = "gray40", x = .45, y = 0, label = "positive", angle = 0) +
+  annotate("text", color = "gray70", x = .3, y = 1, label = "RT-LAMP result", angle = 0) +
+  annotate("text", x = .62, y = 1e3, label = "negative", angle = 90, colour = lamp_colors[["negative"]]) +
+  annotate("text", x = .62, y = 1e5, label = "positive", angle = 90, colour = lamp_colors[["positive"]]) +
+  annotate("text", x = .62, y = 1e1, label = "too few reads", angle = 90, colour = lamp_colors[["too few"]]) +
+  annotate("text", color = "gray70", x = .55, y = 1e3, label = "LAMP-sequencing result", angle = 90) +
+  theme(legend.position = "none")
+#  theme(legend.position = c(0.3, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank())
+panel_d
 
 fig_layout <- '
-AAAAA
-BBBCC
-BBBCC
-BBBCC
+AAAAAA
+AAAAAA
+AAAAAA
+BBBCCC
+BBBCCC
+BBBCCC
+BBBCCC
+DDDXXX
+DDDXXX
+DDDXXX
+DDDXXX
 '
-wrap_elements(full = panel_a + theme(plot.margin = margin(t = 15, r = 5.5, b = 5.5, l = 15, "pt"))) +
-  panel_b + panel_c + 
+wrap_elements(plot =  grid::rasterGrob(panel_a))  +
+  panel_b + 
+  wrap_elements(plot =  grid::rasterGrob(panel_c))  +
+  panel_d + plot_spacer() +
   plot_layout(design = fig_layout) +
   plot_annotation(tag_levels = "a")
 
 # Export figures
-ggsave("SVGs/Figure_S3bis.svg", width=20, height=20, units="cm")
-ggsave("Figure_S3bis.png", width=20, height=23, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3bistmp.svg", width=20, height=24, units="cm")
+ggsave("Figure_S3bistmp.png", width=20, height=24, units="cm", dpi=300)
 
