@@ -26,7 +26,7 @@ tbl <- ngs %>%
   filter( is.na(wellRemark) ) %>%
   replace_na(list(matchedTRUE = 0, matchedFALSE = 0)) 
 
-panel_a <- rsvg::rsvg("SVGs/Figure_S3bisa.svg")
+panel_a <- rsvg::rsvg("SVGs/Figure_S3N2a.svg")
 
 set.seed(42)
 panels_data <-  tbl %>%
@@ -59,7 +59,7 @@ panel_b <- panels_data %>%
   annotate("text", color = "gray70", x = 2e2, y = 1, label = "UMI count", angle = 0) 
 panel_b
 
-panel_c <- rsvg::rsvg("SVGs/Figure_S3bisc.svg")
+panel_c <- rsvg::rsvg("SVGs/Figure_S3N2c.svg")
 
 lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few" = "black")
 panel_d <- 
@@ -104,6 +104,6 @@ wrap_elements(plot =  grid::rasterGrob(panel_a))  +
   plot_annotation(tag_levels = "a")
 
 # Export figures
-ggsave("SVGs/Figure_S3bistmp.svg", width=20, height=24, units="cm")
-ggsave("Figure_S3bistmp.png", width=20, height=24, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3N2_tmp.svg", width=20, height=24, units="cm")
+ggsave("Figure_S3N2_tmp.png", width=20, height=24, units="cm", dpi=300)
 

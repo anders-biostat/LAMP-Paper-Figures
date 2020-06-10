@@ -118,5 +118,5 @@ wrap_elements(plot =  grid::rasterGrob(panel_a)) +
 
 
 # Export figures
-ggsave("SVGs/Figure_S3tmp.svg", width=20, height=22, units="cm")
-ggsave("Figure_S3tmp.png", width=20, height=22, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3N1_tmp.svg", width=20, height=22, units="cm")
+ggsave("Figure_S3N1_tmp.png", width=20, height=22, units="cm", dpi=300)
