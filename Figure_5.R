@@ -19,7 +19,7 @@ lamp_thresholds <- c(.3)
 qpcr_thresholds <- c(30, 42)
 ngs_thresholds <- c(200, 1e4)
 
-## Figure 5B
+panel_a <- rsvg::rsvg("SVGs/Figure_5a.svg")
 
 tbl <- ngs %>%
   full_join( tecan ) %>%
@@ -50,22 +50,16 @@ ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
   geom_vline(xintercept = qpcr_thresholds, color = "lightgrey" ) +
   geom_point( aes( x = CT, y = absBlue - absYellow, fill = NGS ), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
-  #scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ) ) +
   scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
   labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
       x = "RT-qPCR (CT value)",
        y = "RT-LAMP (ΔOD)") +
   scale_fill_manual(name  = "LAMP-sequencing", values = lamp_colors) +
   facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
-  #facet_grid(cols = vars(facets)) +
   annotate("text", x = 50, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
-  #annotate("text", x = 50, y = -.26, label = str_glue("negative"), angle = 90, col="grey50") +
-  #annotate("text", x = 50, y = .125, label = str_glue("inconclusive"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
   coord_cartesian(xlim = c(11.75, 49.5)) +
   theme(plot.subtitle = element_text(hjust = .5), legend.position = "bottom")
-
-panel_a <- rsvg::rsvg("SVGs/Figure_5a.svg")
 
 fig_layout <- '
 A
