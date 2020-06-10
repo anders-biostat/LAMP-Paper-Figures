@@ -45,3 +45,6 @@ logap_trans <- function( a=0 ) {
                     # ^^ This here does not work, removes zeros
 }
 
+# reverse complement
+rc <- function(x) stringi::stri_reverse(stringi::stri_trans_char(x, "GATC", "CTAG"))
+
