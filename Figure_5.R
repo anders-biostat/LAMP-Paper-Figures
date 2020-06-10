@@ -4,6 +4,7 @@ library(forcats)
 library(readr)
 library(ggplot2)
 library(stringr)
+library(patchwork)
 
 source( "misc.R" )
 
@@ -16,30 +17,35 @@ plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008",
 
 lamp_thresholds <- c(.3)
 qpcr_thresholds <- c(30, 42)
-ngs_threshold <- 3000
+ngs_thresholds <- c(200, 1e4)
 
 ## Figure 5B
+
 tbl <- ngs %>%
-  filter( !is.na(matchedTRUE)) %>%
-  full_join( tecan ) %>% 
-  mutate(minutes = ifelse(plate == "CP00012" & minutes == 45, 40, minutes)) %>%
+  full_join( tecan ) %>%
   filter( plate %in% plates_to_use ) %>%
-  filter( !(plate == "CP00003" & plateRemark != "2")) %>%
+    mutate(minutes = ifelse(plate == "CP00012" & minutes == 45, 40, minutes)) %>%
+  filter( !(plate == "CP00003" & plateRemark != "2")) %>% 
   filter( minutes %in% c(30, 40), gene=="N" ) %>% 
   filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
   left_join( tblCT )%>%
   filter( !is.na(CT) ) %>%
-  filter( is.na(wellRemark) )
+  filter( is.na(wellRemark) ) %>%
+  replace_na(list(matchedTRUE = 0, matchedFALSE = 0)) 
+
 
 set.seed(2020)
-lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "undetected" = "black")
-tbl %>%
-  mutate( CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
+panels_data <-  tbl %>%
   mutate( NGS = case_when(
-    matchedTRUE > ngs_threshold ~ "positive",
-    matchedTRUE <= ngs_threshold ~ "negative",
-    TRUE                ~ "undetected")) %>%
-  mutate_at( "NGS", fct_relevel, "positive", "negative" ) %>%
+    matchedTRUE + matchedFALSE <= ngs_thresholds[[1]] ~ "too few UMIs",
+    matchedTRUE > ngs_thresholds[[2]]                 ~ "positive",
+    TRUE                                              ~ "negative")) %>%
+  mutate(CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
+  mutate(well = fct_reorder(well, -CT))
+
+lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few UMIs" = "black")
+panel_b <- panels_data %>%
+  arrange(NGS) %>%
 ggplot() +
   geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
   geom_vline(xintercept = qpcr_thresholds, color = "lightgrey" ) +
@@ -59,9 +65,20 @@ ggplot() +
   coord_cartesian(xlim = c(11.75, 49.5)) +
   theme(plot.subtitle = element_text(hjust = .5), legend.position = "bottom")
 
+panel_a <- rsvg::rsvg("SVGs/Figure_5a.svg")
+
+fig_layout <- '
+A
+B
+'
+wrap_elements(plot =  grid::rasterGrob(panel_a)) +
+  panel_b +
+  plot_layout(design = fig_layout) +
+  plot_annotation(tag_levels = "a")
+  
 # Export figures
-ggsave("SVGs/Figure_5b.svg", width=20, height=10, units="cm")
-ggsave("Figure_5b.png", width=20, height=10, units="cm", dpi=300)
+ggsave("SVGs/Figure_5tmp.svg", width=20, height=22, units="cm")
+ggsave("Figure_5tmp.png", width=20, height=22, units="cm", dpi=300)
 
 # count table S3
 ct_breaks <- c(0, 25, 30, 35, 40, Inf)
@@ -75,11 +92,11 @@ confusion_matrix <- tbl %>%
             as.integer %>%
             { c( "neg", "pos" )[.] } ) %>%
   mutate( NGSres = case_when(
-    matchedTRUE > ngs_threshold ~ "pos",
-    matchedTRUE <= ngs_threshold ~ "neg",
-    TRUE                ~ "undet")) %>%
+    matchedTRUE + matchedFALSE <= ngs_thresholds[[1]] ~ "too_few",
+    matchedTRUE > ngs_thresholds[[2]]                 ~ "pos",
+    TRUE                                              ~ "neg")) %>%
   mutate_at( "LAMPres", fct_relevel, "pos", "neg" ) %>%
-  mutate_at( "NGSres", fct_relevel, "pos", "neg" ) %>%
+  mutate_at( "NGSres", fct_relevel, "pos", "neg", "too_few" ) %>%
   count( LAMPres, NGSres, CTbin ) %>%
   pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) ) %>%
   arrange(NGSres, CTbin)
