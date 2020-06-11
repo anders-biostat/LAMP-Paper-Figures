@@ -13,7 +13,7 @@
    version="1.1"
    id="svg849"
    sodipodi:docname="Figure_S3.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="0.92.4 (unknown)"
    inkscape:export-filename="/home/konrad/Desktop/LAMP/LAMP-Paper-Figures/SVGs/Figure_S3.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300">
@@ -38,15 +38,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="3200"
-     inkscape:window-height="1729"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
      id="namedview851"
      showgrid="false"
      inkscape:zoom="1.850134"
-     inkscape:cx="234.57725"
-     inkscape:cy="499.2457"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:cx="372.97781"
+     inkscape:cy="628.96603"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg849" />
   <defs
@@ -1018,14 +1018,6 @@
          id="rect22" />
     </clipPath>
   </defs>
-  <rect
-     x="5.48"
-     y="141.78"
-     width="555.97"
-     height="218.11"
-     style="stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;"
-     clip-path="url(#cpNS40OHw1NjEuNDV8MzU5Ljg5fDE0MS43OA==)"
-     id="rect27" />
   <defs
      id="defs33">
     <clipPath
@@ -3330,8 +3322,24 @@
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"
        id="rect1313-1-1"
-       d="m 75.396107,213.0588 h 29.375643 v 4.11315 H 75.396107 Z"
-       style="opacity:1;vector-effect:none;fill:#fc8d62;fill-opacity:1;stroke:none;stroke-width:0.19956754;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+       d="m 73.388162,213.0588 h 33.574068 v 4.11315 H 73.388162 Z"
+       style="opacity:1;vector-effect:none;fill:#fc8d62;fill-opacity:1;stroke:none;stroke-width:0.21335275;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    <text
+       id="text2431-4-4-2-0-9-8-1-4"
+       y="211.74358"
+       x="91.511101"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       xml:space="preserve"><tspan
+         id="tspan1378-7"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         y="211.74358"
+         x="91.511101"
+         sodipodi:role="line">reads contains</tspan><tspan
+         id="tspan1433-2"
+         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         y="216.15331"
+         x="91.511101"
+         sodipodi:role="line">viral subsequence ?</tspan></text>
     <flowRoot
        transform="matrix(0.26458333,0,0,0.26458333,13.945351,87.190926)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.33333302px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -3368,36 +3376,36 @@
          sodipodi:role="line">trim off adapter sequences</tspan></text>
     <text
        id="text2431-4-5-1"
-       y="172.36836"
+       y="168.53502"
        x="-4.5177021"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
-         id="tspan3709-0"
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         y="172.36836"
-         x="-4.5177016"
-         sodipodi:role="line">global sequence</tspan><tspan
          id="tspan3746-5"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         y="177.66003"
-         x="-4.5177016"
-         sodipodi:role="line">composition</tspan></text>
+         y="168.53502"
+         x="-4.5177011"
+         sodipodi:role="line">global analysis of origin</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
+         y="173.82669"
+         x="-4.5177026"
+         sodipodi:role="line"
+         id="tspan2251">of RT-LAMP sequences</tspan></text>
     <text
        id="text2431-4-5-6-1"
-       y="172.36836"
-       x="107.09251"
+       y="168.53502"
+       x="115.12429"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        xml:space="preserve"><tspan
-         id="tspan3652-1"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         y="172.36836"
-         x="107.09251"
-         sodipodi:role="line">LAMP-sequencing</tspan><tspan
+         y="168.53502"
+         x="115.86017"
+         sodipodi:role="line"
+         id="tspan2243">counting LAMP-sequencing </tspan><tspan
          id="tspan3711-0"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         y="177.66003"
-         x="107.09251"
-         sodipodi:role="line">counting</tspan></text>
+         y="173.82669"
+         x="115.12429"
+         sodipodi:role="line">reads for each sample</tspan></text>
     <text
        id="text2431-4-4-2-0-9-8-8"
        y="191.21837"
@@ -3455,22 +3463,6 @@
            style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
            id="tspan1447-8">not matching</tspan></text>
     </g>
-    <text
-       id="text2431-4-4-2-0-9-8-1-4"
-       y="211.74358"
-       x="91.511101"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       xml:space="preserve"><tspan
-         id="tspan1378-7"
-         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         y="211.74358"
-         x="91.511101"
-         sodipodi:role="line">reads contains</tspan><tspan
-         id="tspan1433-2"
-         style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         y="216.15331"
-         x="91.511101"
-         sodipodi:role="line">viral subsequence ?</tspan></text>
     <text
        id="text2431-4-4-2-0-9-8-1-3-6-4"
        y="242.33221"
