@@ -12,6 +12,7 @@ library(ggforce)
 source("misc.R")
 
 panel_a <- rsvg::rsvg("SVGs/Figure_S3N1a.svg")
+panel_b <- rsvg::rsvg("SVGs/Figure_S3N1b.svg")
 
 lamp_product <- data.frame(pos = 28515, start = 28515, stop = 28751)
 N_gene <- data.frame(pos = 28274, start = 28274, stop = 29533)
@@ -28,14 +29,16 @@ depth <-
   mutate(zoom = between(pos, 2.75e4, 3e4))
 cumratio_limit <- max(depth$reads)
 
-panel_b <- ggplot(depth) +
-  geom_area(aes(pos/1e3, cumratio * .8 * max(reads) / 1e6 ), fill = "#b3cde3", colour = "#b3cde3", alpha = .3) +
+panel_c <- ggplot(depth) +
   geom_hline(yintercept = cumratio_limit * .8/ 1e6, color = "lightgrey", linetype = 2 ) +
+  geom_area(aes(pos/1e3, cumratio * .8 * max(reads) / 1e6 ), fill = "#b3cde3", colour = "#b3cde3", alpha = .3) +
   geom_rect(aes(xmin = start/1e3, xmax = stop/1e3, ymin = -.65, ymax = -.05), data = N_gene, fill = "#888888") +
   geom_rect(aes(xmin = start/1e3, xmax = stop/1e3, ymin = -.65, ymax = -.05), data = lamp_product, fill = "#fff2ae") +
+  geom_text(aes(x = (start/1e3 + stop/1e3)/2, y = -.3), label = "N gene", data = N_gene, colour = "white") +
+  #annotate("text", x = 29, y = -.3, label = "N gene", colour = "lightgrey") +
   geom_area(aes(pos/1e3, reads/1e6), fill = "darkgray", colour = "black", alpha = .3) +
   facet_zoom(x = between(pos, 2.75e4, 3e4), zoom.size = 3) +
-  labs(title = bquote(paste("mapped reads (", .((matched_total_frac)*100), "% of", ~10^6, ~"reads)")),
+  labs(title = bquote(paste("mapped reads (", .((matched_total_frac)*100), "%)")),
        x = "SARS-CoV-2 genome position (kbp)",
        y = expression(paste("mapped reads / ", 10^6, ""))) +
   scale_y_continuous(limits = c(-.7, cumratio_limit/1e6+.2), breaks = c(0, 3, 6), expand = c(0,0),
@@ -44,7 +47,7 @@ panel_b <- ggplot(depth) +
                          panel.grid.minor = element_blank(), panel.grid.major = element_blank(),
                         panel.grid = element_line(colour = "grey92"), 
                         panel.border = element_rect(colour = "grey20", inherit.blank = TRUE))
-panel_b
+panel_c
 
 primer <- read_tsv("data/LAMP-primer-gene_N.tsv")
 primer <- bind_rows(
@@ -74,7 +77,8 @@ tbl_kmers <- kmers %>%
 
 matched_total_frac <- 0.806
 
-match_colors <- c("primer" = "#b3e2cd", "primer (r. c.)" = "#cbd5e8", "no match" = "#cccccc")
+#match_colors <- c("primer" = "#b3e2cd", "primer (r. c.)" = "#cbd5e8", "no match" = "#cccccc")
+match_colors <- c("primer" = "#fdbf6f", "no match" = "#cccccc")
 tbl_primer <- tbl_kmers %>% group_by(match) %>%
   summarise(counts = sum(count)) %>%
   ungroup %>%
@@ -88,43 +92,37 @@ tbl_primer <- tbl_kmers %>% group_by(match) %>%
   mutate(name = map_chr(str_split(primer, "_"), `[[`, 1))
 
 unmatched_primer_frac <- round(sum(filter(tbl_primer, group != "no match")$perc_total)/(1-matched_total_frac), 1)
-panel_c <- tbl_primer %>%
+panel_d <- tbl_primer %>%
+  group_by(name) %>%
+  summarise(perc = sum(perc), perc_total = sum(perc_total)) %>%
+  ungroup() %>%
+  mutate(group = if_else(name == "no match", "no match", "primer")) %>%
   arrange(desc(group), desc(perc_total)) %>%
-  #       xx = x - .5 * perc_total) %>%
-  mutate(label = if_else(perc_total > .5, name, "")) %>%
+  mutate(label = if_else(perc_total > .5, str_remove(name, "GeneN-A-"), "")) %>%
   ggplot(aes("a", perc, fill = group)) +
   geom_col(colour= "black") +
   geom_hline(yintercept = unmatched_primer_frac ) +
-  geom_text(aes(label = label), position = position_stack(vjust = .5), angle = 90) +
-  scale_fill_manual(name  = "k-mer match", values = match_colors, guide = guide_legend(reverse = TRUE)) +
-  scale_y_continuous(name = "fraction unmapped reads (%)",
+  geom_text(aes(label = label), position = position_stack(vjust = .5), size = 3) +
+  scale_fill_manual(name  = "k-mer match:", values = match_colors, guide = "none") +# guide_legend(reverse = TRUE)) +
+  scale_y_continuous(name = "fraction of unmapped reads (%)",
                      breaks = c(0,25,50,75,100,unmatched_primer_frac),
-                     sec.axis = sec_axis(~.*(1-matched_total_frac), name = "fraction all reads (%)",
+                     sec.axis = sec_axis(~.*(1-matched_total_frac), name = "fraction of all reads (%)",
                                          breaks = c(0,5,10,15,20, round(unmatched_primer_frac*(1- matched_total_frac), 1) ))) +
   theme(axis.title.y = element_blank(), axis.text.y = element_blank(), axis.ticks.y = element_blank()) +
-  labs(title = bquote(paste("unmapped reads (", .((1-matched_total_frac)*100), "% of", ~10^6, ~"reads)"))) +
+  labs(title = bquote(paste("unmapped reads (", .((1-matched_total_frac)*100), "%)"))) +
   theme(legend.position = "bottom") +
 coord_flip() +
-  theme(plot.title = element_text(hjust = .5))
-panel_c
+  theme(plot.title = element_text(hjust = .5), panel.border = element_blank(), axis.line.x = element_line(colour = "grey20"))
+panel_d
 
-fig_layout <- '
-A
-A
-B
-B
-B
-B
-C
-C
-'
-wrap_elements(plot =  grid::rasterGrob(panel_a)) + 
-  wrap_elements(plot = panel_b) + 
-  panel_c +
-  plot_layout(design = fig_layout) +
+wrap_elements(plot =  grid::rasterGrob(panel_a)) +
+  wrap_elements(plot =  grid::rasterGrob(panel_b)) +
+  wrap_elements(plot = panel_c) +
+  panel_d +
+  plot_layout(nrow = 4, heights = c(4,7,9,1)) +
   plot_annotation(tag_levels = "a")
 
 
 # Export figures
-ggsave("SVGs/Figure_S3N1_tmp.svg", width=20, height=22, units="cm")
-ggsave("Figure_S3N1_tmp.png", width=20, height=22, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3N1_tmp.svg", width=20, height=27, units="cm")
+ggsave("Figure_S3N1_tmp.png", width=20, height=27, units="cm", dpi=300)
