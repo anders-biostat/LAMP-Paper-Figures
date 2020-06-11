@@ -14,8 +14,8 @@
    viewBox="0 0 142.4881 86.136666"
    version="1.1"
    id="svg1878"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="Figure_S3N1b.svg">
+   inkscape:version="0.92.4 (unknown)"
+   sodipodi:docname="Figure_S3b.svg">
   <defs
      id="defs1872">
     <marker
@@ -386,16 +386,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="305.27989"
-     inkscape:cy="275.43243"
+     inkscape:zoom="1.4"
+     inkscape:cx="69.572117"
+     inkscape:cy="122.11509"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="3200"
-     inkscape:window-height="1729"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -409,7 +409,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -435,7 +435,7 @@
            height="127.27922"
            x="-44.446712"
            y="-61.91016" /></flowRegion><flowPara
-         id="flowPara1062"></flowPara></flowRoot>    <text
+         id="flowPara1062" /></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="54.177513"
@@ -461,32 +461,32 @@
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="-4.5177021"
-       y="175.27605"
+       y="172.36836"
        id="text2431-4-5"><tspan
          sodipodi:role="line"
-         x="-4.5177016"
-         y="175.27605"
+         x="-4.5177021"
+         y="172.36836"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
          id="tspan3709">global sequence</tspan><tspan
          sodipodi:role="line"
-         x="-4.5177016"
-         y="180.56772"
+         x="-4.5177021"
+         y="177.66003"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
          id="tspan3746">composition</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;line-height:1.25;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="104.44669"
-       y="175.27605"
+       x="107.09251"
+       y="172.36836"
        id="text2431-4-5-6"><tspan
          sodipodi:role="line"
-         x="104.44669"
-         y="175.27605"
+         x="107.09251"
+         y="172.36836"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan3652">LAMP-sequncing</tspan><tspan
+         id="tspan3652">LAMP-sequencing</tspan><tspan
          sodipodi:role="line"
-         x="104.44669"
-         y="180.56772"
+         x="107.09251"
+         y="177.66003"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:4.23333311px;font-family:'Helvetica Neue';-inkscape-font-specification:'Helvetica Neue Bold';text-align:center;text-anchor:middle;stroke-width:0.26458332"
          id="tspan3711">counting</tspan></text>
     <text
@@ -504,12 +504,12 @@
          x="91.408791"
          y="195.6281"
          style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan1353">from barcodes and</tspan><tspan
+         id="tspan1353">by barcodes, and</tspan><tspan
          sodipodi:role="line"
          x="91.408791"
          y="200.03781"
          style="text-align:center;text-anchor:middle;stroke-width:0.26458332"
-         id="tspan1445">UMI normalization</tspan></text>
+         id="tspan1445">aggregate reads by UMI</tspan></text>
     <g
        id="g3159"
        transform="translate(-12.035015,3.0383896)">
