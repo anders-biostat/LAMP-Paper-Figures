@@ -26,8 +26,6 @@ tbl <- ngs %>%
   filter( is.na(wellRemark) ) %>%
   replace_na(list(matchedTRUE = 0, matchedFALSE = 0)) 
 
-panel_a <- rsvg::rsvg("SVGs/Figure_S3N2a.svg")
-
 set.seed(42)
 panels_data <-  tbl %>%
   mutate( NGS = case_when(
@@ -39,7 +37,7 @@ panels_data <-  tbl %>%
 
 mybreaks <- c( 0, 1, 10, 100, 1000, 1e4, 1e5, 1e6 )
 mylabels <- c( 0, 1, 10, expression(10^2), expression(10^3), expression(10^4), expression(10^5), expression(10^6) )
-panel_b <- panels_data %>%
+panel_a <- panels_data %>%
   mutate(NGSshape = if_else(NGS != "undetected", "detected", NGS)) %>%
   ggplot(aes(x = matchedTRUE + matchedFALSE, y = matchedTRUE)) +
   geom_vline(xintercept = ngs_thresholds[[1]], color = "lightgray" ) +
@@ -57,12 +55,12 @@ panel_b <- panels_data %>%
   annotate("text", color = "gray40", x = 20, y = 0, label = "too few", angle = 0) +
   annotate("text", color = "gray40", x = 3e3, y = 0, label = "sufficient", angle = 0) +
   annotate("text", color = "gray70", x = 2e2, y = 1, label = "UMI count", angle = 0) 
-panel_b
+panel_a
 
-panel_c <- rsvg::rsvg("SVGs/Figure_S3N2c.svg")
+panel_b <- rsvg::rsvg("SVGs/Figure_S4b.svg")
 
 lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few" = "black")
-panel_d <- 
+panel_c <- 
 panels_data %>%
   ggplot(aes(x = absBlue-absYellow, y = matchedTRUE)) +
   geom_point(aes(fill=NGS), alpha = .6, size = 2.2, shape = 21 ) +
@@ -81,29 +79,18 @@ panels_data %>%
   annotate("text", color = "gray70", x = .55, y = 1e3, label = "LAMP-sequencing result", angle = 90) +
   theme(legend.position = "none")
 #  theme(legend.position = c(0.3, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank())
-panel_d
+panel_c
 
 fig_layout <- '
-AAAAAA
-AAAAAA
-AAAAAA
-BBBCCC
-BBBCCC
-BBBCCC
-BBBCCC
-DDDXXX
-DDDXXX
-DDDXXX
-DDDXXX
-'
-wrap_elements(plot =  grid::rasterGrob(panel_a))  +
-  panel_b + 
-  wrap_elements(plot =  grid::rasterGrob(panel_c))  +
-  panel_d + plot_spacer() +
+AB
+CX'
+panel_a + 
+  wrap_elements(plot =  grid::rasterGrob(panel_b))  +
+  panel_c + plot_spacer() +
   plot_layout(design = fig_layout) +
   plot_annotation(tag_levels = "a")
 
 # Export figures
-ggsave("SVGs/Figure_S3N2tmp.svg", width=20, height=24, units="cm")
-ggsave("Figure_S3N2tmp.png", width=20, height=24, units="cm", dpi=300)
+ggsave("SVGs/Figure_S4_tmp.svg", width=20, height=18, units="cm")
+ggsave("Figure_S4_tmp.png", width=20, height=18, units="cm", dpi=300)
 

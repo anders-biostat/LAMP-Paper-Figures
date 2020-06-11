@@ -11,8 +11,8 @@ library(ggforce)
 
 source("misc.R")
 
-panel_a <- rsvg::rsvg("SVGs/Figure_S3N1a.svg")
-panel_b <- rsvg::rsvg("SVGs/Figure_S3N1b.svg")
+panel_a <- rsvg::rsvg("SVGs/Figure_S3a.svg")
+panel_b <- rsvg::rsvg("SVGs/Figure_S3b.svg")
 
 lamp_product <- data.frame(pos = 28515, start = 28515, stop = 28751)
 N_gene <- data.frame(pos = 28274, start = 28274, stop = 29533)
@@ -124,5 +124,5 @@ wrap_elements(plot =  grid::rasterGrob(panel_a)) +
 
 
 # Export figures
-ggsave("SVGs/Figure_S3N1_tmp.svg", width=20, height=27, units="cm")
-ggsave("Figure_S3N1_tmp.png", width=20, height=27, units="cm", dpi=300)
+ggsave("SVGs/Figure_S3_tmp.svg", width=20, height=27, units="cm")
+ggsave("Figure_S3_tmp.png", width=20, height=27, units="cm", dpi=300)
