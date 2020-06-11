@@ -43,7 +43,7 @@ panels_data <-  tbl %>%
   mutate(CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate(well = fct_reorder(well, -CT))
 
-lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few UMIs" = "black")
+lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few UMIs" = "grey20")
 panel_b <- panels_data %>%
   arrange(NGS) %>%
 ggplot() +
@@ -54,7 +54,7 @@ ggplot() +
   labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
       x = "RT-qPCR (CT value)",
        y = "RT-LAMP (ΔOD)") +
-  scale_fill_manual(name  = "LAMP-sequencing", values = lamp_colors) +
+  scale_fill_manual(name  = "LAMP-sequencing:", values = lamp_colors) +
   facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
   annotate("text", x = 50, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
   annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
