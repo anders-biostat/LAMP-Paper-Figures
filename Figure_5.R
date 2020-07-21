@@ -43,7 +43,8 @@ panels_data <-  tbl %>%
   mutate(CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
   mutate(well = fct_reorder(well, -CT))
 
-lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few UMIs" = "grey20")
+lamp_colors <- c("positive" = "#00D302", "negative" = "#C7007C", "too few UMIs" = "black")
+
 panel_b <- panels_data %>%
   arrange(NGS) %>%
 ggplot() +
@@ -68,7 +69,7 @@ B
 wrap_elements(plot =  grid::rasterGrob(panel_a)) +
   panel_b +
   plot_layout(design = fig_layout) +
-  plot_annotation(tag_levels = "a")
+  plot_annotation(tag_levels = "A")
   
 # Export figures
 ggsave("SVGs/Figure_5tmp.svg", width=20, height=22, units="cm")

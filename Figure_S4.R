@@ -15,6 +15,8 @@ lamp_thresholds <- c(.3)
 qpcr_thresholds <- c(30, 42)
 ngs_thresholds <- c(200, 1e4)
 
+lamp_colors <- c("positive" = "#00D302", "negative" = "#C7007C", "too few" = "black")
+
 tbl <- ngs %>%
   full_join( tecan ) %>%
   filter( plate %in% plates_to_use ) %>%
@@ -59,7 +61,6 @@ panel_a
 
 panel_b <- rsvg::rsvg("SVGs/Figure_S4b.svg")
 
-lamp_colors <- c("positive" = "#4daf4a", "negative" = "#ff7f00", "too few" = "black")
 panel_c <- 
 panels_data %>%
   ggplot(aes(x = absBlue-absYellow, y = matchedTRUE)) +
@@ -88,7 +89,7 @@ panel_a +
   wrap_elements(plot =  grid::rasterGrob(panel_b))  +
   panel_c + plot_spacer() +
   plot_layout(design = fig_layout) +
-  plot_annotation(tag_levels = "a")
+  plot_annotation(tag_levels = "A")
 
 # Export figures
 ggsave("SVGs/Figure_S4_tmp.svg", width=20, height=18, units="cm")
