@@ -15,5 +15,6 @@ counts <- counts_raw %>%
     ungroup() %>%
     group_by(Plate, Well, WellRow, WellCol, matched) %>%
     summarize(count = n()) %>%
-    ungroup()
+    ungroup() %>%
+    write_tsv("counts.tsv")
 save(counts, file = "counts.Rda")
