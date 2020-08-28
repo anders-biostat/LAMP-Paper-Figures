@@ -59,7 +59,7 @@ panel_a <- panels_data %>%
   annotate("text", color = "gray70", x = 2e2, y = 1, label = "UMI count", angle = 0) 
 panel_a
 
-panel_b <- rsvg::rsvg("SVGs/Figure_S4b.svg")
+panel_b <- rsvg::rsvg("SVGs/Figure_S5b.svg")
 
 panel_c <- 
 panels_data %>%
