@@ -1,101 +1,130 @@
-library(dplyr)
-library(tidyr)
-library(forcats)
-library(readr)
-library(ggplot2)
-library(stringr)
-library(patchwork)
-
+library( tidyverse )
+library( patchwork )
+library( glue )
+library( ggsci )
+library( binom )
 source( "misc.R" )
 
-read_tsv( "data/tecan_values.tsv", col_types = "ccldccccdd" ) -> tecan
-read_tsv( "data/ngs_counts.tsv" ) -> ngs
+# Load data
+read_tsv( "data/tecan_values.tsv", col_types = "ccliccccdd" ) -> tecan
 read_tsv( "data/plates_with_CTs.tsv" ) -> tblCT
 
-plates_to_use <- c( "CP00003", "CP00005", "CP00006", "CP00008", 
-                    "CP00009", "CP00010", "CP00011", "CP00012", "CP00013", "CP00016" )
+plates_to_use <- c( "CP10020", "CP10021", "CP00024", "CP00025",# "CP00030", 
+  "CP00035", "CP00036", "CP00037" ) 
 
-lamp_thresholds <- c(.3)
-qpcr_thresholds <- c(30, 42)
-ngs_thresholds <- c(200, 1e4)
+deltaOD_cutoff_zeroL <- 0.3
 
-panel_a <- rsvg::rsvg("SVGs/Figure_5a.svg")
-
-tbl <- ngs %>%
-  full_join( tecan ) %>%
+tecan %>%
   filter( plate %in% plates_to_use ) %>%
-    mutate(minutes = ifelse(plate == "CP00012" & minutes == 45, 40, minutes)) %>%
-  filter( !(plate == "CP00003" & plateRemark != "2")) %>% 
-  filter( minutes %in% c(30, 40), gene=="N" ) %>% 
-  filter( ! ( plate == "CP00005" & well >= "G" ) ) %>%
-  left_join( tblCT )%>%
-  filter( !is.na(CT) ) %>%
-  filter( is.na(wellRemark) ) %>%
-  replace_na(list(matchedTRUE = 0, matchedFALSE = 0)) 
+  filter( exclude != "yes" ) %>%
+  filter( !( plate == "CP10020" & as.integer(str_sub(well,2,-1)) > 4 ) ) %>% 
+  left_join( tblCT, by = c("plate", "well") ) %>% 
+  filter( !is.na(CT) & minutes == 30 ) -> tbl
 
+# Check that we have each plate only once
+tbl %>%
+  group_by( plate, heat95, well ) %>%
+  count() %>% group_by(n) %>% filter(n>1) 
+
+# panel a
+n_65 <- tbl %>% filter( ! heat95) %>% nrow()
+n_65_dstnct <- tbl %>% filter( ! heat95) %>% distinct(barcode) %>% nrow()
+n_plates_65 <- tbl %>% filter( ! heat95) %>% distinct(plate) %>% nrow()
+n_95 <- tbl %>% filter(heat95) %>% nrow()
+n_95_dstnct <- tbl %>% filter(heat95) %>% distinct(barcode) %>% nrow()
+n_plates_95 <- tbl %>% filter(heat95) %>% distinct(plate) %>% nrow()
 
 set.seed(2020)
-panels_data <-  tbl %>%
-  mutate( NGS = case_when(
-    matchedTRUE + matchedFALSE <= ngs_thresholds[[1]] ~ "too few UMIs",
-    matchedTRUE > ngs_thresholds[[2]]                 ~ "positive",
-    TRUE                                              ~ "negative")) %>%
-  mutate(CT = ifelse( CT>40, runif( n(), 43, 47 ), CT ) ) %>%
-  mutate(well = fct_reorder(well, -CT))
+panel_a <- tbl %>%
+  mutate( celsius = if_else(heat95,
+                            glue("5 min 95°C prior to testing, 30 min at 65°C\n",
+                              "{n_95} aliquots from {n_95_dstnct} samples on {n_plates_95} plates"),
+                            glue("direct testing, 30 min at 65°C\n",
+                              "{n_65} aliquots from {n_65_dstnct} samples on {n_plates_65} plates"))) %>%
+  mutate(celsius = fct_rev(celsius)) %>%
+  mutate( CT = ifelse( CT > 40, runif( n(), 43, 47 ), CT ) ) %>% 
+  mutate_at( "plate", fct_relevel,  "CP10020", "CP10021" ) %>% # to get plates in chronological order
+  sample_frac() %>%  # randomize order of points so that it's not one specific plate plotted on top of all others
+  ggplot() +
+  geom_hline( yintercept = deltaOD_cutoff_zeroL, col="lightgray" ) +
+  geom_vline( xintercept = c( 30, 42 ), col="lightgray" ) +
+  geom_point( aes( x = CT, y = absBlue - absYellow, fill = plate), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
+  facet_wrap( ~ celsius) +
+  scale_x_reverse(breaks = c(20, 30, 40, 45), labels = c(20, 30, 40, "negative")) +
+  scale_fill_d3(palette="category10", labels=rep("", 99)) +
+  labs(y = expression( "RT-LAMP ( ΔOD"["30 min"]~")" ),
+       x = "RT-qPCR (CT value)") +
+  annotate("text", color = "gray50", x = 50, y = 0, label = "negative", angle = 90) +
+  annotate("text", color = "gray50", x = 50, y = .47, label = "positive", angle = 90)
 
-lamp_colors <- c("positive" = "#00D302", "negative" = "#C7007C", "too few UMIs" = "black")
+# panel b
+# Sensitivity + Specificity of Zero Lysis plates
+# Treating replicates as independent samples
 
-panel_b <- panels_data %>%
-  arrange(NGS) %>%
-ggplot() +
-  geom_hline(yintercept = lamp_thresholds, color = "lightgray" ) +
-  geom_vline(xintercept = qpcr_thresholds, color = "lightgrey" ) +
-  geom_point( aes( x = CT, y = absBlue - absYellow, fill = NGS ), colour = "black", alpha = .6, shape = 21, size = 1.2 ) + 
-  scale_x_continuous( breaks = c( 20, 30, 40, 45 ), labels = c( 20, 30, 40, "neg" ), trans = "reverse" ) +
-  labs(subtitle = str_interp( "${nrow(filter(tbl, minutes == 30))} samples on ${length(unique(tbl$plate))} plates" ),
-      x = "RT-qPCR (CT value)",
-       y = "RT-LAMP (ΔOD)") +
-  scale_fill_manual(name  = "LAMP-sequencing:", values = lamp_colors) +
-  facet_grid(cols = vars(minutes), labeller = as_labeller(function(x) str_c(x, " min at 65°C"))) +
-  annotate("text", x = 50, y = 0, label = str_glue("negative"), angle = 90, col="grey50") +
-  annotate("text", x = 50, y = .425, label = str_glue("positive"), angle = 90, col="grey50") +
-  coord_cartesian(xlim = c(11.75, 49.5)) +
-  theme(plot.subtitle = element_text(hjust = .5), legend.position = "bottom")
-
-fig_layout <- '
-A
-B
-'
-wrap_elements(plot =  grid::rasterGrob(panel_a)) +
-  panel_b +
-  plot_layout(design = fig_layout) +
-  plot_annotation(tag_levels = "A")
-  
-# Export figures
-ggsave("SVGs/Figure_5tmp.svg", width=20, height=22, units="cm")
-ggsave("Figure_5tmp.png", width=20, height=22, units="cm", dpi=300)
-
-# count table S3
+# classify samples into false positives, TP, FN, TN...
 ct_breaks <- c(0, 25, 30, 35, 40, Inf)
+lamp_cls <- tbl %>%
+  mutate(delta_abs = absBlue - absYellow,
+         lamp_result = if_else(delta_abs > deltaOD_cutoff_zeroL, "positive", "negative"),
+         qpcr_result = if_else(CT == Inf, "negative", "positive")) %>%
+  mutate(result = case_when(lamp_result == "negative" & qpcr_result == "negative" ~ "TN",
+                            lamp_result == "positive" & qpcr_result == "positive" ~ "TP",
+                            lamp_result == "positive" & qpcr_result == "negative" ~ "FP",
+                            lamp_result == "negative" & qpcr_result == "positive" ~ "FN")) %>%
+  mutate(ct_bin = cut(CT, ct_breaks)) 
 
-confusion_matrix <- tbl %>%
-  filter(minutes == 30) %>%
-  mutate( CTbin = cut( CT, ct_breaks ) ) %>% 
-  mutate_at( "CTbin", recode, 	"neg" = "(40,Inf]" ) %>%
-  mutate( LAMPres = 
-            cut( absBlue-absYellow, c( -Inf, lamp_thresholds, Inf ) ) %>%
-            as.integer %>%
-            { c( "neg", "pos" )[.] } ) %>%
-  mutate( NGSres = case_when(
-    matchedTRUE + matchedFALSE <= ngs_thresholds[[1]] ~ "too_few",
-    matchedTRUE > ngs_thresholds[[2]]                 ~ "pos",
-    TRUE                                              ~ "neg")) %>%
-  mutate_at( "LAMPres", fct_relevel, "pos", "neg" ) %>%
-  mutate_at( "NGSres", fct_relevel, "pos", "neg", "too_few" ) %>%
-  count( LAMPres, NGSres, CTbin ) %>%
-  pivot_wider( names_from = LAMPres, values_from = n, values_fill = c(n=0) ) %>%
-  arrange(NGSres, CTbin)
-confusion_matrix
 
-confusion_matrix %>% write_tsv( "NGS_confMatrix.tsv" )
+ss_binned <- lamp_cls %>%
+  group_by(result, heat95, ct_bin) %>%
+  tally() %>% ungroup() %>%
+  pivot_wider(names_from = result, values_from = n, values_fill = list(n=0)) %>%
+  mutate(n = FN + FP + TN + TP,
+         sensitivity = TP / (TP + FN),
+         sensitivity_ci_upper = binom.confint(TP, (TP + FN), method="wilson")$upper,
+         sensitivity_ci_lower = binom.confint(TP, (TP + FN), method="wilson")$lower,
+         specificity = TN / (TN + FP),
+         specificity_ci_upper = binom.confint(TN, (TN + FP), method="wilson")$upper,
+         specificity_ci_lower = binom.confint(TN, (TN + FP), method="wilson")$lower) %>%
+  mutate(ct_bin = if_else(str_detect(ct_bin, "Inf"), "negative",
+                          paste(str_extract(ct_bin, "(?<=,)\\d+"), str_extract(ct_bin, "\\d+"), sep="-")))
 
+p_pos_zl <- ss_binned %>%
+  filter(!is.na(sensitivity)) %>%
+  mutate(celsius = if_else(!heat95, "direct swab-to-RT-LAMP", "hot swab-to-RT-LAMP")) %>%
+  ggplot(aes(x = fct_rev(ct_bin), y = sensitivity, ymin = sensitivity_ci_lower, ymax = sensitivity_ci_upper, color = celsius, group = celsius)) +
+  geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
+  #geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3, show.legend = FALSE) +
+  labs(x = "RT-qPCR CT value", color = "") +
+  theme(legend.position = c(0.2, 0.85), legend.background = element_blank(), legend.box.background = element_blank(), legend.key=element_blank()) +
+  #guides(color = guide_legend(label.position = "left", label.hjust = 1)) +
+  plot_layout(tag_level = "new")
+
+p_neg_zl <- ss_binned %>%
+  filter(is.na(sensitivity)) %>%
+  mutate(celsius = if_else(!heat95, "direct swab-to-RT-LAMP", "hot swab-to-RT-LAMP")) %>%
+  ggplot(aes(x = ct_bin, y = specificity, ymin = specificity_ci_lower, ymax = specificity_ci_upper, color = celsius, group = celsius)) +
+  geom_crossbar(fill="white", position = position_dodge(width=.6), width=.5) +
+  #geom_text(aes(y = -0.075, label = n), position = position_dodge(width=.7), size = 3) +
+  labs(x="") +
+  theme(legend.position = "none")
+
+panel_b <- (p_neg_zl + p_pos_zl + plot_layout(widths = c(1, 4))) &
+  theme(panel.grid.major.y = element_line(colour = "lightgrey")) &
+  coord_cartesian(ylim = c(-.1, 1)) &
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), limits = c(-.1,1), breaks=0:5/5) &
+  scale_color_brewer(palette = "Set1", direction = -1L)
+panel_b
+
+panel_a / panel_b +
+  plot_layout(heights = c(3, 2)) +
+  plot_annotation(tag_levels = "A")
+
+ggsave("Figure_5.png", width=20, height=14.5, units="cm", dpi=400)
+ggsave("SVGs/Figure_5.svg", width=20, height=14.5, units="cm")
+
+
+lamp_cls %>% 
+  group_by( heat95, ct_bin, lamp_result ) %>%
+  tally() %>%
+  pivot_wider( names_from = lamp_result, values_from = n, values_fill = c(n=0) ) %>%
+  left_join( ss_binned ) %>% write_csv( "LAMP_zeroLysis_confMatrix.tsv" )
