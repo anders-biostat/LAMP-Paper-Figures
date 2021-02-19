@@ -3,6 +3,7 @@ files=ARGS
 using CodecZlib
 using Statistics
 
+# short sequences of RT-LAMP amplicon not covered by GeneN-A primerset
 SEQS = ("AAGATGGTATTTCT", "AGCTGGACTTCCCT", "ATGGTGCTAACAA")
 COLS = ("Plate", "Well", "UMI", "Seq1", "Seq2", "Seq3", "Count")
 COLS_KMERS = ("Plate", "Well", "Kmer", "Count")
